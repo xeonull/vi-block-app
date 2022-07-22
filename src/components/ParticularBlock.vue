@@ -1,8 +1,8 @@
 <template>
-  <div class="main">
+  <div class="block">
     <h2>Block #{{ block.height }}</h2>
     <div><b>Hash:</b> {{ block.hash }}</div>
-    <div><b>Total:</b> {{ block.total / 10 ** 8 }}</div>
+    <div><b>Total:</b> {{ block.total / 10 ** 8 }} BTC</div>
     <div><b>Nonce:</b> {{ block.nonce }}</div>
     <div><b>Number of transactions:</b> {{ block.n_tx }}</div>
     <div><b>Received time:</b> {{ block.received_time }}</div>

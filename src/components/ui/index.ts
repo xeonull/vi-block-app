@@ -1,9 +1,9 @@
 import DefButton from "@/components/ui/DefButton.vue";
-// import DefInput from "@/components/UI/MyInput";
-// import DefDialog from "@/components/UI/DefDialog";
+import DefInput from "@/components/ui/DefInput.vue";
+// import DefDialog from "@/components/ui/DefDialog";
 
 export default [
   DefButton,
-  // DefInput,
+  DefInput,
   // DefDialog
 ];

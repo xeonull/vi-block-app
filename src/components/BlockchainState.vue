@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="block">
     <h1>Blockchain State</h1>
     <div><b>Name:</b> {{ status.name }}</div>
     <div><b>The number of blocks in the blockchain:</b> {{ status.height }}</div>

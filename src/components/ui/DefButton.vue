@@ -1,26 +1,34 @@
 <template>
-  <button :disabled="disabled" class="btn" :class="disabled ? 'disable' : ''">
+  <button :disabled="isDisabled" class="btn" :class="{ disable: isDisabled, border: isBorder }">
     <slot> </slot>
   </button>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+export default defineComponent({
   name: "def-button",
   props: {
-    disabled: {
+    isDisabled: {
       type: Boolean,
       required: false,
     },
+    isBorder: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
-};
+});
 </script>
 
 <style scoped>
 .btn {
-  align-self: flex-end;
   background: none;
   color: cadetblue;
+  border: 0;
+}
+.border {
   border: 1px solid cadetblue;
 }
 .disable {

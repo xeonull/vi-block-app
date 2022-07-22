@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import BlockchainState from "@/components/BlockchainState.vue";
+import BlockchainState from "./../src/components/BlockchainState.vue";
 
 describe("BlockchainState.vue", () => {
   it("renders props.msg when passed", () => {
