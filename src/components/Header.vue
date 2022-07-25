@@ -5,7 +5,7 @@
       <div class="square__right"></div>
     </div>
     <div class="search">
-      <def-input v-model="input_address" class="input__search" type="text" placeholder="Input wallet address" />
+      <def-input v-model="input_text" class="input__search" type="text" placeholder="Input number or hash of block" @keyup.enter="onSearch" />
       <def-button @click="onSearch" :isBorder="false" class="btn__search"><img src="../assets/lens-glass-16.png" /></def-button>
     </div>
   </div>
@@ -18,14 +18,14 @@ export default defineComponent({
   name: "vi-header",
   data() {
     return {
-      input_address: "",
+      input_text: "",
     };
   },
 
   methods: {
     onSearch() {
       //this.post.id = Date.now();
-      this.$emit("search", this.input_address);
+      this.$emit("on-search", this.input_text);
     },
   },
 });

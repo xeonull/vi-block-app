@@ -1,5 +1,8 @@
 <template>
-  <Header />
+  <def-dialog v-model:show="dialogVisible">
+    <h2>{{ errorSearchMessage }}</h2>
+  </def-dialog>
+  <Header @on-search="onSearch" />
   <div class="area__main">
     <BlockchainState v-if="isBlockchainStateLoaded" :status="blockchainStatus" />
     <div v-else>Идет загрузка...</div>
@@ -15,7 +18,7 @@ import { defineComponent } from "vue";
 import Header from "./components/Header.vue";
 import BlockchainState from "./components/BlockchainState.vue";
 import ParticularBlock from "./components/ParticularBlock.vue";
-import { fetchMainBlock, fetchParticularBlock } from "./utils/web";
+import { fetchMainBlock, fetchBlockByCode } from "./utils/web";
 import { TStatus, TBlock } from "./types/blocks";
 
 export default defineComponent({
@@ -29,8 +32,10 @@ export default defineComponent({
     return {
       blockchainStatus: {} as TStatus,
       blocks: [] as Array<TBlock>,
-      isBlockchainStateLoaded: false,
-      isNextBlockLoading: false,
+      isBlockchainStateLoaded: false as boolean,
+      isNextBlockLoading: false as boolean,
+      dialogVisible: false as boolean,
+      errorSearchMessage: "" as string,
     };
   },
 
@@ -39,10 +44,24 @@ export default defineComponent({
       this.isNextBlockLoading = true;
       try {
         const hash: string = this.blocks.length ? this.blocks[this.blocks.length - 1].prev_block : this.blockchainStatus.hash;
-        const block: TBlock = await fetchParticularBlock(hash);
+        const block: TBlock = await fetchBlockByCode(hash);
         this.blocks.push(block);
       } catch (error) {
         console.log("[[App Error - onNextBlock]]:", error);
+      } finally {
+        this.isNextBlockLoading = false;
+      }
+    },
+
+    async onSearch(text: string) {
+      this.isNextBlockLoading = true;
+      try {
+        const block: TBlock = await fetchBlockByCode(text);
+        this.blocks.push(block);
+      } catch (error: any) {
+        console.log("[[App Error - onSearch]]:", error);
+        this.errorSearchMessage = error;
+        this.dialogVisible = true;
       } finally {
         this.isNextBlockLoading = false;
       }

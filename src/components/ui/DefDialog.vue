@@ -1,11 +1,46 @@
 <template>
-  <div></div>
+  <div class="dialog" v-if="show" @click="hideDialog">
+    <!-- Модификатор .stop для предотвращения всплытия события нажатия, чтобы окно закрывалось только при нажатии на внешнуюю область -->
+    <div @click.stop class="dialog__content">
+      <slot></slot>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "def-dialog",
+  props: {
+    show: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  methods: {
+    hideDialog() {
+      this.$emit("update:show", false);
+    },
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.dialog {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  background: rgb(0, 0, 0, 0.5);
+}
+
+.dialog__content {
+  margin: auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  min-width: 200px;
+  min-height: 50px;
+}
+</style>
