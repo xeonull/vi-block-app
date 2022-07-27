@@ -10,13 +10,13 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { TStatus } from "./../types/blocks";
+import { IStatus } from "./../types/Blocks.interface";
 
 export default defineComponent({
   name: "blockchain-state",
   props: {
     status: {
-      type: Object as PropType<TStatus>,
+      type: Object as PropType<IStatus>,
       required: true,
     },
   },

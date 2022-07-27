@@ -1,11 +1,11 @@
-export type TStatus = {
+export interface IStatus {
   name: string;
   height: number;
   unconfirmed_count: number;
   hash: string;
 };
 
-export type TBlock = {
+export interface IBlock {
   prev_block: string;
   height: number;
   hash: string;

@@ -6,10 +6,8 @@
   <div class="area__main">
     <BlockchainState v-if="isBlockchainStateLoaded" :status="blockchainStatus" />
     <div v-else>Идет загрузка...</div>
-    <def-button :isDisabled="isNextBlockLoading" @click="onNextBlock" class="btn__nextBlock">load {{ blocks.length ? "previous" : "last" }} block</def-button>
-    <div v-if="blocks.length > 0">
-      <ParticularBlock v-for="block in blocks" :block="block" :key="block.hash" />
-    </div>
+    <def-button :isDisabled="isNexIBlockLoading" @click="onNexIBlock" class="btn__nexIBlock">load {{ blocks.length ? "previous" : "last" }} block</def-button>
+    <BlockList :blocks="blocks" />
   </div>
 </template>
 
@@ -17,53 +15,53 @@
 import { defineComponent } from "vue";
 import Header from "./components/Header.vue";
 import BlockchainState from "./components/BlockchainState.vue";
-import ParticularBlock from "./components/ParticularBlock.vue";
+import BlockList from "./components/BlockList.vue";
 import { fetchMainBlock, fetchBlockByCode } from "./utils/web";
-import { TStatus, TBlock } from "./types/blocks";
+import { IStatus, IBlock } from "./types/Blocks.interface";
 
 export default defineComponent({
   name: "App",
   components: {
     Header,
     BlockchainState,
-    ParticularBlock,
+    BlockList,
   },
   data() {
     return {
-      blockchainStatus: {} as TStatus,
-      blocks: [] as Array<TBlock>,
+      blockchainStatus: {} as IStatus,
+      blocks: [] as Array<IBlock>,
       isBlockchainStateLoaded: false as boolean,
-      isNextBlockLoading: false as boolean,
+      isNexIBlockLoading: false as boolean,
       dialogVisible: false as boolean,
       errorSearchMessage: "" as string,
     };
   },
 
   methods: {
-    async onNextBlock() {
-      this.isNextBlockLoading = true;
+    async onNexIBlock(): Promise<void> {
+      this.isNexIBlockLoading = true;
       try {
         const hash: string = this.blocks.length ? this.blocks[this.blocks.length - 1].prev_block : this.blockchainStatus.hash;
-        const block: TBlock = await fetchBlockByCode(hash);
+        const block: IBlock = await fetchBlockByCode(hash);
         this.blocks.push(block);
       } catch (error) {
-        console.log("[[App Error - onNextBlock]]:", error);
+        console.log("[[App Error - onNexIBlock]]:", error);
       } finally {
-        this.isNextBlockLoading = false;
+        this.isNexIBlockLoading = false;
       }
     },
 
-    async onSearch(text: string) {
-      this.isNextBlockLoading = true;
+    async onSearch(text: string): Promise<void> {
+      this.isNexIBlockLoading = true;
       try {
-        const block: TBlock = await fetchBlockByCode(text);
+        const block: IBlock = await fetchBlockByCode(text);
         this.blocks.push(block);
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.log("[[App Error - onSearch]]:", error);
-        this.errorSearchMessage = error;
+        this.errorSearchMessage = String(error);
         this.dialogVisible = true;
       } finally {
-        this.isNextBlockLoading = false;
+        this.isNexIBlockLoading = false;
       }
     },
   },
@@ -99,7 +97,7 @@ body {
   padding: 0;
 }
 
-.btn__nextBlock {
+.btn__nexIBlock {
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 10px 15px;
