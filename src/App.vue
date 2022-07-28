@@ -6,7 +6,7 @@
   <div class="area__main">
     <BlockchainState v-if="isBlockchainStateLoaded" :status="blockchainStatus" />
     <div v-else>Идет загрузка...</div>
-    <def-button :isDisabled="isNexIBlockLoading" @click="onNexIBlock" class="btn__nexIBlock">load {{ blocks.length ? "previous" : "last" }} block</def-button>
+    <def-button :isDisabled="isNextBlockLoading" @click="onNextBlock" class="btn__nexIBlock">load {{ blocks.length ? "previous" : "last" }} block</def-button>
     <BlockList :blocks="blocks" />
   </div>
 </template>
@@ -29,30 +29,30 @@ export default defineComponent({
   data() {
     return {
       blockchainStatus: {} as IStatus,
-      blocks: [] as Array<IBlock>,
       isBlockchainStateLoaded: false as boolean,
-      isNexIBlockLoading: false as boolean,
+      blocks: [] as Array<IBlock>,
+      isNextBlockLoading: false as boolean,
       dialogVisible: false as boolean,
       errorSearchMessage: "" as string,
     };
   },
 
   methods: {
-    async onNexIBlock(): Promise<void> {
-      this.isNexIBlockLoading = true;
+    async onNextBlock(): Promise<void> {
+      this.isNextBlockLoading = true;
       try {
         const hash: string = this.blocks.length ? this.blocks[this.blocks.length - 1].prev_block : this.blockchainStatus.hash;
         const block: IBlock = await fetchBlockByCode(hash);
         this.blocks.push(block);
       } catch (error) {
-        console.log("[[App Error - onNexIBlock]]:", error);
+        console.log("[[App Error - onNextBlock]]:", error);
       } finally {
-        this.isNexIBlockLoading = false;
+        this.isNextBlockLoading = false;
       }
     },
 
     async onSearch(text: string): Promise<void> {
-      this.isNexIBlockLoading = true;
+      this.isNextBlockLoading = true;
       try {
         const block: IBlock = await fetchBlockByCode(text);
         this.blocks.push(block);
@@ -61,7 +61,7 @@ export default defineComponent({
         this.errorSearchMessage = String(error);
         this.dialogVisible = true;
       } finally {
-        this.isNexIBlockLoading = false;
+        this.isNextBlockLoading = false;
       }
     },
   },

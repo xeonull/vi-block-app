@@ -3,7 +3,7 @@ export interface IStatus {
   height: number;
   unconfirmed_count: number;
   hash: string;
-};
+}
 
 export interface IBlock {
   prev_block: string;
@@ -15,4 +15,4 @@ export interface IBlock {
   n_tx: number;
   received_time: Date;
   txids: Array<string>;
-};
+}
