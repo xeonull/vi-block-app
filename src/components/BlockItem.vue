@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { IBlock } from "./../types/Blocks.interface";
+import { IBlock } from "@/types/Blocks.interface";
 import moment from "moment";
 
 export default defineComponent({

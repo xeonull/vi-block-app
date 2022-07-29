@@ -1,6 +1,6 @@
 <template>
   <div class="block">
-    <h1>Blockchain State</h1>
+    <h1>Blockchain Status</h1>
     <div><b>Name:</b> {{ status.name }}</div>
     <div><b>The number of blocks in the blockchain:</b> {{ status.height }}</div>
     <div><b>Hash:</b> {{ status.hash }}</div>
@@ -10,10 +10,10 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { IStatus } from "./../types/Blocks.interface";
+import { IStatus } from "@/types/Blocks.interface";
 
 export default defineComponent({
-  name: "blockchain-state",
+  name: "blockchain-status",
   props: {
     status: {
       type: Object as PropType<IStatus>,

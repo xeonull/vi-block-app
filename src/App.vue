@@ -4,76 +4,58 @@
   </def-dialog>
   <Header @on-search="onSearch" />
   <div class="area__main">
-    <BlockchainState v-if="isBlockchainStateLoaded" :status="blockchainStatus" />
+    <BlockchainStatus v-if="isBlockchainStateLoaded" :status="blockchainStatus" />
     <div v-else>Идет загрузка...</div>
-    <def-button :isDisabled="isNextBlockLoading" @click="onNextBlock" class="btn__nexIBlock">load {{ blocks.length ? "previous" : "last" }} block</def-button>
+    <def-button :isDisabled="isNextBlockLoading" @click="onNextBlock" class="btn__nexIBlock"> load {{ blocks.length ? "previous" : "last" }} block </def-button>
     <BlockList :blocks="blocks" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Header from "./components/Header.vue";
-import BlockchainState from "./components/BlockchainState.vue";
-import BlockList from "./components/BlockList.vue";
-import { fetchMainBlock, fetchBlockByCode } from "./utils/web";
-import { IStatus, IBlock } from "./types/Blocks.interface";
+import Header from "@/components/Header.vue";
+import BlockchainStatus from "@/components/BlockchainStatus.vue";
+import BlockList from "@/components/BlockList.vue";
+import { mapActions, mapState } from "vuex";
+import store from "./store";
 
 export default defineComponent({
   name: "App",
   components: {
     Header,
-    BlockchainState,
+    BlockchainStatus,
     BlockList,
   },
   data() {
     return {
-      blockchainStatus: {} as IStatus,
-      isBlockchainStateLoaded: false as boolean,
-      blocks: [] as Array<IBlock>,
-      isNextBlockLoading: false as boolean,
       dialogVisible: false as boolean,
       errorSearchMessage: "" as string,
     };
   },
 
   methods: {
-    async onNextBlock(): Promise<void> {
-      this.isNextBlockLoading = true;
-      try {
-        const hash: string = this.blocks.length ? this.blocks[this.blocks.length - 1].prev_block : this.blockchainStatus.hash;
-        const block: IBlock = await fetchBlockByCode(hash);
-        this.blocks.push(block);
-      } catch (error) {
-        console.log("[[App Error - onNextBlock]]:", error);
-      } finally {
-        this.isNextBlockLoading = false;
-      }
-    },
+    ...mapActions({
+      onNextBlock: "block/fetchNextBlock",
+      onStatus: "status/fetchBlockchainStatus",
+    }),
 
     async onSearch(text: string): Promise<void> {
-      this.isNextBlockLoading = true;
       try {
-        const block: IBlock = await fetchBlockByCode(text);
-        this.blocks.push(block);
+        store.dispatch("block/fetchSearchBlock", text);
       } catch (error: unknown) {
-        console.log("[[App Error - onSearch]]:", error);
         this.errorSearchMessage = String(error);
         this.dialogVisible = true;
-      } finally {
-        this.isNextBlockLoading = false;
       }
     },
   },
 
+  computed: {
+    ...mapState("block", ["blocks", "isNextBlockLoading"]),
+    ...mapState("status", ["blockchainStatus", "isBlockchainStateLoaded"]),
+  },
+
   async mounted() {
-    try {
-      this.blockchainStatus = await fetchMainBlock();
-    } catch (error) {
-      console.log("[[App Error - mounted]]:", error);
-    } finally {
-      this.isBlockchainStateLoaded = true;
-    }
+    this.onStatus();
   },
 });
 </script>

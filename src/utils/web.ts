@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { IStatus, IBlock } from "../types/Blocks.interface";
+import { IStatus, IBlock } from "@/types/Blocks.interface";
 
 export async function fetchMainBlock(): Promise<IStatus> {
   const response = await axios.get(`https://api.blockcypher.com/v1/btc/main`);

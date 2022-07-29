@@ -9,8 +9,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import BlockItem from "./BlockItem.vue";
-import { IBlock } from "./../types/Blocks.interface";
+import BlockItem from "@/components/BlockItem.vue";
+import { IBlock } from "@/types/Blocks.interface";
 
 export default defineComponent({
   name: "block-list",
