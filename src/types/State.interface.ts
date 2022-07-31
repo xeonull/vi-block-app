@@ -7,10 +7,10 @@ export interface IState {
 
 export interface IBlockState {
   blocks: Array<IBlock>;
-  isNextBlockLoading: boolean;
+  isBlockLoading: boolean;
 }
 
 export interface IStatusState {
   blockchainStatus: IStatus | null;
-  isBlockchainStateLoaded: boolean;
+  isBlockchainStatusLoading: boolean;
 }

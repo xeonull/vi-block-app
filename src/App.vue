@@ -4,9 +4,8 @@
   </def-dialog>
   <Header @on-search="onSearch" />
   <div class="area__main">
-    <BlockchainStatus v-if="isBlockchainStateLoaded" :status="blockchainStatus" />
-    <div v-else>Идет загрузка...</div>
-    <def-button :isDisabled="isNextBlockLoading" @click="onNextBlock" class="btn__nexIBlock"> load {{ blocks.length ? "previous" : "last" }} block </def-button>
+    <BlockchainStatus />
+    <def-button :isDisabled="isBlockLoading" @click="loadNextBlock" class="btn__nexIBlock"> load {{ blocks.length ? "previous" : "last" }} block </def-button>
     <BlockList :blocks="blocks" />
   </div>
 </template>
@@ -18,6 +17,8 @@ import BlockchainStatus from "@/components/BlockchainStatus.vue";
 import BlockList from "@/components/BlockList.vue";
 import { mapActions, mapState } from "vuex";
 import store from "./store";
+import { IState } from "./types/State.interface";
+import { IBlock } from "./types/Blocks.interface";
 
 export default defineComponent({
   name: "App",
@@ -35,27 +36,26 @@ export default defineComponent({
 
   methods: {
     ...mapActions({
-      onNextBlock: "block/fetchNextBlock",
-      onStatus: "status/fetchBlockchainStatus",
+      loadNextBlock: "block/fetchNextBlock",
     }),
 
-    async onSearch(text: string): Promise<void> {
-      try {
-        store.dispatch("block/fetchSearchBlock", text);
-      } catch (error: unknown) {
-        this.errorSearchMessage = String(error);
-        this.dialogVisible = true;
-      }
+    onSearch(text: string): void {
+      store
+        .dispatch("block/fetchSearchBlock", text)
+        .then()
+        .catch((error) => {
+          this.errorSearchMessage = String(error);
+          this.dialogVisible = true;
+        });
     },
   },
 
   computed: {
-    ...mapState("block", ["blocks", "isNextBlockLoading"]),
-    ...mapState("status", ["blockchainStatus", "isBlockchainStateLoaded"]),
-  },
-
-  async mounted() {
-    this.onStatus();
+    //...mapState("block", ["blocks", "isBlockLoading"]),
+    ...mapState({
+      blocks: (state): IBlock[] => (state as IState).block.blocks,
+      isBlockLoading: (state): boolean => (state as IState).block.isBlockLoading,
+    }),
   },
 });
 </script>

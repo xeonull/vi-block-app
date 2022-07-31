@@ -7,7 +7,7 @@ export const statusModule: Module<IStatusState, IState> = {
   namespaced: true,
   state: (): IStatusState => ({
     blockchainStatus: null,
-    isBlockchainStateLoaded: false,
+    isBlockchainStatusLoading: false,
   }),
   getters: {},
   mutations: {
@@ -15,18 +15,18 @@ export const statusModule: Module<IStatusState, IState> = {
       state.blockchainStatus = status;
     },
     setLoading(state: IStatusState, isLoading: boolean): void {
-      state.isBlockchainStateLoaded = isLoading;
+      state.isBlockchainStatusLoading = isLoading;
     },
   },
   actions: {
     async fetchBlockchainStatus({ commit }): Promise<void> {
-      commit("setLoading", false);
+      commit("setLoading", true);
       try {
         commit("setStatus", await fetchMainBlock());
       } catch (error) {
         console.log("[[Store:blockModule Error - onNextBlock]]:", error);
       } finally {
-        commit("setLoading", true);
+        commit("setLoading", false);
       }
     },
   },

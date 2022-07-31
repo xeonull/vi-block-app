@@ -7,7 +7,7 @@ export const blockModule: Module<IBlockState, IState> = {
   namespaced: true,
   state: (): IBlockState => ({
     blocks: [],
-    isNextBlockLoading: false,
+    isBlockLoading: false,
   }),
   getters: {},
   mutations: {
@@ -18,7 +18,7 @@ export const blockModule: Module<IBlockState, IState> = {
       state.blocks.push(block);
     },
     setLoading(state: IBlockState, isLoading: boolean): void {
-      state.isNextBlockLoading = isLoading;
+      state.isBlockLoading = isLoading;
     },
   },
   actions: {
