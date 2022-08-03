@@ -1,7 +1,7 @@
 import { IStatus } from "@/types/Blocks.interface";
 import { IStatusState, IState } from "@/types/State.interface";
 import { Module } from "vuex";
-import { fetchMainBlock } from "@/utils/web";
+import { WebService } from "@/container";
 
 export const statusModule: Module<IStatusState, IState> = {
   namespaced: true,
@@ -22,7 +22,7 @@ export const statusModule: Module<IStatusState, IState> = {
     async fetchBlockchainStatus({ commit }): Promise<void> {
       commit("setLoading", true);
       try {
-        commit("setStatus", await fetchMainBlock());
+        commit("setStatus", await WebService.fetchMainBlock());
       } catch (error) {
         console.log("[[Store:blockModule Error - onNextBlock]]:", error);
       } finally {
