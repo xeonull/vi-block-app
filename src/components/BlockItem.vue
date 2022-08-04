@@ -19,7 +19,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { IBlock } from "@/types/Blocks.interface";
-import moment from "moment";
 
 export default defineComponent({
   name: "block-item",
@@ -41,7 +40,7 @@ export default defineComponent({
   },
   computed: {
     formatReceivedTime(): string {
-      return moment(this.block.received_time).format("YYYY.MM.DD hh:mm:ss");
+      return new Date(this.block.received_time).toLocaleString();
     },
   },
 });
