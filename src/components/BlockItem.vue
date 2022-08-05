@@ -8,7 +8,7 @@
     <div><b>Received time:</b> {{ formatReceivedTime }}</div>
     <div>
       <b>Transactions (max {{ block.txids.length }}): </b>
-      <def-button @click="onExpandCollapse">{{ !isTXExpanded ? "+" : "-" }}</def-button>
+      <v-button @click="onExpandCollapse">{{ !isTXExpanded ? "+" : "-" }}</v-button>
     </div>
     <div class="txs" v-if="isTXExpanded">
       <div v-for="tx in block.txids" :key="tx">{{ tx }}</div>
@@ -16,34 +16,21 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script lang="ts" setup>
 import { IBlock } from "@/types/Blocks.interface";
 
-export default defineComponent({
-  name: "block-item",
-  props: {
-    block: {
-      type: Object as PropType<IBlock>,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      isTXExpanded: false as boolean,
-    };
-  },
-  methods: {
-    onExpandCollapse(): void {
-      this.isTXExpanded = !this.isTXExpanded;
-    },
-  },
-  computed: {
-    formatReceivedTime(): string {
-      return new Date(this.block.received_time).toLocaleString();
-    },
-  },
-});
+import { computed } from "@vue/runtime-core";
+import { ref } from "@vue/reactivity";
+
+const props = defineProps<{
+  block: IBlock;
+}>();
+
+const isTXExpanded = ref(false);
+const onExpandCollapse = (): void => {
+  isTXExpanded.value = !isTXExpanded.value;
+};
+const formatReceivedTime = computed((): string => new Date(props.block.received_time).toLocaleString());
 </script>
 
 <style scoped>

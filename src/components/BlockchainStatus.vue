@@ -9,32 +9,21 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { IStatus } from "@/types/Blocks.interface";
 import { IState } from "@/types/State.interface";
-import { defineComponent } from "vue";
-import { mapActions, mapState } from "vuex";
 
-export default defineComponent({
-  name: "blockchain-status",
-  methods: {
-    ...mapActions({
-      loadStatus: "status/fetchBlockchainStatus",
-    }),
-  },
+import { computed } from "@vue/reactivity";
+import { onBeforeMount } from "vue";
+import { useStore } from "vuex";
 
-  computed: {
-    //...mapState("status", ["blockchainStatus", "isBlockchainStatusLoading"]),
-    ...mapState({
-      blockchainStatus: (state): IStatus | null => (state as IState).status.blockchainStatus,
-      isBlockchainStatusLoading: (state): boolean => (state as IState).status.isBlockchainStatusLoading,
-    }),
-  },
+const store = useStore();
+const state: IState = store.state;
 
-  beforeMount() {
-    this.loadStatus();
-  },
-});
+const blockchainStatus = computed((): IStatus | null => state.status.blockchainStatus);
+const isBlockchainStatusLoading = computed((): boolean => state.status.isBlockchainStatusLoading);
+
+onBeforeMount(() => store.dispatch("status/fetchBlockchainStatus"));
 </script>
 
 <style scoped>

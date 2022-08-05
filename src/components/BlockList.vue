@@ -7,23 +7,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script lang="ts" setup>
 import BlockItem from "@/components/BlockItem.vue";
-import { IBlock } from "@/types/Blocks.interface";
+import { IBlock } from "@/types/Blocks.interface.js";
 
-export default defineComponent({
-  name: "block-list",
-  components: {
-    BlockItem,
-  },
-  props: {
-    blocks: {
-      type: Array as PropType<Array<IBlock>>,
-      required: true,
-    },
-  },
-});
+// eslint-disable-next-line
+const props = defineProps<{
+  blocks: IBlock[];
+}>();
 </script>
 
 <style scoped>

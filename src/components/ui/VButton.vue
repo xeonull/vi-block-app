@@ -4,10 +4,21 @@
   </button>
 </template>
 
+<!-- <script lang="ts" setup>
+interface Props {
+  isDisabled: boolean;
+  isBorder: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  isDisabled: false,
+  isBorder: true,
+});
+</script> -->
+
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "def-button",
+  name: "v-button",
   props: {
     isDisabled: {
       type: Boolean,

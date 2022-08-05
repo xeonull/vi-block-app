@@ -5,14 +5,16 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "def-input",
+  name: "v-input",
   props: {
     modelValue: [String, Number],
   },
-  methods: {
-    updateInput(event: Event) {
-      this.$emit("update:modelValue", (event.target as HTMLInputElement).value);
-    },
+  emits: ["update:modelValue"],
+  setup(props, { emit }) {
+    const updateInput = (event: Event): void => {
+      emit("update:modelValue", (event.target as HTMLInputElement).value);
+    };
+    return { updateInput };
   },
 });
 </script>
