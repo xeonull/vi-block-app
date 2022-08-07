@@ -7,21 +7,24 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "def-dialog",
+<script lang="ts">
+import { defineComponent } from "vue";
+export default defineComponent({
+  name: "v-dialog",
   props: {
     show: {
       type: Boolean,
       default: false,
     },
   },
-  methods: {
-    hideDialog() {
-      this.$emit("update:show", false);
-    },
+  emits: ["update:show"],
+  setup(props, { emit }) {
+    const hideDialog = (): void => {
+      emit("update:show", false);
+    };
+    return { hideDialog };
   },
-};
+});
 </script>
 
 <style scoped>

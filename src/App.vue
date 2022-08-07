@@ -1,63 +1,47 @@
 <template>
-  <def-dialog v-model:show="dialogVisible">
+  <v-dialog v-model:show="dialogVisible">
     <h2>{{ errorSearchMessage }}</h2>
-  </def-dialog>
-  <Header @on-search="onSearch" />
+  </v-dialog>
+  <VHeader @on-search="onSearch" />
   <div class="area__main">
     <BlockchainStatus />
-    <def-button :isDisabled="isBlockLoading" @click="loadNextBlock" class="btn__nexIBlock"> load {{ blocks.length ? "previous" : "last" }} block </def-button>
+    <v-button :isDisabled="isBlockLoading" @click="loadNextBlock" class="btn__nexIBlock"> load {{ blocks.length ? "previous" : "last" }} block </v-button>
     <BlockList :blocks="blocks" />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import Header from "@/components/Header.vue";
+<script lang="ts" setup>
+import VHeader from "@/components/VHeader.vue";
 import BlockchainStatus from "@/components/BlockchainStatus.vue";
 import BlockList from "@/components/BlockList.vue";
-import { mapActions, mapState } from "vuex";
-import store from "./store";
 import { IState } from "./types/State.interface";
 import { IBlock } from "./types/Blocks.interface";
 
-export default defineComponent({
-  name: "App",
-  components: {
-    Header,
-    BlockchainStatus,
-    BlockList,
-  },
-  data() {
-    return {
-      dialogVisible: false as boolean,
-      errorSearchMessage: "" as string,
-    };
-  },
+import { computed } from "@vue/reactivity";
+import { ref } from "@vue/reactivity";
+import { useStore } from "vuex";
 
-  methods: {
-    ...mapActions({
-      loadNextBlock: "block/fetchNextBlock",
-    }),
+const store = useStore();
+const state: IState = store.state;
 
-    onSearch(text: string): void {
-      store
-        .dispatch("block/fetchSearchBlock", text)
-        .then()
-        .catch((error) => {
-          this.errorSearchMessage = String(error);
-          this.dialogVisible = true;
-        });
-    },
-  },
+const blocks = computed((): IBlock[] => state.block.blocks);
+const isBlockLoading = computed((): boolean => state.block.isBlockLoading);
 
-  computed: {
-    //...mapState("block", ["blocks", "isBlockLoading"]),
-    ...mapState({
-      blocks: (state): IBlock[] => (state as IState).block.blocks,
-      isBlockLoading: (state): boolean => (state as IState).block.isBlockLoading,
-    }),
-  },
-});
+const dialogVisible = ref(false);
+const errorSearchMessage = ref("");
+
+const loadNextBlock = (): void => {
+  store.dispatch("block/fetchNextBlock");
+};
+const onSearch = (text: string): void => {
+  store
+    .dispatch("block/fetchSearchBlock", text)
+    .then()
+    .catch((error) => {
+      errorSearchMessage.value = String(error);
+      dialogVisible.value = true;
+    });
+};
 </script>
 
 <style>

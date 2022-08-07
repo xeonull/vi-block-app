@@ -5,30 +5,24 @@
       <div class="square__right"></div>
     </div>
     <div class="search">
-      <def-input v-model="input_text" class="input__search" type="text" placeholder="Input number or hash of block" @keyup.enter="onSearch" />
-      <def-button @click="onSearch" :isBorder="false" class="btn__search"><img src="../assets/lens-glass-16.png" /></def-button>
+      <v-input v-model="input_text" class="input__search" type="text" placeholder="Input number or hash of block" @keyup.enter="onSearch" />
+      <v-button @click="onSearch" :isBorder="false" class="btn__search"><img src="../assets/lens-glass-16.png" /></v-button>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { ref } from "vue";
 
-export default defineComponent({
-  name: "vi-header",
-  data() {
-    return {
-      input_text: "",
-    };
-  },
+const input_text = ref("");
 
-  methods: {
-    onSearch() {
-      //this.post.id = Date.now();
-      this.$emit("on-search", this.input_text);
-    },
-  },
-});
+const emit = defineEmits<{
+  (e: "on-search", value: string): void;
+}>();
+
+const onSearch = (): void => {
+  emit("on-search", input_text.value);
+};
 </script>
 
 <style scoped>

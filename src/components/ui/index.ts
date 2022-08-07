@@ -1,5 +1,5 @@
-import DefButton from "@/components/ui/DefButton.vue";
-import DefInput from "@/components/ui/DefInput.vue";
-import DefDialog from "@/components/ui/DefDialog.vue";
+import VButton from "@/components/ui/VButton.vue";
+import VInput from "@/components/ui/VInput.vue";
+import VDialog from "@/components/ui/VDialog.vue";
 
-export default [DefButton, DefInput, DefDialog];
+export default [VButton, VInput, VDialog];
