@@ -21,7 +21,8 @@ const emit = defineEmits<{
 }>();
 
 const onSearch = (): void => {
-  emit("on-search", input_text.value);
+  if (input_text.value.trim().length) emit("on-search", input_text.value.trim());
+  else input_text.value = "";
 };
 </script>
 

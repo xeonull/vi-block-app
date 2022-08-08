@@ -1,7 +1,7 @@
 import { IBlock } from "@/types/Blocks.interface";
 import { IBlockState, IState } from "@/types/State.interface";
 import { Module } from "vuex";
-import { WebService } from "@/container";
+import { WebService, Logger } from "@/container";
 
 export const blockModule: Module<IBlockState, IState> = {
   namespaced: true,
@@ -30,7 +30,7 @@ export const blockModule: Module<IBlockState, IState> = {
         const block: IBlock = await WebService.fetchBlockByCode(hash);
         commit("addBlock", block);
       } catch (error) {
-        console.log("[Store:blockModule:fetchNextBlock Error]:", error);
+        Logger.log(`[fetchNextBlock]: ${error}`);
       } finally {
         commit("setLoading", false);
       }
@@ -42,7 +42,7 @@ export const blockModule: Module<IBlockState, IState> = {
         const block: IBlock = await WebService.fetchBlockByCode(text);
         commit("addBlock", block);
       } catch (error: unknown) {
-        console.log("[Store:blockModule:fetchSearchBlock Error]:", error);
+        Logger.log(`[fetchSearchBlock]: ${error}`);
         throw new Error(String(error));
       } finally {
         commit("setLoading", false);
