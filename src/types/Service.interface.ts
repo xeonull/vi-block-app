@@ -10,3 +10,7 @@ export interface IWebService {
 export interface ILogger {
   log(message: string): void;
 }
+
+export interface IToast {
+  show(message: string): void;
+}

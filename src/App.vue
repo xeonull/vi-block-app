@@ -1,7 +1,8 @@
 <template>
-  <v-dialog v-model:show="dialogVisible">
+  <v-toast ref="toast" />
+  <!-- <v-dialog v-model:show="dialogVisible">
     <h2>{{ errorSearchMessage }}</h2>
-  </v-dialog>
+  </v-dialog> -->
   <VHeader @on-search="onSearch" />
   <div class="area__main">
     <BlockchainStatus />
@@ -16,19 +17,19 @@ import BlockchainStatus from "@/components/BlockchainStatus.vue";
 import BlockList from "@/components/BlockList.vue";
 import { IState } from "./types/State.interface";
 import { IBlock } from "./types/Blocks.interface";
+import { IToast } from "./types/Service.interface";
 
 import { computed } from "@vue/reactivity";
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
+
+const toast = ref<IToast | null>(null);
 
 const store = useStore();
 const state: IState = store.state;
 
 const blocks = computed((): IBlock[] => state.block.blocks);
 const isBlockLoading = computed((): boolean => state.block.isBlockLoading);
-
-const dialogVisible = ref(false);
-const errorSearchMessage = ref("");
 
 const loadNextBlock = (): void => {
   store.dispatch("block/fetchNextBlock");
@@ -38,8 +39,7 @@ const onSearch = (text: string): void => {
     .dispatch("block/fetchSearchBlock", text)
     .then()
     .catch((error) => {
-      errorSearchMessage.value = String(error);
-      dialogVisible.value = true;
+      toast.value?.show(String(error));
     });
 };
 </script>
