@@ -14,7 +14,7 @@ export default defineComponent({
       isVisible.value = true;
       setTimeout(() => {
         isVisible.value = false;
-      }, 5000);
+      }, 4990);
     };
 
     return { isVisible, message, show };
@@ -27,7 +27,7 @@ export default defineComponent({
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
-  background-color: rgb(207, 144, 61);
+  background-color: teal;
   color: rgb(255, 255, 255);
   text-align: center;
   border-radius: 2px;

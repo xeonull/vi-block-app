@@ -21,9 +21,13 @@ export default defineComponent({
 
 <style scoped>
 .input {
-  border: 1px solid teal;
+  border: 1px solid rgb(114, 114, 114);
   padding: 10px 15px;
   background: none;
   color: #c4c4c4;
+}
+.input:focus {
+  outline: none !important;
+  border: 1px solid teal;
 }
 </style>
