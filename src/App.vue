@@ -32,7 +32,12 @@ const blocks = computed((): IBlock[] => state.block.blocks);
 const isBlockLoading = computed((): boolean => state.block.isBlockLoading);
 
 const loadNextBlock = (): void => {
-  store.dispatch("block/fetchNextBlock");
+  store
+    .dispatch("block/fetchNextBlock")
+    .then()
+    .catch((error) => {
+      toast.value?.show(String(error));
+    });
 };
 const onSearch = (text: string): void => {
   store

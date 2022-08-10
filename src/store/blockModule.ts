@@ -17,6 +17,13 @@ export const blockModule: Module<IBlockState, IState> = {
     addBlock(state: IBlockState, block: IBlock): void {
       state.blocks.push(block);
     },
+    addBlockUnify(state: IBlockState, block: IBlock | IBlock[]): void {
+      if (Array.isArray(block))
+        block.forEach((b) => {
+          state.blocks.push(b);
+        });
+      else state.blocks.push(block);
+    },
     setLoading(state: IBlockState, isLoading: boolean): void {
       state.isBlockLoading = isLoading;
     },
@@ -27,10 +34,11 @@ export const blockModule: Module<IBlockState, IState> = {
       try {
         if (!rootState.status.blockchainStatus) throw Error("blockchainStatus is null");
         const hash: string = state.blocks.length ? state.blocks[state.blocks.length - 1].prev_block : rootState.status.blockchainStatus.hash;
-        const block: IBlock = await WebService.fetchBlockByCode(hash);
-        commit("addBlock", block);
+        const block: IBlock | IBlock[] = await WebService.fetchBlockByCode(hash);
+        commit("addBlockUnify", block);
       } catch (error) {
         Logger.log(`[fetchNextBlock]: ${error}`);
+        throw error;
       } finally {
         commit("setLoading", false);
       }
@@ -39,11 +47,11 @@ export const blockModule: Module<IBlockState, IState> = {
     async fetchSearchBlock({ commit }, text: string): Promise<void> {
       commit("setLoading", true);
       try {
-        const block: IBlock = await WebService.fetchBlockByCode(text);
-        commit("addBlock", block);
+        const block: IBlock | IBlock[] = await WebService.fetchBlockByCode(text);
+        commit("addBlockUnify", block);
       } catch (error: unknown) {
         Logger.log(`[fetchSearchBlock]: ${error}`);
-        throw new Error(String(error));
+        throw error;
       } finally {
         commit("setLoading", false);
       }

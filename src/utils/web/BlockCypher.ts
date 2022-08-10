@@ -10,7 +10,13 @@ export class BlockCypherWebService implements IWebService {
       const response = await axios.get(request);
       return response.data;
     } catch (e: unknown) {
-      if (e instanceof AxiosError) throw Error(e.response?.data.error);
+      if (e instanceof AxiosError)
+        switch (e.response?.status) {
+          case 429:
+            throw new Error("429: Too many requests");
+          default:
+            throw new Error(e.response?.data.error);
+        }
       else throw e;
     }
   }
