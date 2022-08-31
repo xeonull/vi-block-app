@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isBlockchainStatusLoading">Идет загрузка...</div>
+  <div v-if="isBlockchainStatusLoading">Loading...</div>
   <div v-else class="block">
     <h1>Blockchain Status</h1>
     <div><b>Name:</b> {{ blockchainStatus?.name }}</div>
