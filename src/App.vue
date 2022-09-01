@@ -49,7 +49,7 @@ const onSearch = (text: string): void => {
 };
 </script>
 
-<style>
+<style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 
 #app {
@@ -57,7 +57,7 @@ const onSearch = (text: string): void => {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
-  color: #2c3e50;
+  color: $color_text;
   margin: 0;
   padding: 0;
 }
@@ -66,6 +66,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  background-color: $color_background_primary;
 }
 
 .btn__nexIBlock {
@@ -95,6 +96,6 @@ h2 {
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   box-sizing: border-box;
   padding: 10px 10px;
-  background: #fff;
+  background: $color_background_primary;
 }
 </style>

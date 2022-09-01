@@ -22,13 +22,13 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .toasted {
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
-  background-color: teal;
-  color: rgb(255, 255, 255);
+  background-color: $color_primary;
+  color: $color_background_primary;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
