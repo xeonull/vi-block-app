@@ -33,14 +33,14 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .btn {
   background: none;
-  color: cadetblue;
+  color: $color_primary;
   border: 0;
 }
 .border {
-  border: 1px solid cadetblue;
+  border: 1px solid $color_primary;
 }
 .disable {
   opacity: 0.4;

@@ -27,7 +27,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .dialog {
   top: 0;
   bottom: 0;
@@ -41,7 +41,7 @@ export default defineComponent({
 .dialog__content {
   margin: auto;
   padding: 20px;
-  background: white;
+  background: $color_background_primary;
   border-radius: 12px;
   min-width: 200px;
   min-height: 50px;

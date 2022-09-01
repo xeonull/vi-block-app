@@ -26,7 +26,7 @@ const onSearch = (): void => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .header {
   margin: 0;
   box-shadow: rgba(0, 0, 0, 0.7) 0 4px 12px;
@@ -47,7 +47,7 @@ const onSearch = (): void => {
   flex-direction: row;
   align-items: center;
   width: 418px;
-  background: rgb(56, 56, 56);
+  background: $color_background_secondary;
 }
 
 .input__search {
@@ -81,7 +81,7 @@ const onSearch = (): void => {
   box-sizing: border-box;
   height: 20px;
   width: 20px;
-  border: 4px solid cadetblue;
+  border: 4px solid $color_primary;
 }
 
 .square__right {
@@ -92,6 +92,6 @@ const onSearch = (): void => {
   margin-left: 2px;
   height: 12px;
   width: 12px;
-  border: 2px solid rgb(183, 225, 228);
+  border: 2px solid $color_primary_light;
 }
 </style>

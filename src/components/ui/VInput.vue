@@ -19,15 +19,15 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .input {
-  border: 1px solid rgb(114, 114, 114);
+  border: 1px solid $color_background_secondary_light;
   padding: 10px 15px;
   background: none;
-  color: #c4c4c4;
+  color: $color_primary_light;
 }
 .input:focus {
   outline: none !important;
-  border: 1px solid teal;
+  border: 1px solid $color_primary;
 }
 </style>
