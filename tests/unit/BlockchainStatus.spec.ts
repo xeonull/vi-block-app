@@ -1,65 +1,58 @@
-import { shallowMount, flushPromises } from "@vue/test-utils";
-import { createStore } from "vuex";
-import axios from "axios";
+import { shallowMount, flushPromises, VueWrapper } from "@vue/test-utils";
 import store from "@/store";
 import BlockchainState from "@/components/BlockchainStatus.vue";
-import { IStatusState } from "@/types/State.interface";
-
-const actions = {
-  fetchBlockchainStatus: jest.fn(),
-};
-const mockStore = createStore({
-  modules: {
-    status: {
-      namespaced: true,
-      state: (): IStatusState => ({
-        blockchainStatus: {
-          name: "title",
-          height: 123,
-          unconfirmed_count: 500,
-          hash: "hashcode",
-        },
-        isBlockchainStatusLoading: false,
-      }),
-      actions,
-    },
-  },
-});
+import { WebService } from "@/container";
 
 describe("unit test for BlockchainState component", () => {
-  it("should initialize correctly with real store", async () => {
-    const renderedState = "Loading...";
-    const wrapper = shallowMount(BlockchainState, {
+  let wrapper: VueWrapper;
+
+  beforeEach(() => {
+    jest.spyOn(WebService, "fetchMainBlock").mockResolvedValue({ name: "BTC.main.test", height: 123, unconfirmed_count: 321, hash: "hash_code" });
+
+    wrapper = shallowMount(BlockchainState, {
       global: {
         plugins: [store],
       },
     });
-    expect(wrapper.isVisible()).toBeTruthy();
-    expect(wrapper.find("div").text()).toEqual(renderedState);
   });
 
-  it("should initialize correctly with real store and mock axios", async () => {
-    jest.spyOn(axios, "get").mockResolvedValue({ data: { name: "BTC.main.test" } });
-    const renderedName = "Name: BTC.main.test";
-    const wrapper = shallowMount(BlockchainState, {
-      global: {
-        plugins: [store],
-      },
-    });
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
+  it("should initialize correctly with real Store and mock WebService", async () => {
     expect(wrapper.isVisible()).toBeTruthy();
+    //console.log("[html]:", wrapper.html());
+  });
+
+  it("should display a 'Loading' message", async () => {
+    const renderedName = "Loading...";
+    store.dispatch("status/fetchBlockchainStatus")
+    await wrapper.vm.$nextTick();
+    expect(wrapper.find("div").text()).toEqual(renderedName);
+  });
+
+  it("should display a correct 'Name' field", async () => {
+    const renderedName = "Name: BTC.main.test";
     await flushPromises();
     expect(wrapper.find(".block > div").text()).toEqual(renderedName);
   });
 
-  it("should initialize correctly with mock store", () => {
-    const renderedName = "<div><b>Name:</b> title</div>";
-    const wrapper = shallowMount(BlockchainState, {
-      global: {
-        plugins: [mockStore],
-      },
-    });
-    expect(wrapper.isVisible()).toBeTruthy();
-    expect(wrapper.find(".block > div").html()).toEqual(renderedName);
-    //console.log("[html]:", wrapper.html());
+  it("should display a correct 'Height' field", async () => {
+    const renderedHeight = "The number of blocks in the blockchain: 123";
+    await flushPromises();
+    expect(wrapper.find(".block > div:nth-of-type(2)").text()).toEqual(renderedHeight);
+  });
+
+  it("should display a correct 'Hash' field", async () => {
+    const renderedHeight = "Hash: hash_code";
+    await flushPromises();
+    expect(wrapper.find(".block > div:nth-of-type(3)").text()).toEqual(renderedHeight);
+  });
+
+  it("should display a correct 'Unconfirmed count' field", async () => {
+    const renderedHeight = "Number of unconfirmed transactions in memory pool: 321";
+    await flushPromises();
+    expect(wrapper.find(".block > div:nth-of-type(4)").text()).toEqual(renderedHeight);
   });
 });
