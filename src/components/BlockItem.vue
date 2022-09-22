@@ -1,16 +1,16 @@
 <template>
   <div class="block">
-    <h2>Block #{{ block.height }}</h2>
-    <div><b>Hash:</b> {{ block.hash }}</div>
-    <div><b>Total:</b> {{ block.total / 10 ** 8 }} BTC</div>
-    <div><b>Nonce:</b> {{ block.nonce }}</div>
-    <div><b>Number of transactions:</b> {{ block.n_tx }}</div>
-    <div><b>Received time:</b> {{ formatReceivedTime }}</div>
-    <div>
+    <h2 class="block__title">Block #{{ block.height }}</h2>
+    <div class="block__hash"><b>Hash:</b> {{ block.hash }}</div>
+    <div class="block__total"><b>Total:</b> {{ block.total / 10 ** 8 }} BTC</div>
+    <div class="block__nonce"><b>Nonce:</b> {{ block.nonce }}</div>
+    <div class="block__n_tx"><b>Number of transactions:</b> {{ block.n_tx }}</div>
+    <div class="block__time"><b>Received time:</b> {{ formatReceivedTime }}</div>
+    <div class="block__txs">
       <b>Transactions (max {{ block.txids.length }}): </b>
       <v-button @click="onExpandCollapse">{{ !isTXExpanded ? "+" : "-" }}</v-button>
     </div>
-    <div class="txs" v-if="isTXExpanded">
+    <div class="block__txs__list" v-if="isTXExpanded">
       <div v-for="tx in block.txids" :key="tx">{{ tx }}</div>
     </div>
   </div>
@@ -48,7 +48,7 @@ li {
 a {
   color: #42b983;
 }
-.txs {
+.block__txs__list {
   margin-left: 20px;
 }
 </style>

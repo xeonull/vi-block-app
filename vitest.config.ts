@@ -20,6 +20,7 @@ export default defineConfig({
     alias,
   },
   test: {
-    environment: 'happy-dom'
+    environment: 'happy-dom',
+    reporters: "verbose"
   },
 })
