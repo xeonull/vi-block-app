@@ -14,10 +14,9 @@
     "emitDecoratorMetadata": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [
+    "types": [ 
+      "vitest/globals",
       "webpack-env",
-      "jest",
-      "reflect-metadata"
     ],
     "paths": {
       "@/*": [

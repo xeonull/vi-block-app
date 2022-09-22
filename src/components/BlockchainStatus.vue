@@ -2,10 +2,10 @@
   <div v-if="isBlockchainStatusLoading">Loading...</div>
   <div v-else class="block">
     <h1>Blockchain Status</h1>
-    <div><b>Name:</b> {{ blockchainStatus?.name }}</div>
-    <div><b>The number of blocks in the blockchain:</b> {{ blockchainStatus?.height }}</div>
-    <div><b>Hash:</b> {{ blockchainStatus?.hash }}</div>
-    <div><b>Number of unconfirmed transactions in memory pool:</b> {{ blockchainStatus?.unconfirmed_count }}</div>
+    <div class="block__name"><b>Name:</b> {{ blockchainStatus?.name }}</div>
+    <div class="block__height"><b>The number of blocks in the blockchain:</b> {{ blockchainStatus?.height }}</div>
+    <div class="block__hash"><b>Hash:</b> {{ blockchainStatus?.hash }}</div>
+    <div class="block__ucount"><b>Number of unconfirmed transactions in memory pool:</b> {{ blockchainStatus?.unconfirmed_count }}</div>
   </div>
 </template>
 

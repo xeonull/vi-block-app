@@ -46,7 +46,7 @@ const onSearch = (): void => {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 418px;
+  width: 620px;
   background: $color_background_secondary;
 }
 
@@ -55,13 +55,11 @@ const onSearch = (): void => {
   display: inline-block;
   width: 120%;
   min-width: 150px;
-  max-width: 350px;
   height: 10px;
 }
 
 .btn__search {
-  margin: 0;
-  margin-left: 2px;
+  margin: 0 2px 0 2px;
   display: inline-block;
   height: 30px;
   border: 0;
