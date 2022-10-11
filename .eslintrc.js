@@ -1,7 +1,8 @@
 module.exports = {
   root: true,
   env: {
-    node: true,
+    //node: true,
+    es2021: true,
   },
   extends: ["plugin:vue/base", "plugin:vue/vue3-essential", "eslint:recommended", "@vue/typescript/recommended", "plugin:prettier/recommended"],
   parser: "vue-eslint-parser",

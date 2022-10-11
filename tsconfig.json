@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "types": [ 
       "vitest/globals",
-      "webpack-env",
     ],
     "paths": {
       "@/*": [
