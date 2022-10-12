@@ -6,8 +6,8 @@
     "serve": "vite --open",
     "build": "vite build --out-dir dist",
     "preview": "vite preview --open --port 8080",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
+    "lint": "eslint src/**/*.{js,ts,vue}",
+    "lint:fix": "eslint src/**/*.{js,ts,vue} --fix",
     "test": "vitest --run --sequence.shuffle",
     "coverage": "vitest run --coverage"
   },
