@@ -7,6 +7,7 @@
     <div class="search">
       <v-input v-model="input_text" class="input__search" type="text" placeholder="Input number or hash of block" @keyup.enter="onSearch" />
       <v-button @click="onSearch" :isBorder="false" class="btn__search"><img src="../assets/lens-glass-16.png" /></v-button>
+      
     </div>
   </div>
 </template>
@@ -32,10 +33,9 @@ const onSearch = (): void => {
   box-shadow: rgba(0, 0, 0, 0.7) 0 4px 12px;
   box-sizing: border-box;
   padding: 1px;
-  background: rgb(26, 26, 26);
+  background: $color_background_dark;
   height: 50px;
   display: flex;
-  flex-direction: row;
 }
 
 .search {
@@ -44,7 +44,6 @@ const onSearch = (): void => {
   margin-top: 10px;
   background: none;
   display: flex;
-  flex-direction: row;
   align-items: center;
   width: 620px;
   background: $color_background_secondary;
@@ -70,7 +69,6 @@ const onSearch = (): void => {
   margin: 15px;
   background: none;
   display: flex;
-  flex-direction: row;
 }
 
 .square__left {

@@ -4,18 +4,22 @@
   </v-dialog> -->
   <VHeader @on-search="onSearch" />
   <div class="area__main">
-		<router-view :searchText="inputBoxText"/>
+    <VSidebar />
+    <div class="area__content">
+      <router-view :searchText="inputBoxText" />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import VHeader from "@/components/VHeader.vue";
+import VSidebar from "@/components/VSidebar.vue";
 import { ref } from "@vue/reactivity";
 
 const inputBoxText = ref("");
 
 const onSearch = (text: string): void => {
-  inputBoxText.value = text
+  inputBoxText.value = text;
 };
 </script>
 
@@ -30,6 +34,9 @@ const onSearch = (text: string): void => {
   color: $color_text;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+	min-height: 100vh;
 }
 
 html,
@@ -50,7 +57,33 @@ h2 {
 }
 
 .area__main {
-  margin: 15px;
+  margin: 0;
+  display: flex;
+  flex-grow: 1;
 }
 
+.area__content {
+  flex: 1;
+  margin: 0;
+  padding: 15px;
+}
+
+button {
+	cursor: pointer;
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+}
+
+.block {
+  margin-top: 5px;
+  border: 1px solid rgba(0, 0, 0);
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  padding: 10px 10px;
+  background: $color_background_primary;
+  display: inline-block;
+  word-break: break-word;
+}
 </style>

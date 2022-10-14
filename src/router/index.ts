@@ -13,6 +13,10 @@ export default <Router>createRouter({
       component: () => import("@/views/PagePrice.vue"),
     },
     {
+      path: "/wallet",
+      component: () => import("@/views/PageWallet.vue"),
+    },
+    {
       path: "/:pathMatch(.*)*",
       component: () => import("@/views/PageNotFound.vue"),
     },

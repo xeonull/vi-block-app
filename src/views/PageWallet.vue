@@ -1,11 +1,11 @@
 <template>
-  <div class="area__price">Price page</div>
+  <div class="area__wallet">Wallet page</div>
 </template>
 
 <script lang="ts" setup></script>
 
 <style lang="scss" scoped>
-.area__price {
+.area__wallet {
   display: flex;
   flex-direction: column;
 }

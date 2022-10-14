@@ -1,8 +1,11 @@
 <template>
   <v-toast ref="toast" />
-  <BlockchainStatus />
-  <v-button :isDisabled="isBlockLoading" @click="loadNextBlock" class="btn__nexIBlock"> load {{ blocks.length ? "previous" : "last" }} block </v-button>
-  <BlockList :blocks="blocks" />
+
+  <div class="area__block">
+    <BlockchainStatus />
+    <v-button :isDisabled="isBlockLoading" @click="loadNextBlock" class="btn__nextBlock"> load {{ blocks.length ? "previous" : "last" }} block </v-button>
+    <BlockList :blocks="blocks" />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -49,22 +52,16 @@ watch(
 );
 </script>
 
-<style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+<style lang="scss" scoped>
+.area__block {
+  display: flex;
+  flex-direction: column;
+}
 
-.btn__nexIBlock {
+.btn__nextBlock {
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 10px 15px;
-}
-
-.block {
-  margin-top: 5px;
-  border: 1px solid rgba(0, 0, 0);
-  border-radius: 0.25rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-  box-sizing: border-box;
-  padding: 10px 10px;
-  background: $color_background_primary;
+  max-width: 10rem;
 }
 </style>

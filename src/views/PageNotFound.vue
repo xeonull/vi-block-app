@@ -6,7 +6,7 @@
 
 <script lang="ts" setup></script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .area__not_found {
   margin-left: auto;
   margin-right: auto;

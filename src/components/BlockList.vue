@@ -19,6 +19,8 @@ const props = defineProps<{
 
 <style scoped>
 .block__list {
+  display: flex;
+  flex-direction: column;
   margin-left: 20px;
 }
 </style>
