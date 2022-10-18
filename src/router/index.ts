@@ -5,8 +5,21 @@ export default <Router>createRouter({
   routes: [
     {
       path: "/block",
-      component: () => import("@/views/PageBlock.vue"),
+      // we need this to render the children (To make this easier to use, we could maybe allow component to be
+      // absent and internally behave as if there where a component option that renders a RouterView component)
+      //component: { render: () => h(RouterView) },
       alias: "/",
+      children: [
+        {
+          path: "",
+          component: () => import("@/views/PageBlockchain.vue"),
+        },
+        {
+          path: ":id",
+          name: "block",
+          component: () => import("@/views/PageBlock.vue"),
+        },
+      ],
     },
     {
       path: "/price",

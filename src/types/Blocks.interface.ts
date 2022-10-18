@@ -6,13 +6,24 @@ export interface IStatus {
 }
 
 export interface IBlock {
+  chain: string;
   prev_block: string;
   height: number;
   hash: string;
   total: number;
   fees: number;
   nonce: number;
-  n_tx: number;
   received_time: Date;
+  size: number;
+  vsize: number;
+  ver: number;
+  relayed_by: string;
+  coinbase_addr: string;
+  bits: number;
+  mrkl_root: string;
+  depth: number;
+  n_tx: number;
   txids: Array<string>;
+  tx_url: string;
+  next_txids: string;
 }
