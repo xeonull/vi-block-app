@@ -7,7 +7,6 @@
     <div class="search">
       <v-input v-model="input_text" class="input__search" type="text" placeholder="Input number or hash of block" @keyup.enter="onSearch" />
       <v-button @click="onSearch" :isBorder="false" class="btn__search"><img src="../assets/lens-glass-16.png" /></v-button>
-      
     </div>
   </div>
 </template>

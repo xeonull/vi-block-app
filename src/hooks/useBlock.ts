@@ -1,10 +1,10 @@
 import { IState } from "@/types/State.interface";
 import { IBlock } from "@/types/Blocks.interface";
 import { IToast } from "@//types/Service.interface";
-import { Ref, ref } from "vue";
+import { Ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 
-export function useBlock(toast: Ref<IToast | null>): any {
+export function useBlock(toast: Ref<IToast | null>) {
   const store = useStore();
   const state: IState = store.state;
 
@@ -31,4 +31,3 @@ export function useBlock(toast: Ref<IToast | null>): any {
 
   return { blocks, isBlockLoading, loadNextBlock, loadSearchBlock };
 }
-

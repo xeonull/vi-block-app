@@ -36,7 +36,7 @@ const onSearch = (text: string): void => {
   padding: 0;
   display: flex;
   flex-direction: column;
-	min-height: 100vh;
+  min-height: 100vh;
 }
 
 html,
@@ -69,20 +69,20 @@ h2 {
 }
 
 button {
-	cursor: pointer;
-	appearance: none;
-	border: none;
-	outline: none;
-	background: none;
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
 }
 
 .block {
-  margin-top: 5px;
+  margin: 10px 10px 0px 0px;
   border: 1px solid rgba(0, 0, 0);
   border-radius: 0.25rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   padding: 10px 10px;
-  background: $color_background_primary;
+  // background: $color_background_primary;
   display: inline-block;
   word-break: break-word;
 }

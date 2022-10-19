@@ -45,7 +45,7 @@ const toast = ref<IToast | null>(null);
 const { blocks, loadSearchBlock } = useBlock(toast);
 
 const route = useRoute();
-const block = ref<IBlock>(blocks.find((b: IBlock) => b.height == Number(route.params.id)));
+const block = ref<IBlock>(<IBlock>blocks.find((b: IBlock) => b.height == Number(route.params.id)));
 
 const datetime_localized: ComputedRef<string> = computed((): string => new Date(block.value.received_time).toLocaleString());
 
@@ -53,10 +53,12 @@ const router = useRouter();
 watch(
   () => props.searchText,
   (newText) => {
-    loadSearchBlock(newText).then(() => {
-      block.value = blocks[blocks.length - 1];
-      router.push({ name: "block", params: { id: block.value.height } });
-    }).catch();
+    loadSearchBlock(newText)
+      .then(() => {
+        block.value = blocks[blocks.length - 1];
+        router.push({ name: "block", params: { id: block.value.height } });
+      })
+      .catch();
   }
 );
 </script>

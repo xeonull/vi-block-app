@@ -1,7 +1,5 @@
 <template>
-  <div class="area__not_found">
-    <span>404</span><br>
-  </div>
+  <div class="area__not_found"><span>404</span><br /></div>
 </template>
 
 <script lang="ts" setup></script>

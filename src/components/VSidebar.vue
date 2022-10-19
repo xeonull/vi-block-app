@@ -7,7 +7,7 @@
     </div>
     <h3>MENU</h3>
     <div class="menu">
-      <router-link to="/block" class="button" >
+      <router-link to="/block" class="button">
         <span class="material-symbols-outlined"> activity_zone </span>
         <span class="text">Blockchain</span>
       </router-link>
@@ -117,7 +117,7 @@ aside {
         .text {
           color: $color_primary;
         }
-      }      
+      }
       &.router-link-active {
         background-color: $color_background_secondary;
         border-right: 5px solid $color_primary;
