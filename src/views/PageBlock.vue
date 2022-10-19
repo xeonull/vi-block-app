@@ -45,7 +45,7 @@ const toast = ref<IToast | null>(null);
 const { blocks, loadSearchBlock } = useBlock(toast);
 
 const route = useRoute();
-const block = ref<IBlock>(<IBlock>blocks.find((b: IBlock) => b.height == Number(route.params.id)));
+const block = ref<IBlock>(blocks.find((b: IBlock) => b.height == Number(route.params.id)) as IBlock);
 
 const router = useRouter();
 watch(

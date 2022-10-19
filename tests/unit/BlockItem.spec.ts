@@ -2,6 +2,8 @@ import { mount, flushPromises, VueWrapper } from "@vue/test-utils";
 import { describe, it, expect, afterEach, beforeEach } from "vitest";
 import store from "@/store";
 import BlockItem from "@/components/BlockItem.vue";
+import VDateTimeFormat from "@/directives/VDateTimeFormat";
+import VHashCode from "@/directives/VHashCode";
 
 describe("unit test for BlockItem component", () => {
   let wrapper: VueWrapper;
@@ -23,6 +25,10 @@ describe("unit test for BlockItem component", () => {
       },
       global: {
         plugins: [store],
+        directives: {
+          datetimeformat: VDateTimeFormat,
+          hashcode: VHashCode,
+        },
       },
     });
   });
@@ -39,11 +45,11 @@ describe("unit test for BlockItem component", () => {
   it("should display a correct title", async () => {
     const renderedField = "Block #751554";
     await flushPromises();
-    expect(wrapper.find(".block > .block__title").text()).toEqual(renderedField);
+    expect(wrapper.find(".block > router-link > .block__title").text()).toEqual(renderedField);
   });
 
   it("should display a correct 'Hash' field", async () => {
-    const renderedField = "Hash: 000000000000000000003e14615ba4388e99b0518a65707a14edd2f804588041";
+    const renderedField = "Hash: 0000...04588041";
     await flushPromises();
     expect(wrapper.find(".block > .block__hash").text()).toEqual(renderedField);
   });
