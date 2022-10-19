@@ -7,8 +7,8 @@
     <div class="block__field"><b>Total:</b> {{ block.total / 10 ** 8 }} BTC</div>
     <div class="block__field"><b>Fees:</b> {{ block.fees / 10 ** 8 }} BTC</div>
     <div class="block__field"><b>Nonce:</b> {{ block.nonce }}</div>
-    <div class="block__field"><b>Received time:</b> {{ datetime_localized }}</div>
-    <!-- <div class="block__field"><b>Received time:</b> {{ formatReceivedTime }}</div> -->
+    <div class="block__field"><b>Received time:</b> <span v-datetimeformat="block.received_time" /></div>
+    <!-- <div class="block__field"><b>Received time:</b> {{ datetime_localized }}</div> -->
     <div class="block__field"><b>Size:</b> {{ block.size }} bytes</div>
     <div class="block__field"><b>VSize:</b> {{ block.vsize }} bytes</div>
     <div class="block__field"><b>Relayed by:</b> {{ block.relayed_by }}</div>
@@ -36,7 +36,7 @@ import { IToast } from "@//types/Service.interface";
 import { useRoute, useRouter } from "vue-router";
 import { useBlock } from "@/hooks/useBlock";
 
-import { computed, ComputedRef, ref, watch } from "vue";
+import { ref, watch } from "vue";
 
 const props = defineProps<{
   searchText: string;
@@ -46,8 +46,6 @@ const { blocks, loadSearchBlock } = useBlock(toast);
 
 const route = useRoute();
 const block = ref<IBlock>(<IBlock>blocks.find((b: IBlock) => b.height == Number(route.params.id)));
-
-const datetime_localized: ComputedRef<string> = computed((): string => new Date(block.value.received_time).toLocaleString());
 
 const router = useRouter();
 watch(

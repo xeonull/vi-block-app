@@ -55,6 +55,12 @@ h2 {
   margin: 5px 0px;
   font-size: 2.5ch;
 }
+a {
+  color: $color_primary;
+  &:hover {
+    color: lighten($color_primary, 20%);
+  }
+}
 
 .area__main {
   margin: 0;

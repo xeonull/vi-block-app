@@ -7,6 +7,10 @@
     </div>
     <h3>MENU</h3>
     <div class="menu">
+      <router-link to="/price" class="button">
+        <span class="material-symbols-outlined"> attach_money </span>
+        <span class="text">Prices</span>
+      </router-link>
       <router-link to="/block" class="button">
         <span class="material-symbols-outlined"> activity_zone </span>
         <span class="text">Blockchain</span>
@@ -14,10 +18,6 @@
       <router-link to="/wallet" class="button">
         <span class="material-symbols-outlined"> wallet </span>
         <span class="text">Wallet</span>
-      </router-link>
-      <router-link to="/price" class="button">
-        <span class="material-symbols-outlined"> attach_money </span>
-        <span class="text">Prices</span>
       </router-link>
     </div>
     <div class="inter-space"></div>
