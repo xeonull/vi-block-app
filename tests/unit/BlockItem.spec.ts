@@ -49,7 +49,7 @@ describe("unit test for BlockItem component", () => {
   });
 
   it("should display a correct 'Hash' field", async () => {
-    const renderedField = "Hash: 0000...04588041";
+    const renderedField = "Hash: 00000000...04588041";
     await flushPromises();
     expect(wrapper.find(".block > .block__hash").text()).toEqual(renderedField);
   });
@@ -60,10 +60,10 @@ describe("unit test for BlockItem component", () => {
     expect(wrapper.find(".block > .block__total").text()).toEqual(renderedField);
   });
 
-  it("should display a correct 'Nonce' field", async () => {
-    const renderedField = "Nonce: 3162806412";
+  it("should display a correct 'Fees' field", async () => {
+    const renderedField = "Fees: 0.01905673 BTC";
     await flushPromises();
-    expect(wrapper.find(".block > .block__nonce").text()).toEqual(renderedField);
+    expect(wrapper.find(".block > .block__fees").text()).toEqual(renderedField);
   });
 
   it("should display a correct 'Number of transactions' field", async () => {

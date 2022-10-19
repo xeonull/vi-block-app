@@ -84,12 +84,17 @@ button {
 
 .block {
   margin: 10px 10px 0px 0px;
-  border: 1px solid rgba(0, 0, 0);
   border-radius: 0.25rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  max-width: 750px;
   padding: 10px 10px;
-  // background: $color_background_primary;
+  background: $color_background_light;
   display: inline-block;
   word-break: break-word;
+}
+
+.span__not_found {
+  font-size: 80px;
+  font-weight: bold;
+  color: $color_primary_light;
 }
 </style>

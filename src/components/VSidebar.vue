@@ -8,22 +8,22 @@
     <h3>MENU</h3>
     <div class="menu">
       <router-link to="/price" class="button">
-        <span class="material-symbols-outlined"> attach_money </span>
+        <span class="material-symbols-outlined" title="Prices"> attach_money </span>
         <span class="text">Prices</span>
       </router-link>
       <router-link to="/block" class="button">
-        <span class="material-symbols-outlined"> activity_zone </span>
+        <span class="material-symbols-outlined" title="Blockchain"> activity_zone </span>
         <span class="text">Blockchain</span>
       </router-link>
       <router-link to="/wallet" class="button">
-        <span class="material-symbols-outlined"> wallet </span>
+        <span class="material-symbols-outlined" title="Wallet"> wallet </span>
         <span class="text">Wallet</span>
       </router-link>
     </div>
     <div class="inter-space"></div>
     <div class="menu">
       <router-link to="/settings" class="button">
-        <span class="material-symbols-outlined"> settings </span>
+        <span class="material-symbols-outlined" title="Settings"> settings </span>
         <span class="text">Settings</span>
       </router-link>
     </div>
@@ -150,10 +150,5 @@ aside {
       }
     }
   }
-
-  // @media (max-width: 1024px) {
-  //   position: absolute;
-  //   z-index: 99;
-  // }
 }
 </style>

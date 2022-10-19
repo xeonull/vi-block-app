@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vite --open",
+    "host": "vite --open --host",
     "build": "vite build --out-dir dist",
     "preview": "vite preview --open --port 8080",
     "lint": "eslint src/**/*.{js,ts,vue}",
