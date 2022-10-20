@@ -16,6 +16,10 @@ import VHeader from "@/components/VHeader.vue";
 import VSidebar from "@/components/VSidebar.vue";
 import { ref } from "@vue/reactivity";
 
+import { useDark } from "@vueuse/core";
+// Load color theme form local storage
+useDark({ initialValue: "light" });
+
 const inputBoxText = ref("");
 
 const onSearch = (text: string): void => {
@@ -31,7 +35,6 @@ const onSearch = (text: string): void => {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
-  color: $color_text;
   margin: 0;
   padding: 0;
   display: flex;
@@ -43,7 +46,21 @@ html,
 body {
   margin: 0;
   padding: 0;
+}
+
+html {
+  color: $color_text;
   background-color: $color_background_primary;
+
+  &.dark {
+    color: $color_background_primary;
+    background-color: $color_background_secondary;
+
+    .block,
+    .list {
+      background-color: $color_background_dark !important;
+    }
+  }
 }
 
 h1 {

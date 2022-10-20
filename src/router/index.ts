@@ -30,6 +30,10 @@ export default <Router>createRouter({
       component: () => import("@/views/PageWallet.vue"),
     },
     {
+      path: "/settings",
+      component: () => import("@/views/PageSettings.vue"),
+    },
+    {
       path: "/:pathMatch(.*)*",
       component: () => import("@/views/PageNotFound.vue"),
     },
