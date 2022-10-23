@@ -28,7 +28,7 @@ export default defineComponent({
   min-width: 250px;
   margin-left: -125px;
   background-color: $color_primary;
-  color: $color_background_primary;
+  color: $color_background;
   text-align: center;
   border-radius: 2px;
   padding: 16px;

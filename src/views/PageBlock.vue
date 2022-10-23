@@ -85,7 +85,7 @@ watch(
 .list {
   margin: 10px;
   border-radius: 0.25rem;
-  background-color: $color_background_light;
+  background-color: var(--color-background-block);
   padding: 25px;
   display: inline-block;
   word-break: break-word;

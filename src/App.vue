@@ -30,6 +30,29 @@ const onSearch = (text: string): void => {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 
+:root {
+  --color-text: #{$color_text};
+  --color-background: #{$color_background};
+  --color-background-block: #{$color_background_block};
+}
+
+.dark {    
+  --color-text: #{$color_text__dark_theme};
+  --color-background: #{$color_background__dark_theme};
+  --color-background-block: #{$color_background_block__dark_theme};
+  }
+
+html {
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   font-family: Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -40,27 +63,6 @@ const onSearch = (text: string): void => {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  color: $color_text;
-  background-color: $color_background_primary;
-
-  &.dark {
-    color: $color_background_primary;
-    background-color: $color_background_secondary;
-
-    .block,
-    .list {
-      background-color: $color_background_dark !important;
-    }
-  }
 }
 
 h1 {
@@ -104,7 +106,7 @@ button {
   border-radius: 0.25rem;
   max-width: 750px;
   padding: 10px 10px;
-  background: $color_background_light;
+  background-color: var(--color-background-block);
   display: inline-block;
   word-break: break-word;
 }

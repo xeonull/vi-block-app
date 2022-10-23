@@ -41,7 +41,7 @@ export default defineComponent({
 .dialog__content {
   margin: auto;
   padding: 20px;
-  background: $color_background_primary;
+  background: var(--color-background);
   border-radius: 12px;
   min-width: 200px;
   min-height: 50px;

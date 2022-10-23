@@ -1,5 +1,5 @@
 <template>
-  <aside :class="`${is_expanded ? 'is-Rexpanded' : ''}`">
+  <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
     <div class="menu-toggle-wrap">
       <button class="menu-toggle" @click="ToggleMenu">
         <span class="material-symbols-outlined"> double_arrow </span>
@@ -46,7 +46,7 @@ aside {
   display: flex;
   flex-direction: column;
   flex-grow: 0;
-  background-color: $color_background_dark;
+  background-color: $color_background_block__dark_theme;
   min-width: 2rem;
   width: 2rem;
   overflow: hidden;
@@ -131,7 +131,7 @@ aside {
     }
   }
 
-  &.is-Rexpanded {
+  &.is-expanded {
     width: 200px;
 
     .menu-toggle-wrap {

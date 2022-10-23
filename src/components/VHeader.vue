@@ -29,10 +29,10 @@ const onSearch = (): void => {
 <style scoped lang="scss">
 .header {
   margin: 0;
-  box-shadow: rgba(0, 0, 0, 0.7) 0 4px 12px;
+  box-shadow: rgba(0, 0, 0, 0.7) 0 2px 6px;
   box-sizing: border-box;
   padding: 1px;
-  background: $color_background_dark;
+  background: $color_background_block__dark_theme;
   height: 50px;
   display: flex;
 }
@@ -40,7 +40,7 @@ const onSearch = (): void => {
 .search {
   /* border: 1px solid deeppink; */
   margin: auto;
-  margin-top: 10px;
+  margin-top: 8px;
   background: none;
   display: flex;
   align-items: center;
