@@ -1,7 +1,4 @@
 <template>
-  <!-- <v-dialog v-model:show="dialogVisible">
-    <h2>{{ errorSearchMessage }}</h2>
-  </v-dialog> -->
   <VHeader @on-search="onSearch" />
   <div class="area__main">
     <VSidebar />
@@ -12,23 +9,26 @@
 </template>
 
 <script lang="ts" setup>
-import VHeader from "@/components/VHeader.vue";
-import VSidebar from "@/components/VSidebar.vue";
-import { ref } from "@vue/reactivity";
+import VHeader from '@/components/VHeader.vue'
+import VSidebar from '@/components/VSidebar.vue'
+import { ref } from '@vue/reactivity'
 
-import { useDark } from "@vueuse/core";
+import { useDark } from '@vueuse/core'
+import { nextTick } from 'vue'
 // Load color theme form local storage
-useDark({ initialValue: "light" });
+useDark({ initialValue: 'light' })
 
-const inputBoxText = ref("");
+const inputBoxText = ref('')
 
-const onSearch = (text: string): void => {
-  inputBoxText.value = text;
-};
+const onSearch = async (text: string): Promise<void> => {
+  inputBoxText.value = ''
+  await nextTick()
+  inputBoxText.value = text
+}
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 :root {
   --color-text: #{$color_text};
@@ -36,11 +36,11 @@ const onSearch = (text: string): void => {
   --color-background-block: #{$color_background_block};
 }
 
-.dark {    
+.dark {
   --color-text: #{$color_text__dark_theme};
   --color-background: #{$color_background__dark_theme};
   --color-background-block: #{$color_background_block__dark_theme};
-  }
+}
 
 html {
   color: var(--color-text);
@@ -78,6 +78,7 @@ a {
   color: $color_primary;
   &:hover {
     color: lighten($color_primary, 20%);
+    cursor: pointer;
   }
 }
 
