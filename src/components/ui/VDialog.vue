@@ -8,23 +8,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 export default defineComponent({
-  name: 'v-dialog',
+  name: "v-dialog",
   props: {
     show: {
       type: Boolean,
       default: false,
     },
   },
-  emits: ['update:show'],
+  emits: ["update:show"],
   setup(props, { emit }) {
     const hideDialog = (): void => {
-      emit('update:show', false)
-    }
-    return { hideDialog }
+      emit("update:show", false);
+    };
+    return { hideDialog };
   },
-})
+});
 </script>
 
 <style scoped lang="scss">
@@ -36,6 +36,7 @@ export default defineComponent({
   position: fixed;
   display: flex;
   background: rgb(0, 0, 0, 0.9);
+  z-index: 999;
 }
 
 .dialog__content {

@@ -13,26 +13,31 @@
   <div class="area__settings">
     <div class="row__setting">
       <p class="item">Light/Dark Theme:</p>
-      <v-button @click="toggleDark()">
+      <!-- <v-button @click="toggleDark()">
         <span class="material-symbols-outlined"> {{ isDark ? 'dark_mode' : 'light_mode' }} </span>
-      </v-button>
+      </v-button> -->
+      <v-toggle-switch v-model:checked="isDark" />
     </div>
     <div class="row__setting">
       <p class="item">Dialog box:</p>
       <a @click="openDialog()"> Open </a>
     </div>
+    <div class="row__setting">
+      <p class="item">New option:</p>
+      <v-toggle-switch />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useDark } from '@vueuse/core'
-import { useToggle } from '@vueuse/core'
-import { ref } from 'vue'
+import { useDark } from "@vueuse/core";
+//import { useToggle } from '@vueuse/core'
+import { ref } from "vue";
 
-const isDark = useDark()
-const toggleDark = useToggle(isDark)
-const isDialogVisible = ref(false)
-const openDialog = () => (isDialogVisible.value = true)
+const isDark = useDark();
+//const toggleDark = useToggle(isDark)
+const isDialogVisible = ref(false);
+const openDialog = () => (isDialogVisible.value = true);
 </script>
 
 <style lang="scss" scoped>

@@ -5,6 +5,7 @@ $color_background: white;
 $color_background_block: rgb(242, 242, 242);
 $color_background_secondary: rgb(56, 56, 56);
 $color_background_secondary_light: lighten($color_background_secondary, 30%);
+$color_background_secondary_strong_light: lighten($color_background_secondary_light, 30%);
 
 $color_text__dark_theme: white;
 $color_background__dark_theme: $color_background_secondary;

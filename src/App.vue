@@ -9,37 +9,43 @@
 </template>
 
 <script lang="ts" setup>
-import VHeader from '@/components/VHeader.vue'
-import VSidebar from '@/components/VSidebar.vue'
-import { ref } from '@vue/reactivity'
+import VHeader from "@/components/VHeader.vue";
+import VSidebar from "@/components/VSidebar.vue";
+import { ref } from "@vue/reactivity";
 
-import { useDark } from '@vueuse/core'
-import { nextTick } from 'vue'
+import { useDark } from "@vueuse/core";
+import { nextTick } from "vue";
 // Load color theme form local storage
-useDark({ initialValue: 'light' })
+useDark({ initialValue: "light" });
 
-const inputBoxText = ref('')
+const inputBoxText = ref("");
 
 const onSearch = async (text: string): Promise<void> => {
-  inputBoxText.value = ''
-  await nextTick()
-  inputBoxText.value = text
-}
+  inputBoxText.value = "";
+  await nextTick();
+  inputBoxText.value = text;
+};
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 
 :root {
   --color-text: #{$color_text};
   --color-background: #{$color_background};
   --color-background-block: #{$color_background_block};
+  --color-toogle: #{$color_background};
+  --color-background-toogle: #{$color_primary_light};
+  --color-background-toogle-checked: #{$color_background_secondary_strong_light};
 }
 
 .dark {
   --color-text: #{$color_text__dark_theme};
   --color-background: #{$color_background__dark_theme};
   --color-background-block: #{$color_background_block__dark_theme};
+  --color-toogle: #{$color_background_secondary};
+  --color-background-toogle: #{$color_primary};
+  --color-background-toogle-checked: #{$color_background_secondary_light};
 }
 
 html {
@@ -74,6 +80,7 @@ h2 {
   margin: 5px 0px;
   font-size: 2.5ch;
 }
+
 a {
   color: $color_primary;
   &:hover {
