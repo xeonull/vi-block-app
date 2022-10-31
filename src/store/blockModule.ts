@@ -15,13 +15,18 @@ export const blockModule: Module<IBlockState, IState> = {
       state.blocks = blocks;
     },
     addBlock(state: IBlockState, block: IBlock): void {
-      state.blocks.push(block);
+      if (state.blocks.find((b) => b.height === block.height)) throw Error("Block already exists: " + block.height);
+      else state.blocks.push(block);
     },
     addBlockUnify(state: IBlockState, block: IBlock | IBlock[]): void {
-      if (Array.isArray(block))
-        block.forEach((b) => {
-          state.blocks.push(b);
+      if (Array.isArray(block)) {
+        let err = "";
+        block.forEach((blk) => {
+          if (state.blocks.find((b) => b.height === blk.height)) err = err + blk.height + ", ";
+          else state.blocks.push(blk);
         });
+        if (err) throw Error("Blocks already exists: " + err.slice(0, -2));
+      } else if (state.blocks.find((b) => b.height === block.height)) throw Error("Block already exists: " + block.height);
       else state.blocks.push(block);
     },
     setLoading(state: IBlockState, isLoading: boolean): void {
