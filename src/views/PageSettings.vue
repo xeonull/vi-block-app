@@ -12,10 +12,7 @@
   </v-dialog>
   <div class="area__settings">
     <div class="row__setting">
-      <p class="item">Light/Dark Theme:</p>
-      <!-- <v-button @click="toggleDark()">
-        <span class="material-symbols-outlined"> {{ isDark ? 'dark_mode' : 'light_mode' }} </span>
-      </v-button> -->
+      <p class="item">Use Dark Theme:</p>
       <v-toggle-switch v-model:checked="isDark" />
     </div>
     <div class="row__setting">
@@ -31,11 +28,14 @@
 
 <script lang="ts" setup>
 import { useDark } from "@vueuse/core";
-//import { useToggle } from '@vueuse/core'
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+
+const emit = defineEmits<{
+  (e: "on-place", value: string): void;
+}>();
+onMounted(() => emit("on-place", ""));
 
 const isDark = useDark();
-//const toggleDark = useToggle(isDark)
 const isDialogVisible = ref(false);
 const openDialog = () => (isDialogVisible.value = true);
 </script>

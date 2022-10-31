@@ -14,3 +14,5 @@ export interface ILogger {
 export interface IToast {
   show(message: string): void;
 }
+
+// export interface ICoinService {}
