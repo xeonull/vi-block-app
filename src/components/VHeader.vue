@@ -5,14 +5,7 @@
       <div class="square__right"></div>
     </div>
     <div class="search">
-      <v-input
-        v-model="input_text"
-        class="input__search"
-        type="text"
-        @keyup.enter="onSearch"
-        :placeholder="input_place_holder"
-        :disabled="!input_place_holder"
-      />
+      <v-input v-model="input_text" class="input__search" type="text" @keyup.enter="onSearch" :placeholder="inputPlaceholder" :disabled="!inputPlaceholder" />
       <v-button @click="onSearch" :isBorder="false" class="btn__search"><img src="../assets/lens-glass-16.png" /></v-button>
     </div>
   </div>
@@ -20,10 +13,8 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-
-const props = defineProps<{
-  input_place_holder: string;
-}>();
+import { usePlaceholder } from "@/hooks/usePlaceholder";
+const { inputPlaceholder } = usePlaceholder();
 
 const input_text = ref("");
 
