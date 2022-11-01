@@ -28,12 +28,10 @@
 
 <script lang="ts" setup>
 import { useDark } from "@vueuse/core";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 
-const emit = defineEmits<{
-  (e: "on-place", value: string): void;
-}>();
-onMounted(() => emit("on-place", ""));
+import { usePlaceholder } from "@/hooks/usePlaceholder";
+usePlaceholder("");
 
 const isDark = useDark();
 const isDialogVisible = ref(false);

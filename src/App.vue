@@ -1,9 +1,9 @@
 <template>
-  <VHeader @on-search="onSearch" :input_place_holder="inputPlaceholder" />
+  <VHeader @on-search="onSearch" />
   <div class="area__main">
     <VSidebar />
     <div class="area__content">
-      <router-view :searchText="inputBoxText" @on-place="onPlaceholder" />
+      <router-view :searchText="inputBoxText" />
     </div>
   </div>
 </template>
@@ -19,16 +19,11 @@ import { nextTick } from "vue";
 useDark({ initialValue: "light" });
 
 const inputBoxText = ref("");
-const inputPlaceholder = ref("");
 
 const onSearch = async (text: string): Promise<void> => {
   inputBoxText.value = "";
   await nextTick();
   inputBoxText.value = text;
-};
-
-const onPlaceholder = async (text: string): Promise<void> => {
-  inputPlaceholder.value = text;
 };
 </script>
 

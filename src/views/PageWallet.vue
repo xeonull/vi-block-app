@@ -3,12 +3,8 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
-
-const emit = defineEmits<{
-  (e: "on-place", value: string): void;
-}>();
-onMounted(() => emit("on-place", "Input wallet address"));
+import { usePlaceholder } from "@/hooks/usePlaceholder";
+usePlaceholder("Input wallet address");
 </script>
 
 <style lang="scss" scoped>
