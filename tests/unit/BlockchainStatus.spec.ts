@@ -2,13 +2,13 @@ import { mount, flushPromises, VueWrapper } from "@vue/test-utils";
 import { describe, it, expect, afterEach, beforeEach, vi } from "vitest";
 import store from "@/store";
 import BlockchainState from "@/components/BlockchainStatus.vue";
-import { WebService } from "@/container";
+import { BlockWebService } from "@/container";
 
 describe("unit test for BlockchainState component", () => {
   let wrapper: VueWrapper;
 
   beforeEach(() => {
-    vi.spyOn(WebService, "fetchMainBlock").mockResolvedValue({ name: "BTC.main.test", height: 123, unconfirmed_count: 321, hash: "hash_code" });
+    vi.spyOn(BlockWebService, "fetchMainBlock").mockResolvedValue({ name: "BTC.main.test", height: 123, unconfirmed_count: 321, hash: "hash_code" });
     wrapper = mount(BlockchainState, {
       global: {
         plugins: [store],
@@ -20,7 +20,7 @@ describe("unit test for BlockchainState component", () => {
     wrapper.unmount();
   });
 
-  it("should initialize correctly with real Store and mock WebService", async () => {
+  it("should initialize correctly with real Store and mock BlockWebService", async () => {
     expect(wrapper.isVisible()).toBeTruthy();
     //console.log("[html]:", wrapper.html());
   });

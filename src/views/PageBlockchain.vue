@@ -8,14 +8,14 @@
 </template>
 
 <script lang="ts" setup>
+import { watch, ref } from "vue";
+
 import BlockchainStatus from "@/components/BlockchainStatus.vue";
 import BlockList from "@/components/BlockList.vue";
 import { IToast } from "@//types/Service.interface";
-
-import { watch, ref } from "vue";
 import { useBlock } from "@/hooks/useBlock";
-
 import { usePlaceholder } from "@/hooks/usePlaceholder";
+
 usePlaceholder("Input number or hash of block");
 
 const props = defineProps<{

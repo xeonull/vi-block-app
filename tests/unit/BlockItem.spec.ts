@@ -37,7 +37,7 @@ describe("unit test for BlockItem component", () => {
     wrapper.unmount();
   });
 
-  it("should initialize correctly with real Store and mock WebService", async () => {
+  it("should initialize correctly with real Store and mock BlockWebService", async () => {
     expect(wrapper.isVisible()).toBeTruthy();
     //console.log("[html]:", wrapper.html());
   });

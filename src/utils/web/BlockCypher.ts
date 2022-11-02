@@ -1,10 +1,10 @@
 import axios, { AxiosError } from "axios";
 import { IStatus, IBlock } from "@/types/Blocks.interface";
-import { IWebService } from "@/types/Service.interface";
+import { IBlockWebService } from "@/types/Service.interface";
 import { injectable } from "tsyringe";
 
 @injectable()
-export class BlockCypherWebService implements IWebService {
+export class BlockCypherWebService implements IBlockWebService {
   async makeGetRequest<T>(request: string): Promise<T> {
     try {
       const response = await axios.get(request);

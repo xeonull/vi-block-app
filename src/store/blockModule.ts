@@ -1,7 +1,7 @@
 import { IBlock } from "@/types/Blocks.interface";
 import { IBlockState, IState } from "@/types/State.interface";
 import { Module } from "vuex";
-import { WebService, Logger } from "@/container";
+import { BlockWebService, Logger } from "@/container";
 
 export const blockModule: Module<IBlockState, IState> = {
   namespaced: true,
@@ -39,7 +39,7 @@ export const blockModule: Module<IBlockState, IState> = {
       try {
         if (!rootState.status.blockchainStatus) throw Error("blockchainStatus is null");
         const hash: string = state.blocks.length ? state.blocks[state.blocks.length - 1].prev_block : rootState.status.blockchainStatus.hash;
-        const block: IBlock | IBlock[] = await WebService.fetchBlockByCode(hash);
+        const block: IBlock | IBlock[] = await BlockWebService.fetchBlockByCode(hash);
         commit("addBlockUnify", block);
       } catch (error) {
         Logger.log(`[fetchNextBlock]: ${error}`);
@@ -52,7 +52,7 @@ export const blockModule: Module<IBlockState, IState> = {
     async fetchSearchBlock({ commit }, text: string): Promise<void> {
       commit("setLoading", true);
       try {
-        const block: IBlock | IBlock[] = await WebService.fetchBlockByCode(text);
+        const block: IBlock | IBlock[] = await BlockWebService.fetchBlockByCode(text);
         commit("addBlockUnify", block);
       } catch (error: unknown) {
         Logger.log(`[fetchSearchBlock]: ${error}`);

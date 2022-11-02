@@ -4,8 +4,8 @@ export default <Router>createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: "/price",
-      component: () => import("@/views/PagePrice.vue"),
+      path: "/market",
+      component: () => import("@/views/PageMarket.vue"),
       alias: "/",
     },
     {

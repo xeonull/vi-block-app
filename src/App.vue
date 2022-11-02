@@ -34,18 +34,16 @@ const onSearch = async (text: string): Promise<void> => {
   --color-text: #{$color_text};
   --color-background: #{$color_background};
   --color-background-block: #{$color_background_block};
-  --color-toogle: #{$color_background};
-  --color-background-toogle: #{$color_primary_light};
-  --color-background-toogle-checked: #{$color_background_secondary_strong_light};
+  --color-background-control: #{$color_background_secondary_strong_light};
+  --color-background-control-checked: #{$color_primary_light};
 }
 
 .dark {
   --color-text: #{$color_text__dark_theme};
   --color-background: #{$color_background__dark_theme};
   --color-background-block: #{$color_background_block__dark_theme};
-  --color-toogle: #{$color_background_secondary};
-  --color-background-toogle: #{$color_primary};
-  --color-background-toogle-checked: #{$color_background_secondary_light};
+  --color-background-control: #{$color_background_secondary_light};
+  --color-background-control-checked: #{$color_primary};
 }
 
 html {

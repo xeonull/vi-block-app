@@ -1,4 +1,5 @@
 export const TYPES = {
-  WEB_SERVICE: Symbol.for("WebService"),
+  BLOCK_WEB_SERVICE: Symbol.for("BlockWebService"),
+  MARKET_WEB_SERVICE: Symbol.for("MarketWebService"),
   LOGGER: Symbol.for("Logger"),
 };

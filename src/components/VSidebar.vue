@@ -7,9 +7,9 @@
     </div>
     <h3>MENU</h3>
     <div class="menu">
-      <router-link to="/price" class="button">
-        <span class="material-symbols-outlined" title="Prices"> attach_money </span>
-        <span class="text">Prices</span>
+      <router-link to="/market" class="button">
+        <span class="material-symbols-outlined" title="Market"> attach_money </span>
+        <span class="text">Market</span>
       </router-link>
       <router-link to="/block" class="button">
         <span class="material-symbols-outlined" title="Blockchain"> activity_zone </span>

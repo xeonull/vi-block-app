@@ -14,6 +14,7 @@
 <script lang="ts" setup>
 import { IBlock } from "@/types/Blocks.interface";
 
+// eslint-disable-next-line
 const props = defineProps<{
   block: IBlock;
 }>();

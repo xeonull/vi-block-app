@@ -1,7 +1,7 @@
 import { IStatus } from "@/types/Blocks.interface";
 import { IStatusState, IState } from "@/types/State.interface";
 import { Module } from "vuex";
-import { WebService, Logger } from "@/container";
+import { BlockWebService, Logger } from "@/container";
 
 export const statusModule: Module<IStatusState, IState> = {
   namespaced: true,
@@ -22,7 +22,7 @@ export const statusModule: Module<IStatusState, IState> = {
     async fetchBlockchainStatus({ commit }): Promise<void> {
       commit("setLoading", true);
       try {
-        commit("setStatus", await WebService.fetchMainBlock());
+        commit("setStatus", await BlockWebService.fetchMainBlock());
       } catch (error) {
         Logger.log(`[fetchBlockchainStatus]: ${error}`);
       } finally {
