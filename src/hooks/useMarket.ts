@@ -1,15 +1,16 @@
 import { IState } from "@/types/State.interface";
 import { ICoin } from "@/types/Market.interface";
 import { IToast } from "@//types/Service.interface";
-import { Ref } from "@vue/reactivity";
+import { Ref, computed } from "@vue/reactivity";
 import { useStore } from "vuex";
 
 export function useMarket(toast: Ref<IToast | null>) {
   const store = useStore();
   const state: IState = store.state;
 
-  const coins: ICoin[] = state.market.coins;
-  const coinsFound: ICoin[] = state.market.coins_found;
+  const coins = computed((): ICoin[] => state.market.coins);
+
+  const coinsFound: ICoin[] = state.market.coinsFound;
 
   const loadSearchCoins = async (text: string): Promise<void> => {
     if (text)
@@ -21,5 +22,22 @@ export function useMarket(toast: Ref<IToast | null>) {
         });
   };
 
-  return { coins, coinsFound, loadSearchCoins };
+  const loadCoins = (): void => {
+    store.commit("market/loadCoinsFromLocalStorage");
+  };
+
+  const saveCoins = (): void => {
+    store.commit("market/saveCoinsToLocalStorage");
+  };
+
+  const updateMarketData = async (): Promise<void> => {
+    await store
+      .dispatch("market/fetchMarketData")
+      .then()
+      .catch((error) => {
+        toast.value?.show(String(error));
+      });
+  };
+
+  return { coins, coinsFound, loadSearchCoins, loadCoins, saveCoins, updateMarketData };
 }

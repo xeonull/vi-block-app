@@ -2,6 +2,7 @@
   <div class="coin__list">
     <div v-if="coins.length > 0">
       <div><h3>Your coin list:</h3></div>
+      <div class="update"><v-button @click="updateMarketData">Update</v-button></div>
       <table id="coins">
         <tr>
           <th>Symbol</th>
@@ -12,8 +13,8 @@
         <tr v-for="coin in coins" :key="coin.id">
           <td>{{ coin.symbol }}</td>
           <td>{{ coin.name }}</td>
-          <td>{{ coin.market ? coin.market[0].price : "---" }}</td>
-          <td>{{ coin.market ? coin.market[0].market_cap : "---" }}</td>
+          <td>{{ coin.current_price ? coin.current_price : "---" }}</td>
+          <td>{{ coin.market_cap ? coin.market_cap : "---" }}</td>
         </tr>
       </table>
     </div>
@@ -21,14 +22,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onBeforeMount, onUnmounted } from "vue";
 
 import { IToast } from "@//types/Service.interface";
 import { useMarket } from "@/hooks/useMarket";
 
 const toast = ref<IToast | null>(null);
 
-const { coins } = useMarket(toast);
+const { coins, loadCoins, saveCoins, updateMarketData } = useMarket(toast);
+
+onBeforeMount(() => {
+  loadCoins();
+  updateMarketData();
+});
+onUnmounted(() => saveCoins());
 </script>
 
 <style lang="scss" scoped>
@@ -37,6 +44,9 @@ const { coins } = useMarket(toast);
   flex-direction: column;
   margin-left: 20px;
   width: 75%;
+}
+.update {
+  margin-bottom: 10px;
 }
 
 #coins {

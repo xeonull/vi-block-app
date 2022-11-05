@@ -19,6 +19,7 @@ export interface IBlockState {
 
 export interface IMarketState {
   coins: Array<ICoin>;
-  coins_found: Array<ICoin>;
+  coinsFound: Array<ICoin>;
   isLoading: boolean;
+  vsCurrency: string;
 }

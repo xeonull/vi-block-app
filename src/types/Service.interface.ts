@@ -1,5 +1,5 @@
 import { IBlock, IStatus } from "@/types/Blocks.interface";
-import { ICoin, IMarket } from "@/types/Market.interface";
+import { ICoin } from "@/types/Market.interface";
 
 export interface ILogger {
   log(message: string): void;
@@ -17,8 +17,8 @@ export interface IBlockWebService {
 }
 
 export interface IMarketWebService {
-  /* Return current price of coin */
-  fetchPrice(cryptoCurrency: string, vsCurrency: string): Promise<IMarket>;
+  /* Return current price, market cap, volume and other market data */
+  fetchMarketData(cryptoCurrency: string, vsCurrency: string): Promise<ICoin[]>;
   /* Return coins by search string */
   fetchSearch(searchString: string): Promise<ICoin[]>;
 }

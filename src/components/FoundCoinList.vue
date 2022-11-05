@@ -39,9 +39,6 @@ watch(
 
 const addCoin = (coin: ICoin): void => {
   store.commit("market/addCoin", coin);
-  console.log("[id]", coin.id);
-  console.log("[length_c]", state.market.coins.length);
-  console.log("[length_cf]", state.market.coins_found.length);
 };
 </script>
 

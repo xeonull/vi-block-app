@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { ICrypto, ICoin, IMarket } from "@/types/Market.interface";
+import { ICrypto, ICoin } from "@/types/Market.interface";
 import { IMarketWebService } from "@/types/Service.interface";
 import { injectable } from "tsyringe";
 
@@ -21,14 +21,11 @@ export class CoinGeckoWebService implements IMarketWebService {
     }
   }
 
-  async fetchPrice(cryptoCurrency: string, vsCurrency: string): Promise<IMarket> {
-    const data: any = await this.makeGetRequest(
-      `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoCurrency}&vs_currencies=${vsCurrency}&include_market_cap=true`
+  async fetchMarketData(cryptoCurrency: string, vsCurrency: string): Promise<ICoin[]> {
+    const data: ICoin[] = await this.makeGetRequest(
+      `https://api.coingecko.com/api/v3/coins/markets?ids=${cryptoCurrency}&vs_currency=${vsCurrency}&per_page=250&page=1&sparkline=false`
     );
-    return {
-      price: data[cryptoCurrency][vsCurrency],
-      market_cap: data[cryptoCurrency][`${vsCurrency}_market_cap`],
-    };
+    return data;
   }
 
   async fetchSearch(searchString: string): Promise<ICoin[]> {

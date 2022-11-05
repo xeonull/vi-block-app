@@ -7,48 +7,52 @@ export const marketModule: Module<IMarketState, IState> = {
   namespaced: true,
   state: (): IMarketState => ({
     coins: [],
-    coins_found: [],
+    coinsFound: [],
     isLoading: false,
+    vsCurrency: localStorage.getItem("vsCurrency") || "usd",
   }),
   getters: {},
   mutations: {
     addCoin(state: IMarketState, coin: ICoin): void {
-      state.coins.push(coin);
+      if (!state.coins.find((c) => c.id === coin.id)) state.coins.push(coin);
+    },
+    setCoins(state: IMarketState, coins: ICoin[]): void {
+      state.coins.length = 0;
+      state.coins.push(...coins);
+    },
+    loadCoinsFromLocalStorage(state: IMarketState) {
+      state.coins = JSON.parse(localStorage.getItem("coins") || "[]");
+    },
+    saveCoinsToLocalStorage(state: IMarketState) {
+      const coins: ICoin[] = state.coins.map((c) => {
+        return { id: c.id, name: c.name, symbol: c.symbol };
+      });
+      localStorage.setItem("coins", JSON.stringify(coins));
+      localStorage.setItem("vsCurrency", state.vsCurrency);
     },
     setFoundCoins(state: IMarketState, coins: ICoin[]): void {
-      state.coins_found.length = 0;
-      state.coins_found.push(...coins);
+      state.coinsFound.length = 0;
+      state.coinsFound.push(...coins);
     },
-    // addBlockUnify(state: IBlockState, block: IBlock | IBlock[]): void {
-    //   if (Array.isArray(block)) {
-    //     let err = "";
-    //     block.forEach((blk) => {
-    //       if (state.blocks.find((b) => b.height === blk.height)) err = err + blk.height + ", ";
-    //       else state.blocks.push(blk);
-    //     });
-    //     if (err) throw Error("Blocks already exists: " + err.slice(0, -2));
-    //   } else if (state.blocks.find((b) => b.height === block.height)) throw Error("Block already exists: " + block.height);
-    //   else state.blocks.push(block);
-    // },
     setLoading(state: IMarketState, isLoading: boolean): void {
       state.isLoading = isLoading;
     },
   },
   actions: {
-    // async fetchNextBlock({ state, commit, rootState }): Promise<void> {
-    //   commit("setLoading", true);
-    //   try {
-    //     if (!rootState.status.blockchainStatus) throw Error("blockchainStatus is null");
-    //     const hash: string = state.blocks.length ? state.blocks[state.blocks.length - 1].prev_block : rootState.status.blockchainStatus.hash;
-    //     const block: IBlock | IBlock[] = await BlockWebService.fetchBlockByCode(hash);
-    //     commit("addBlockUnify", block);
-    //   } catch (error) {
-    //     Logger.log(`[fetchNextBlock]: ${error}`);
-    //     throw error;
-    //   } finally {
-    //     commit("setLoading", false);
-    //   }
-    // },
+    async fetchMarketData({ state, commit }): Promise<void> {
+      commit("setLoading", true);
+      try {
+        const ids: string = state.coins.reduce((a, c) => `${a},${c.id}`, "");
+        if (!ids) return;
+        const coins: ICoin[] = await MarketWebService.fetchMarketData(ids, state.vsCurrency);
+        commit("setCoins", coins);
+      } catch (error) {
+        Logger.log(`[fetchMarketData]: ${error}`);
+        throw error;
+      } finally {
+        commit("setLoading", false);
+      }
+    },
 
     async fetchSearchCoins({ commit }, text: string): Promise<void> {
       commit("setLoading", true);
