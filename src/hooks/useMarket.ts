@@ -30,6 +30,10 @@ export function useMarket(toast: Ref<IToast | null>) {
     store.commit("market/saveCoinsToLocalStorage");
   };
 
+  const updateCurrency = (currency: string): void => {
+    store.commit("market/setCurrency", currency);
+  };
+
   const updateMarketData = async (): Promise<void> => {
     await store
       .dispatch("market/fetchMarketData")
@@ -39,5 +43,5 @@ export function useMarket(toast: Ref<IToast | null>) {
       });
   };
 
-  return { coins, coinsFound, loadSearchCoins, loadCoins, saveCoins, updateMarketData };
+  return { coins, coinsFound, loadSearchCoins, loadCoins, saveCoins, updateMarketData, updateCurrency };
 }

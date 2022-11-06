@@ -22,4 +22,5 @@ export interface IMarketState {
   coinsFound: Array<ICoin>;
   isLoading: boolean;
   vsCurrency: string;
+  currencyList: Array<string>;
 }

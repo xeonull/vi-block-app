@@ -12,6 +12,10 @@
   </v-dialog>
   <div class="area__settings">
     <div class="row__setting">
+      <p class="item">Currency:</p>
+      <v-select :current-value="$store.state.market.vsCurrency" :list-of-values="$store.state.market.currencyList" @update:current-value="updateCurrency" />
+    </div>
+    <div class="row__setting">
       <p class="item">Use Dark Theme:</p>
       <v-toggle-switch v-model:checked="isDark" />
     </div>
@@ -30,8 +34,11 @@
 import { useDark } from "@vueuse/core";
 import { ref } from "vue";
 
+import { useMarket } from "@/hooks/useMarket";
 import { usePlaceholder } from "@/hooks/usePlaceholder";
 usePlaceholder("");
+
+const { updateCurrency } = useMarket(ref(null));
 
 const isDark = useDark();
 const isDialogVisible = ref(false);

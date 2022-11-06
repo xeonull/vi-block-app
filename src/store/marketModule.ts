@@ -10,9 +10,14 @@ export const marketModule: Module<IMarketState, IState> = {
     coinsFound: [],
     isLoading: false,
     vsCurrency: localStorage.getItem("vsCurrency") || "usd",
+    currencyList: ["usd", "eur", "rub", "uah", "btc", "eth"],
   }),
   getters: {},
   mutations: {
+    setCurrency(state: IMarketState, currency: string): void {
+      state.vsCurrency = currency;
+      localStorage.setItem("vsCurrency", state.vsCurrency);
+    },
     addCoin(state: IMarketState, coin: ICoin): void {
       if (!state.coins.find((c) => c.id === coin.id)) state.coins.push(coin);
     },
