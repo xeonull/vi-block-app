@@ -1,14 +1,16 @@
 <template>
-  <div class="coin__list">
-    <div v-if="isSearchDataLoading">Loading...</div>
-    <div v-else-if="coinsFound.length > 0">
-      <div><h3>Search result:</h3></div>
-      <div v-for="coin in coinsFound" :key="coin.id">
-        <v-button @click="addCoin(coin)" :key="coin.id">+</v-button>
-        <span>&nbsp;{{ coin.symbol }} ({{ coin.name }})</span>
+  <v-dialog v-model:show="isDialogVisible">
+    <div class="coin__list">
+      <div v-if="isSearchDataLoading">Loading...</div>
+      <div v-else-if="coinsFound.length > 0">
+        <div><h3>Search result:</h3></div>
+        <div v-for="coin in coinsFound" :key="coin.id">
+          <v-button @click="addCoin(coin)" :key="coin.id">+</v-button>
+          <span>&nbsp;{{ coin.symbol }} ({{ coin.name }})</span>
+        </div>
       </div>
     </div>
-  </div>
+  </v-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -34,8 +36,14 @@ const isSearchDataLoading = computed((): boolean => state.market.isLoading);
 
 watch(
   () => props.searchCoin,
-  (newText) => loadSearchCoins(newText)
+  async (newText) => {
+    await loadSearchCoins(newText);
+    openDialog();
+  }
 );
+
+const isDialogVisible = ref(false);
+const openDialog = () => (isDialogVisible.value = true);
 
 const addCoin = (coin: ICoin): void => {
   store.commit("market/addCoin", coin);

@@ -7,12 +7,14 @@
         <tr>
           <th>Symbol</th>
           <th>Name</th>
+          <th>Rank</th>
           <th>Price</th>
           <th>Market Cap</th>
         </tr>
         <tr v-for="coin in coins" :key="coin.id">
-          <td>{{ coin.symbol }}</td>
+          <td class="column__symbol"><img :src="coin.thumb" /> {{ coin.symbol }}</td>
           <td>{{ coin.name }}</td>
+          <td>{{ coin.market_cap_rank }}</td>
           <td>{{ coin.current_price ? coin.current_price : "---" }}</td>
           <td>{{ coin.market_cap ? coin.market_cap : "---" }}</td>
         </tr>
@@ -43,7 +45,7 @@ onUnmounted(() => saveCoins());
   display: flex;
   flex-direction: column;
   margin-left: 20px;
-  width: 75%;
+  width: 100%;
 }
 .update {
   margin-bottom: 10px;
@@ -70,5 +72,11 @@ onUnmounted(() => saveCoins());
   text-align: left;
   background-color: var(--color-background-control-checked);
   color: var(--color-text);
+}
+.column__symbol {
+  text-transform: uppercase;
+}
+img {
+  vertical-align: middle;
 }
 </style>

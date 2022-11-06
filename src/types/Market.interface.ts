@@ -7,6 +7,7 @@ export interface ICoin {
   name: string;
   symbol: string;
   market_cap_rank?: number;
+  image?: string;
   thumb?: string;
   large?: string;
   current_price?: number;

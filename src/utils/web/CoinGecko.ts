@@ -25,6 +25,9 @@ export class CoinGeckoWebService implements IMarketWebService {
     const data: ICoin[] = await this.makeGetRequest(
       `https://api.coingecko.com/api/v3/coins/markets?ids=${cryptoCurrency}&vs_currency=${vsCurrency}&per_page=250&page=1&sparkline=false`
     );
+    data.forEach((c) => {
+      c.thumb = c.image?.replace("/large/", "/thumb/");
+    });
     return data;
   }
 
