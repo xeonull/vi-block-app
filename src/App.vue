@@ -91,12 +91,22 @@ a {
   margin: 0;
   display: flex;
   flex-grow: 1;
+
+  /* for fixed Header and Sidebar (1) */
+  position: absolute;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .area__content {
   flex: 1;
   margin: 0;
   padding: 15px;
+
+  /* for fixed Header and Sidebar (2) */
+  overflow: auto;
 }
 
 button {
