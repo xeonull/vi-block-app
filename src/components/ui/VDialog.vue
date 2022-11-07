@@ -36,7 +36,7 @@ export default defineComponent({
   position: fixed;
   display: flex;
   background: rgb(0, 0, 0, 0.8);
-  z-index: 999;
+  z-index: 20;
 }
 
 .dialog__content {

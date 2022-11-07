@@ -1,6 +1,6 @@
 import { IState } from "@/types/State.interface";
 import { ICoin } from "@/types/Market.interface";
-import { IToast } from "@//types/Service.interface";
+import { IToast } from "@/types/Service.interface";
 import { Ref, computed } from "@vue/reactivity";
 import { useStore } from "vuex";
 
@@ -20,6 +20,16 @@ export function useMarket(toast: Ref<IToast | null>) {
         .catch((error) => {
           toast.value?.show(String(error));
         });
+  };
+
+  const addCoin = (coin: ICoin): void => {
+    store
+      .dispatch("market/addCoin", coin)
+      .then()
+      .catch((error) => {
+        console.log("xxxxxxxxxx");
+        toast.value?.show(String(error));
+      });
   };
 
   const loadCoins = (): void => {
@@ -43,5 +53,5 @@ export function useMarket(toast: Ref<IToast | null>) {
       });
   };
 
-  return { coins, coinsFound, loadSearchCoins, loadCoins, saveCoins, updateMarketData, updateCurrency };
+  return { coins, coinsFound, loadSearchCoins, loadCoins, saveCoins, updateMarketData, updateCurrency, addCoin };
 }

@@ -44,7 +44,7 @@ onUnmounted(() => saveCoins());
 .coin__list {
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
+  margin: 0 20px;
   width: 100%;
 }
 .update {

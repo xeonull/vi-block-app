@@ -48,7 +48,7 @@ export default defineComponent({
 <style scoped lang="scss">
 .nav {
   margin: 0;
-  z-index: 99;
+  z-index: 10;
   opacity: 82%;
 }
 .arrow {

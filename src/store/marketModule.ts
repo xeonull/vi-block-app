@@ -20,6 +20,7 @@ export const marketModule: Module<IMarketState, IState> = {
     },
     addCoin(state: IMarketState, coin: ICoin): void {
       if (!state.coins.find((c) => c.id === coin.id)) state.coins.push(coin);
+      else throw Error("Coin already exists");
     },
     setCoins(state: IMarketState, coins: ICoin[]): void {
       state.coins.length = 0;
@@ -44,6 +45,15 @@ export const marketModule: Module<IMarketState, IState> = {
     },
   },
   actions: {
+    async addCoin({ commit }, coin: ICoin): Promise<void> {
+      try {
+        commit("addCoin", coin);
+      } catch (error) {
+        Logger.log(`[addCoin]: ${error}`);
+        throw error;
+      }
+    },
+
     async fetchMarketData({ state, commit }): Promise<void> {
       commit("setLoading", true);
       try {
