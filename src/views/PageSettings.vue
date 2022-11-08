@@ -17,7 +17,7 @@
     </div>
     <div class="row__setting">
       <p class="item">Currency:</p>
-      <v-select :current-value="$store.state.market.vsCurrency" :list-of-values="$store.state.market.currencyList" @update:current-value="updateCurrency" />
+      <v-select :current-value="currency" :list-of-values="currencyList" @update:current-value="updateCurrency" />
     </div>
     <!-- <div class="row__setting">
       <p class="item">Dialog box:</p>
@@ -38,11 +38,12 @@ import { useMarket } from "@/hooks/useMarket";
 import { usePlaceholder } from "@/hooks/usePlaceholder";
 usePlaceholder("");
 
-const { updateCurrency } = useMarket(ref(null));
+const { currency, currencyList, updateCurrency } = useMarket(ref(null));
 
 const isDark = useDark();
-const isDialogVisible = ref(false);
-const openDialog = () => (isDialogVisible.value = true);
+
+// const isDialogVisible = ref(false);
+// const openDialog = () => (isDialogVisible.value = true);
 </script>
 
 <style lang="scss" scoped>

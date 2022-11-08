@@ -17,8 +17,8 @@
           <td class="column__symbol">{{ coin.symbol }}</td>
           <td>{{ coin.name }}</td>
           <td>{{ coin.market_cap_rank }}</td>
-          <td>{{ coin.current_price ? coin.current_price : "---" }}</td>
-          <td>{{ coin.market_cap ? coin.market_cap : "---" }}</td>
+          <td><span v-currencyformat="{ value: coin.current_price, currency }" /></td>
+          <td><span v-currencyformat="{ value: coin.market_cap, currency }" /></td>
         </tr>
       </table>
     </div>
@@ -33,7 +33,7 @@ import { useMarket } from "@/hooks/useMarket";
 
 const toast = ref<IToast | null>(null);
 
-const { coins, loadCoins, saveCoins, updateMarketData } = useMarket(toast);
+const { coins, currency, loadCoins, saveCoins, updateMarketData } = useMarket(toast);
 
 onBeforeMount(() => {
   loadCoins();
