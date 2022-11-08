@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model:show="isDialogVisible">
+  <!-- <v-dialog v-model:show="isDialogVisible">
     <h2>Dialog box title</h2>
     <p>Sample text here</p>
     <p>
@@ -9,24 +9,24 @@
       voluptatibus, sed eius accusamus quibusdam quas iste laborum sapiente mollitia fugiat exercitationem tenetur necessitatibus voluptatem voluptates officia
       officiis fugit suscipit illum. Blanditiis quo quae debitis. Aliquam atque repudiandae accusantium?
     </p>
-  </v-dialog>
+  </v-dialog> -->
   <div class="area__settings">
-    <div class="row__setting">
-      <p class="item">Currency:</p>
-      <v-select :current-value="$store.state.market.vsCurrency" :list-of-values="$store.state.market.currencyList" @update:current-value="updateCurrency" />
-    </div>
     <div class="row__setting">
       <p class="item">Use Dark Theme:</p>
       <v-toggle-switch v-model:checked="isDark" />
     </div>
     <div class="row__setting">
+      <p class="item">Currency:</p>
+      <v-select :current-value="$store.state.market.vsCurrency" :list-of-values="$store.state.market.currencyList" @update:current-value="updateCurrency" />
+    </div>
+    <!-- <div class="row__setting">
       <p class="item">Dialog box:</p>
       <a @click="openDialog()"> Open </a>
     </div>
     <div class="row__setting">
       <p class="item">New option:</p>
       <v-toggle-switch />
-    </div>
+    </div> -->
   </div>
 </template>
 

@@ -27,7 +27,6 @@ export function useMarket(toast: Ref<IToast | null>) {
       .dispatch("market/addCoin", coin)
       .then()
       .catch((error) => {
-        console.log("xxxxxxxxxx");
         toast.value?.show(String(error));
       });
   };

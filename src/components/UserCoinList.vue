@@ -5,6 +5,7 @@
       <div class="update"><v-button @click="updateMarketData">Update</v-button></div>
       <table id="coins">
         <tr>
+          <th class="header__img"></th>
           <th>Symbol</th>
           <th>Name</th>
           <th>Rank</th>
@@ -12,7 +13,8 @@
           <th>Market Cap</th>
         </tr>
         <tr v-for="coin in coins" :key="coin.id">
-          <td class="column__symbol"><img :src="coin.thumb" /> {{ coin.symbol }}</td>
+          <td class="column__img"><img :src="coin.thumb" /></td>
+          <td class="column__symbol">{{ coin.symbol }}</td>
           <td>{{ coin.name }}</td>
           <td>{{ coin.market_cap_rank }}</td>
           <td>{{ coin.current_price ? coin.current_price : "---" }}</td>
@@ -57,8 +59,11 @@ onUnmounted(() => saveCoins());
 }
 #coins td,
 #coins th {
-  border: 1px solid var(--color-text);
+  border: 2px solid var(--color-background);
   padding: 4px;
+}
+#coins tr {
+  background-color: var(--color-background-highlight);
 }
 // #coins tr:nth-child(even) {
 //   background-color: var();
@@ -72,10 +77,17 @@ onUnmounted(() => saveCoins());
   text-align: left;
   background-color: var(--color-background-control-checked);
   color: var(--color-text);
+  &.header__img {
+    // background-color: var(--color-background);
+    width: 25px;
+  }
 }
 .column__symbol {
   text-transform: uppercase;
 }
+// .column__img {
+//   background-color: var(--color-background);
+// }
 img {
   vertical-align: middle;
 }

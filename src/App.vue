@@ -33,6 +33,7 @@ const onSearch = async (text: string): Promise<void> => {
 :root {
   --color-text: #{$color_text};
   --color-background: #{$color_background};
+  --color-background-highlight: #{$color_background-highlight};
   --color-background-block: #{$color_background_block};
   --color-background-control: #{$color_background_secondary_strong_light};
   --color-background-control-checked: #{$color_primary_light};
@@ -41,6 +42,7 @@ const onSearch = async (text: string): Promise<void> => {
 .dark {
   --color-text: #{$color_text__dark_theme};
   --color-background: #{$color_background__dark_theme};
+  --color-background-highlight: #{$color_background-highlight__dark_theme};
   --color-background-block: #{$color_background_block__dark_theme};
   --color-background-control: #{$color_background_secondary_light};
   --color-background-control-checked: #{$color_primary};
