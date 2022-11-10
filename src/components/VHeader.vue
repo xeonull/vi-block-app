@@ -67,7 +67,7 @@ const onSearch = (): void => {
 }
 
 .logo {
-  /* border: 1px solid deeppink; */
+  // border: 1px solid deeppink;
   margin: 15px;
   background: none;
   display: flex;
