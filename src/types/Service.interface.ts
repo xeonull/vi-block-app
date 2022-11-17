@@ -1,5 +1,6 @@
-import { IBlock, IStatus } from "@/types/Blocks.interface";
+import { IBlock, IStatus } from "@/types/Block.interface";
 import { ICoin } from "@/types/Market.interface";
+import { IAddress } from "@/types/Address.interface";
 
 export interface ILogger {
   log(message: string): void;
@@ -21,4 +22,11 @@ export interface IMarketWebService {
   fetchMarketData(cryptoCurrency: string, vsCurrency: string): Promise<ICoin[]>;
   /* Return coins by search string */
   fetchSearch(searchString: string): Promise<ICoin[]>;
+}
+
+export interface IAddressWebService {
+  /* Return general information about the address, including its balance and the number of transactions associated with it. */
+  fetchAddressData(address: string): Promise<IAddress>;
+  /* Return all information available about a particular address, including an array of complete transactions instead of just transaction inputs and outputs */
+  fetchAddressDataWithTxs(address: string, limit?: number, before?: number, after?: number): Promise<IAddress>;
 }

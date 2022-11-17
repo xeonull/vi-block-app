@@ -1,4 +1,4 @@
-import { IBlock } from "@/types/Blocks.interface";
+import { IBlock } from "@/types/Block.interface";
 import { IBlockState, IState } from "@/types/State.interface";
 import { Module } from "vuex";
 import { BlockWebService, Logger } from "@/container";

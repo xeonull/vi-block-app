@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IStatus } from "@/types/Blocks.interface";
+import { IStatus } from "@/types/Block.interface";
 import { IState } from "@/types/State.interface";
 
 import { computed } from "@vue/reactivity";

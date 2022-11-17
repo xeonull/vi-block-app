@@ -3,20 +3,27 @@
   <div class="area__main">
     <VSidebar />
     <div class="area__content">
+      <v-toast ref="toast" />
       <router-view :searchText="inputBoxText" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { IToast } from "./types/Service.interface";
+
 import VHeader from "@/components/VHeader.vue";
 import VSidebar from "@/components/VSidebar.vue";
 import { ref } from "@vue/reactivity";
 
 import { useDark } from "@vueuse/core";
-import { nextTick } from "vue";
+import { nextTick, provide } from "vue";
 // Load color theme form local storage
 useDark({ initialValue: "light" });
+
+// Provides a link to the Toast component to display the message in the child components
+const toast = ref<IToast | null>(null);
+provide("toast", toast);
 
 const inputBoxText = ref("");
 

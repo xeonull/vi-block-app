@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IBlock } from "@/types/Blocks.interface";
+import { IBlock } from "@/types/Block.interface";
 
 // eslint-disable-next-line
 const props = defineProps<{

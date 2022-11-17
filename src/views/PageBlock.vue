@@ -1,5 +1,4 @@
 <template>
-  <v-toast ref="toast" />
   <div v-if="block" class="area__block">
     <div class="list">
       <h2 class="block__title">Block #{{ block.height }}</h2>
@@ -34,18 +33,19 @@
 </template>
 
 <script lang="ts" setup>
-import { IBlock } from "@/types/Blocks.interface";
+import { IBlock } from "@/types/Block.interface";
 import { IToast } from "@//types/Service.interface";
 
 import { useRoute, useRouter } from "vue-router";
 import { useBlock } from "@/hooks/useBlock";
 
-import { ref, watch } from "vue";
+import { inject, ref, watch, Ref } from "vue";
 
 const props = defineProps<{
   searchText: string;
 }>();
-const toast = ref<IToast | null>(null);
+
+const toast = inject("toast") as Ref<IToast>;
 const { blocks, loadSearchBlock } = useBlock(toast);
 
 const route = useRoute();

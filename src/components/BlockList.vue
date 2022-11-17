@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import BlockItem from "@/components/BlockItem.vue";
-import { IBlock } from "@/types/Blocks.interface.js";
+import { IBlock } from "@/types/Block.interface.js";
 
 // eslint-disable-next-line
 const props = defineProps<{

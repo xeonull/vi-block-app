@@ -1,5 +1,4 @@
 <template>
-  <v-toast ref="toast" />
   <div class="area__block">
     <BlockchainStatus />
     <v-button :isDisabled="isBlockLoading" @click="loadNextBlock" class="btn__nextBlock"> load {{ blocks.length ? "previous" : "last" }} block </v-button>
@@ -8,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref } from "vue";
+import { watch, Ref, inject } from "vue";
 
 import BlockchainStatus from "@/components/BlockchainStatus.vue";
 import BlockList from "@/components/BlockList.vue";
@@ -22,8 +21,7 @@ const props = defineProps<{
   searchText: string;
 }>();
 
-const toast = ref<IToast | null>(null);
-
+const toast = inject("toast") as Ref<IToast>;
 const { blocks, isBlockLoading, loadNextBlock, loadSearchBlock } = useBlock(toast);
 
 watch(

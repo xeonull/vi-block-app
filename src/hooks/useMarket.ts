@@ -1,7 +1,7 @@
 import { IState } from "@/types/State.interface";
 import { ICoin } from "@/types/Market.interface";
 import { IToast } from "@/types/Service.interface";
-import { Ref, computed, ref } from "@vue/reactivity";
+import { Ref, computed } from "@vue/reactivity";
 import { useStore } from "vuex";
 
 export function useMarket(toast: Ref<IToast | null>) {

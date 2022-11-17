@@ -1,5 +1,5 @@
 import { IState } from "@/types/State.interface";
-import { IBlock } from "@/types/Blocks.interface";
+import { IBlock } from "@/types/Block.interface";
 import { IToast } from "@//types/Service.interface";
 import { Ref } from "@vue/reactivity";
 import { useStore } from "vuex";
