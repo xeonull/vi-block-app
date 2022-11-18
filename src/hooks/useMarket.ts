@@ -1,10 +1,10 @@
 import { IState } from "@/types/State.interface";
 import { ICoin } from "@/types/Market.interface";
-import { IToast } from "@/types/Service.interface";
+import { IMessage } from "@/types/Service.interface";
 import { Ref, computed } from "@vue/reactivity";
 import { useStore } from "vuex";
 
-export function useMarket(toast: Ref<IToast | null>) {
+export function useMarket(messageViewer: Ref<IMessage | null>) {
   const store = useStore();
   const state: IState = store.state;
 
@@ -21,7 +21,7 @@ export function useMarket(toast: Ref<IToast | null>) {
         .dispatch("market/fetchSearchCoins", text)
         .then()
         .catch((error) => {
-          toast.value?.show(String(error));
+          messageViewer.value?.show(String(error));
         });
   };
 
@@ -30,7 +30,7 @@ export function useMarket(toast: Ref<IToast | null>) {
       .dispatch("market/addCoin", coin)
       .then()
       .catch((error) => {
-        toast.value?.show(String(error));
+        messageViewer.value?.show(String(error));
       });
   };
 
@@ -51,7 +51,7 @@ export function useMarket(toast: Ref<IToast | null>) {
       .dispatch("market/fetchMarketData")
       .then()
       .catch((error) => {
-        toast.value?.show(String(error));
+        messageViewer.value?.show(String(error));
       });
   };
 

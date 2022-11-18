@@ -6,7 +6,7 @@ export interface ILogger {
   log(message: string): void;
 }
 
-export interface IToast {
+export interface IMessage {
   show(message: string): void;
 }
 

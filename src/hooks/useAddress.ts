@@ -1,10 +1,10 @@
 import { IState } from "@/types/State.interface";
 import { IAddress } from "@/types/Address.interface";
-import { IToast } from "@//types/Service.interface";
+import { IMessage } from "@//types/Service.interface";
 import { Ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 
-export function useAddress(toast: Ref<IToast | null>) {
+export function useAddress(messageViewer: Ref<IMessage | null>) {
   const store = useStore();
   const state: IState = store.state;
 
@@ -17,7 +17,7 @@ export function useAddress(toast: Ref<IToast | null>) {
         .dispatch("address/fetchAddressBalance", text)
         .then()
         .catch((error) => {
-          toast.value?.show(String(error));
+          messageViewer.value?.show(String(error));
         });
   };
 

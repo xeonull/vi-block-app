@@ -1,5 +1,4 @@
 <template>
-  <v-toast ref="toast" />
   <v-dialog v-model:show="isDialogVisible">
     <div class="coin__list">
       <div v-if="isSearchDataLoading">Search...</div>
@@ -15,9 +14,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from "vue";
+import { computed, inject, Ref, ref, watch } from "vue";
 
-import { IToast } from "@//types/Service.interface";
+import { IMessage } from "@//types/Service.interface";
 import { IState } from "@/types/State.interface";
 
 import { useMarket } from "@/hooks/useMarket";
@@ -29,7 +28,7 @@ const props = defineProps<{
   searchCoin: string;
 }>();
 
-const toast = ref<IToast | null>(null);
+const toast = inject("toast") as Ref<IMessage>;
 
 const { coinsFound, loadSearchCoins, addCoin } = useMarket(toast);
 const isSearchDataLoading = computed((): boolean => state.market.isLoading);

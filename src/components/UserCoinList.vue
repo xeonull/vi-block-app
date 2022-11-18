@@ -26,12 +26,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeMount, onUnmounted } from "vue";
+import { Ref, onBeforeMount, onUnmounted, inject } from "vue";
 
-import { IToast } from "@//types/Service.interface";
+import { IMessage } from "@//types/Service.interface";
 import { useMarket } from "@/hooks/useMarket";
 
-const toast = ref<IToast | null>(null);
+const toast = inject("toast") as Ref<IMessage>;
 
 const { coins, currency, loadCoins, saveCoins, updateMarketData } = useMarket(toast);
 

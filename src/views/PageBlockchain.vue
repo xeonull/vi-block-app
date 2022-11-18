@@ -11,7 +11,7 @@ import { watch, Ref, inject } from "vue";
 
 import BlockchainStatus from "@/components/BlockchainStatus.vue";
 import BlockList from "@/components/BlockList.vue";
-import { IToast } from "@//types/Service.interface";
+import { IMessage } from "@//types/Service.interface";
 import { useBlock } from "@/hooks/useBlock";
 import { usePlaceholder } from "@/hooks/usePlaceholder";
 
@@ -21,7 +21,7 @@ const props = defineProps<{
   searchText: string;
 }>();
 
-const toast = inject("toast") as Ref<IToast>;
+const toast = inject("toast") as Ref<IMessage>;
 const { blocks, isBlockLoading, loadNextBlock, loadSearchBlock } = useBlock(toast);
 
 watch(

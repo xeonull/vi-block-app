@@ -1,10 +1,10 @@
 import { IState } from "@/types/State.interface";
 import { IBlock } from "@/types/Block.interface";
-import { IToast } from "@//types/Service.interface";
+import { IMessage } from "@//types/Service.interface";
 import { Ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 
-export function useBlock(toast: Ref<IToast | null>) {
+export function useBlock(messageViewer: Ref<IMessage | null>) {
   const store = useStore();
   const state: IState = store.state;
 
@@ -16,7 +16,7 @@ export function useBlock(toast: Ref<IToast | null>) {
       .dispatch("block/fetchNextBlock")
       .then()
       .catch((error) => {
-        toast.value?.show(String(error));
+        messageViewer.value?.show(String(error));
       });
   };
 
@@ -26,7 +26,7 @@ export function useBlock(toast: Ref<IToast | null>) {
         .dispatch("block/fetchSearchBlock", text)
         .then()
         .catch((error) => {
-          toast.value?.show(String(error));
+          messageViewer.value?.show(String(error));
         });
   };
 

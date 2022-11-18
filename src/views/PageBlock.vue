@@ -34,7 +34,7 @@
 
 <script lang="ts" setup>
 import { IBlock } from "@/types/Block.interface";
-import { IToast } from "@//types/Service.interface";
+import { IMessage } from "@//types/Service.interface";
 
 import { useRoute, useRouter } from "vue-router";
 import { useBlock } from "@/hooks/useBlock";
@@ -45,7 +45,7 @@ const props = defineProps<{
   searchText: string;
 }>();
 
-const toast = inject("toast") as Ref<IToast>;
+const toast = inject("toast") as Ref<IMessage>;
 const { blocks, loadSearchBlock } = useBlock(toast);
 
 const route = useRoute();

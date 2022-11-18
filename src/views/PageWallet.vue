@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import AddressItem from "@/components/AddressItem.vue";
-import { IToast } from "@/types/Service.interface";
+import { IMessage } from "@/types/Service.interface";
 
 import { useAddress } from "@/hooks/useAddress";
 import { usePlaceholder } from "@/hooks/usePlaceholder";
@@ -24,7 +24,7 @@ const props = defineProps<{
 
 usePlaceholder("Input wallet address");
 
-const toast = inject("toast") as Ref<IToast>;
+const toast = inject("toast") as Ref<IMessage>;
 const { addresses, loadAddress } = useAddress(toast);
 
 watch(
