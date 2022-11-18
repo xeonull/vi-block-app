@@ -2,20 +2,21 @@ import { IStatus } from "@/types/Block.interface";
 import { IStatusState, IState } from "@/types/State.interface";
 import { Module } from "vuex";
 import { BlockWebService, Logger } from "@/container";
+import Base from "@/store/baseState";
+
+const base = new Base();
 
 export const statusModule: Module<IStatusState, IState> = {
   namespaced: true,
   state: (): IStatusState => ({
+    ...base.state,
     blockchainStatus: null,
-    isBlockchainStatusLoading: false,
   }),
   getters: {},
   mutations: {
+    ...base.mutations,
     setStatus(state: IStatusState, status: IStatus): void {
       state.blockchainStatus = status;
-    },
-    setLoading(state: IStatusState, isLoading: boolean): void {
-      state.isBlockchainStatusLoading = isLoading;
     },
   },
   actions: {

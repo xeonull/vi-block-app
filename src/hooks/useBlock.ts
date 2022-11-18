@@ -1,7 +1,7 @@
 import { IState } from "@/types/State.interface";
 import { IBlock } from "@/types/Block.interface";
 import { IMessage } from "@//types/Service.interface";
-import { Ref } from "@vue/reactivity";
+import { Ref, computed } from "@vue/reactivity";
 import { useStore } from "vuex";
 
 export function useBlock(messageViewer: Ref<IMessage | null>) {
@@ -9,7 +9,7 @@ export function useBlock(messageViewer: Ref<IMessage | null>) {
   const state: IState = store.state;
 
   const blocks: IBlock[] = state.block.blocks;
-  const isBlockLoading: boolean = state.block.isBlockLoading;
+  const isBlockLoading = computed((): boolean => state.block.isLoading);
 
   const loadNextBlock = (): void => {
     store

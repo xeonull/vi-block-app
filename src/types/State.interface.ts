@@ -9,25 +9,25 @@ export interface IState {
   address: IAddressState;
 }
 
-export interface IStatusState {
+export interface IBaseState {
+  isLoading: boolean;
+}
+
+export interface IStatusState extends IBaseState {
   blockchainStatus: IStatus | null;
-  isBlockchainStatusLoading: boolean;
 }
 
-export interface IBlockState {
+export interface IBlockState extends IBaseState {
   blocks: Array<IBlock>;
-  isBlockLoading: boolean;
 }
 
-export interface IMarketState {
+export interface IMarketState extends IBaseState {
   coins: Array<ICoin>;
   coinsFound: Array<ICoin>;
-  isLoading: boolean;
   vsCurrency: string;
   currencyList: Array<string>;
 }
 
-export interface IAddressState {
+export interface IAddressState extends IBaseState {
   addresses: Array<IAddress>;
-  isLoading: boolean;
 }

@@ -21,7 +21,7 @@ const store = useStore();
 const state: IState = store.state;
 
 const blockchainStatus = computed((): IStatus | null => state.status.blockchainStatus);
-const isBlockchainStatusLoading = computed((): boolean => state.status.isBlockchainStatusLoading);
+const isBlockchainStatusLoading = computed((): boolean => state.status.isLoading);
 
 onBeforeMount(() => store.dispatch("status/fetchBlockchainStatus"));
 </script>

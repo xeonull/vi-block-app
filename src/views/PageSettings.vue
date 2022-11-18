@@ -1,15 +1,4 @@
 <template>
-  <!-- <v-dialog v-model:show="isDialogVisible">
-    <h2>Dialog box title</h2>
-    <p>Sample text here</p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae praesentium pariatur, doloribus fugiat quia rerum, corrupti perspiciatis officia
-      voluptatem tempore magni corporis, eligendi dolorem vitae! Possimus voluptatibus ducimus dicta, non quidem rerum facilis iusto sit soluta voluptatum quae,
-      excepturi tempore, voluptate saepe sed. A, natus earum assumenda fuga ea, aspernatur mollitia cumque cum, non commodi et. Assumenda quae accusantium
-      voluptatibus, sed eius accusamus quibusdam quas iste laborum sapiente mollitia fugiat exercitationem tenetur necessitatibus voluptatem voluptates officia
-      officiis fugit suscipit illum. Blanditiis quo quae debitis. Aliquam atque repudiandae accusantium?
-    </p>
-  </v-dialog> -->
   <div class="area__settings">
     <div class="row__setting">
       <p class="item">Use Dark Theme:</p>
@@ -19,14 +8,6 @@
       <p class="item">Currency:</p>
       <v-select :current-value="currency" :list-of-values="currencyList" @update:current-value="updateCurrency" />
     </div>
-    <!-- <div class="row__setting">
-      <p class="item">Dialog box:</p>
-      <a @click="openDialog()"> Open </a>
-    </div>
-    <div class="row__setting">
-      <p class="item">New option:</p>
-      <v-toggle-switch />
-    </div> -->
   </div>
 </template>
 
@@ -41,9 +22,6 @@ usePlaceholder("");
 const { currency, currencyList, updateCurrency } = useMarket(ref(null));
 
 const isDark = useDark();
-
-// const isDialogVisible = ref(false);
-// const openDialog = () => (isDialogVisible.value = true);
 </script>
 
 <style lang="scss" scoped>

@@ -9,6 +9,9 @@
           <span>&nbsp;{{ coin.symbol }} ({{ coin.name }})</span>
         </div>
       </div>
+      <div v-else>
+        <h3>No result found</h3>
+      </div>
     </div>
   </v-dialog>
 </template>

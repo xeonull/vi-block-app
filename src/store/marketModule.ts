@@ -2,18 +2,22 @@ import { ICoin } from "@/types/Market.interface";
 import { IMarketState, IState } from "@/types/State.interface";
 import { Module } from "vuex";
 import { MarketWebService, Logger } from "@/container";
+import Base from "@/store/baseState";
+
+const base = new Base();
 
 export const marketModule: Module<IMarketState, IState> = {
   namespaced: true,
   state: (): IMarketState => ({
+    ...base.state,
     coins: [],
     coinsFound: [],
-    isLoading: false,
     vsCurrency: localStorage.getItem("vsCurrency") || "usd",
     currencyList: ["usd", "eur", "rub", "uah", "btc", "eth"],
   }),
   getters: {},
   mutations: {
+    ...base.mutations,
     setCurrency(state: IMarketState, currency: string): void {
       state.vsCurrency = currency;
       localStorage.setItem("vsCurrency", state.vsCurrency);
@@ -39,9 +43,6 @@ export const marketModule: Module<IMarketState, IState> = {
     setFoundCoins(state: IMarketState, coins: ICoin[]): void {
       state.coinsFound.length = 0;
       state.coinsFound.push(...coins);
-    },
-    setLoading(state: IMarketState, isLoading: boolean): void {
-      state.isLoading = isLoading;
     },
   },
   actions: {
