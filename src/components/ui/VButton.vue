@@ -38,6 +38,7 @@ export default defineComponent({
   background: none;
   color: $color_primary;
   border: 0;
+  user-select: none;
 }
 .border {
   border: 1px solid $color_primary;

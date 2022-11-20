@@ -4,7 +4,7 @@
       <AddressItem v-for="addr in addresses" :address="addr" :key="addr.address" />
     </div>
     <div class="wallet__empty" v-else>
-      <h3>Please input wallet address to input box</h3>
+      <h3>Please enter the wallet address in the input field</h3>
     </div>
   </div>
 </template>

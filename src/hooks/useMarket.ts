@@ -28,7 +28,7 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
   const addCoin = (coin: ICoin): void => {
     store
       .dispatch("market/addCoin", coin)
-      .then()
+      .then(saveCoins)
       .catch((error) => {
         messageViewer.value?.show(String(error));
       });
@@ -40,6 +40,15 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
 
   const saveCoins = (): void => {
     store.commit("market/saveCoinsToLocalStorage");
+  };
+
+  const removeCoin = (coin: ICoin): void => {
+    try {
+      store.commit("market/removeCoin", coin);
+      saveCoins();
+    } catch (error) {
+      messageViewer.value?.show(String(error));
+    }
   };
 
   const updateCurrency = (currency_new: string): void => {
@@ -55,5 +64,5 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
       });
   };
 
-  return { coins, coinsFound, currency, currencyList, loadSearchCoins, loadCoins, saveCoins, updateMarketData, updateCurrency, addCoin };
+  return { coins, coinsFound, currency, currencyList, loadSearchCoins, loadCoins, saveCoins, updateMarketData, updateCurrency, addCoin, removeCoin };
 }

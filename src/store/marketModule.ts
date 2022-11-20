@@ -26,9 +26,20 @@ export const marketModule: Module<IMarketState, IState> = {
       if (!state.coins.find((c) => c.id === coin.id)) state.coins.push(coin);
       else throw Error("Coin already exists");
     },
+    removeCoin(state: IMarketState, coin: ICoin): void {
+      const i = state.coins.findIndex((c) => c.id === coin.id);
+      if (i > -1) state.coins.splice(i, 1);
+      else throw Error(`Coin ${coin.id} not found`);
+    },
     setCoins(state: IMarketState, coins: ICoin[]): void {
       state.coins.length = 0;
       state.coins.push(...coins);
+    },
+    updateCoins(state: IMarketState, coins: ICoin[]): void {
+      state.coins.forEach((c) => {
+        const actual_coin = coins.find((ac) => c.id == ac.id);
+        Object.assign(c, actual_coin);
+      });
     },
     loadCoinsFromLocalStorage(state: IMarketState) {
       state.coins = JSON.parse(localStorage.getItem("coins") || "[]");
@@ -61,7 +72,7 @@ export const marketModule: Module<IMarketState, IState> = {
         const ids: string = state.coins.reduce((a, c) => `${a},${c.id}`, "");
         if (!ids) return;
         const coins: ICoin[] = await MarketWebService.fetchMarketData(ids, state.vsCurrency);
-        commit("setCoins", coins);
+        commit("updateCoins", coins);
       } catch (error) {
         Logger.log(`[fetchMarketData]: ${error}`);
         throw error;
