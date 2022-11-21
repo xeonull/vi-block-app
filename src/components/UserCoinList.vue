@@ -7,29 +7,32 @@
         <div class="tool__btn"><v-button @click="removeCoinFromTable(seletedCoin)" :isDisabled="!seletedCoin">Remove</v-button></div>
       </div>
       <table id="coins">
-        <tr>
+        <tr :onclick="onClickLink">
           <th class="header__img"></th>
-          <th>Symbol</th>
-          <th>Name</th>
-          <th>Rank</th>
-          <th>Price</th>
-          <th>Market Cap</th>
+          <th><a href="#" class="sort-by" id="symbol">Symbol</a></th>
+          <th><a href="#" class="sort-by" id="name">Name</a></th>
+          <th><a href="#" class="sort-by" id="market_cap_rank">Rank</a></th>
+          <th><a href="#" class="sort-by" id="current_price">Price</a></th>
+          <th><a href="#" class="sort-by" id="market_cap">Market Cap</a></th>
         </tr>
         <tr v-for="coin in coins" :key="coin.id" @click="selectRow(coin)" :class="{ selected: coin == seletedCoin }">
-          <td tabindex="0" class="column__img"><img :src="coin.thumb" /></td>
-          <td tabindex="1" class="column__symbol">{{ coin.symbol }}</td>
-          <td tabindex="2">{{ coin.name }}</td>
+          <td class="column__img"><img :src="coin.thumb" /></td>
+          <td class="column__symbol">{{ coin.symbol }}</td>
+          <td>{{ coin.name }}</td>
           <td>{{ coin.market_cap_rank }}</td>
           <td><span v-currencyformat="{ value: coin.current_price, currency }" /></td>
           <td><span v-currencyformat="{ value: coin.market_cap, currency }" /></td>
         </tr>
       </table>
     </div>
+    <div v-else class="div__empty">
+      <h3>To add coins to the list, use the search field</h3>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { Ref, onBeforeMount, inject, ref } from "vue";
+import { Ref, onBeforeMount, inject, ref, onMounted } from "vue";
 
 import { IMessage } from "@//types/Service.interface";
 import { useMarket } from "@/hooks/useMarket";
@@ -37,7 +40,7 @@ import { ICoin } from "@/types/Market.interface";
 
 const toast = inject("toast") as Ref<IMessage>;
 
-const { coins, currency, loadCoins, updateMarketData, removeCoin } = useMarket(toast);
+const { coins, currency, loadCoins, updateMarketData, removeCoin, sortCoins } = useMarket(toast);
 
 onBeforeMount(() => {
   loadCoins();
@@ -53,6 +56,26 @@ const selectRow = (coin: ICoin) => {
 const removeCoinFromTable = (coin: ICoin | null) => {
   coin && removeCoin(coin);
   seletedCoin.value = null;
+};
+
+onMounted(() => {
+  // Deselecting table row if there was a click outside the table area
+  const htmlTableCoin: HTMLTableElement | null = document.querySelector("#coins");
+  const onClickOutside = (e: Event) => {
+    if (htmlTableCoin && !htmlTableCoin.contains(e.target as HTMLElement)) {
+      seletedCoin.value = null;
+    }
+  };
+  document.addEventListener("click", onClickOutside);
+});
+
+let asc = false;
+const onClickLink = (e: Event) => {
+  const field = (e.target as HTMLElement).id;
+  if (field) {
+    sortCoins(field, asc);
+    asc = !asc;
+  }
 };
 </script>
 
@@ -78,6 +101,9 @@ const removeCoinFromTable = (coin: ICoin | null) => {
 #coins th {
   border: 2px solid var(--color-background);
   padding: 4px;
+  a {
+    display: block;
+  }
 }
 #coins tr {
   background-color: var(--color-background-highlight);
@@ -88,20 +114,50 @@ const removeCoinFromTable = (coin: ICoin | null) => {
 #coins tr:hover {
   background-color: var(--color-background-control);
 }
-
-#coins .selected {
-  background-color: var(--color-background-control-checked);
+#coins tr.selected {
+  background-color: $color_primary_light;
+  color: $color_text;
 }
 
 #coins th {
   padding-top: 8px;
   padding-bottom: 8px;
   text-align: left;
-  background-color: $color_primary_dark;
   color: $color_background;
+  background-color: $color_primary;
   &.header__img {
     // background-color: var(--color-background);
     width: 25px;
+  }
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: $color_background;
+    text-decoration: none;
+  }
+  a.sort-by {
+    padding-right: 18px;
+    position: relative;
+  }
+  a.sort-by:before,
+  a.sort-by:after {
+    border: 4px solid transparent;
+    content: "";
+    display: block;
+    height: 0;
+    right: 5px;
+    position: absolute;
+    width: 0;
+    top: 50%;
+  }
+  a.sort-by:before {
+    border-bottom-color: $color_background;
+    margin-top: -10px;
+  }
+  a.sort-by:after {
+    border-top-color: $color_background;
+    margin-top: 2px;
   }
 }
 .column__symbol {

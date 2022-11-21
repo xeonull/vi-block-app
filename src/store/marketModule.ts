@@ -1,4 +1,4 @@
-import { ICoin } from "@/types/Market.interface";
+import { ICoin, ICoinSort } from "@/types/Market.interface";
 import { IMarketState, IState } from "@/types/State.interface";
 import { Module } from "vuex";
 import { MarketWebService, Logger } from "@/container";
@@ -30,6 +30,18 @@ export const marketModule: Module<IMarketState, IState> = {
       const i = state.coins.findIndex((c) => c.id === coin.id);
       if (i > -1) state.coins.splice(i, 1);
       else throw Error(`Coin ${coin.id} not found`);
+    },
+    sortCoins(state: IMarketState, cs: ICoinSort): void {
+      const asc = cs.ascending ? 1 : -1;
+      if (cs) {
+        const defVal = cs.field == "market_cap_rank" ? Infinity : 0;
+        state.coins.sort((a, b) => {
+          // const x: Exclude<ICoin[keyof ICoin], undefined> = a[cs.field] || 0;
+          // const y: Exclude<ICoin[keyof ICoin], undefined> = b[cs.field] || 0;
+          // return x > y ? asc : -asc;
+          return (a[cs.field] || defVal) > (b[cs.field] || defVal) ? asc : -asc;
+        });
+      }
     },
     setCoins(state: IMarketState, coins: ICoin[]): void {
       state.coins.length = 0;

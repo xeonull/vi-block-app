@@ -15,3 +15,8 @@ export interface ICoin {
   circulating_supply?: number;
   total_supply?: number;
 }
+
+export interface ICoinSort {
+  field: keyof ICoin;
+  ascending: boolean;
+}

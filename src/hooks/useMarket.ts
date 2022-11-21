@@ -25,10 +25,20 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
         });
   };
 
+  const sortCoins = (field: string, ascending = false): void => {
+    try {
+      store.commit("market/sortCoins", { field, ascending });
+      saveCoins();
+    } catch (error) {
+      messageViewer.value?.show(String(error));
+    }
+  };
+
   const addCoin = (coin: ICoin): void => {
     store
       .dispatch("market/addCoin", coin)
       .then(saveCoins)
+      .then(updateMarketData)
       .catch((error) => {
         messageViewer.value?.show(String(error));
       });
@@ -42,6 +52,10 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
     store.commit("market/saveCoinsToLocalStorage");
   };
 
+  const updateCurrency = (currency_new: string): void => {
+    store.commit("market/setCurrency", currency_new);
+  };
+
   const removeCoin = (coin: ICoin): void => {
     try {
       store.commit("market/removeCoin", coin);
@@ -49,10 +63,6 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
     } catch (error) {
       messageViewer.value?.show(String(error));
     }
-  };
-
-  const updateCurrency = (currency_new: string): void => {
-    store.commit("market/setCurrency", currency_new);
   };
 
   const updateMarketData = async (): Promise<void> => {
@@ -64,5 +74,5 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
       });
   };
 
-  return { coins, coinsFound, currency, currencyList, loadSearchCoins, loadCoins, saveCoins, updateMarketData, updateCurrency, addCoin, removeCoin };
+  return { coins, coinsFound, currency, currencyList, loadSearchCoins, loadCoins, saveCoins, updateMarketData, updateCurrency, addCoin, removeCoin, sortCoins };
 }

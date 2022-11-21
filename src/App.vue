@@ -83,10 +83,18 @@ h1 {
   margin: 5px 0px;
   font-size: 3ch;
 }
-
 h2 {
   margin: 5px 0px;
   font-size: 2.5ch;
+}
+h3 {
+  color: var(--color-background-control-checked);
+}
+
+.div__empty {
+  margin: auto;
+  align-items: center;
+  border: 1px;
 }
 
 a {
