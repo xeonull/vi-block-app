@@ -1,5 +1,6 @@
 <template>
-  <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
+  <!-- <aside :class="`${is_expanded ? 'is-expanded' : ''}`"> -->
+  <aside :class="{ 'is-expanded': is_expanded }">
     <div class="menu-toggle-wrap">
       <button class="menu-toggle" @click="ToggleMenu">
         <span class="material-symbols-outlined"> double_arrow </span>
