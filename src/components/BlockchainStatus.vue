@@ -13,15 +13,15 @@
 import { IStatus } from "@/types/Block.interface";
 import { IState } from "@/types/State.interface";
 
-import { computed } from "@vue/reactivity";
+import { Ref, toRef } from "@vue/reactivity";
 import { onBeforeMount } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
 const state: IState = store.state;
 
-const blockchainStatus = computed((): IStatus | null => state.status.blockchainStatus);
-const isBlockchainStatusLoading = computed((): boolean => state.status.isLoading);
+const blockchainStatus: Ref<IStatus | null> = toRef(state.status, "blockchainStatus");
+const isBlockchainStatusLoading: Ref<boolean> = toRef(state.status, "isLoading");
 
 onBeforeMount(() => store.dispatch("status/fetchBlockchainStatus"));
 </script>

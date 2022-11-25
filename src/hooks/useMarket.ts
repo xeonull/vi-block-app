@@ -1,17 +1,18 @@
 import { IState } from "@/types/State.interface";
 import { ICoin } from "@/types/Market.interface";
 import { IMessage } from "@/types/Service.interface";
-import { Ref, computed } from "@vue/reactivity";
+import { Ref, toRef } from "@vue/reactivity";
 import { useStore } from "vuex";
 
 export function useMarket(messageViewer: Ref<IMessage | null>) {
   const store = useStore();
   const state: IState = store.state;
 
-  const coins = computed((): ICoin[] => state.market.coins);
-  const currency = computed((): string => state.market.vsCurrency);
+  const coins: ICoin[] = state.market.coins;
+  const currency = toRef(state.market, "vsCurrency");
+  const isSearching = toRef(state.market, "isSearching");
 
-  const currencyList = state.market.currencyList;
+  const currencyList: string[] = state.market.currencyList;
 
   const coinsFound: ICoin[] = state.market.coinsFound;
 
@@ -36,7 +37,7 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
 
   const addCoin = (coin: ICoin): void => {
     store
-      .dispatch("market/addCoin", coin)
+      .dispatch("market/addCoin", Object.assign({}, coin))
       .then(saveCoins)
       .then(updateMarketData)
       .catch((error) => {
@@ -74,5 +75,29 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
       });
   };
 
-  return { coins, coinsFound, currency, currencyList, loadSearchCoins, loadCoins, saveCoins, updateMarketData, updateCurrency, addCoin, removeCoin, sortCoins };
+  const updateMarketDataTOP = async (): Promise<void> => {
+    await store
+      .dispatch("market/fetchMarketDataTOP")
+      .then()
+      .catch((error) => {
+        messageViewer.value?.show(String(error));
+      });
+  };
+
+  return {
+    coins,
+    coinsFound,
+    currency,
+    currencyList,
+    loadSearchCoins,
+    loadCoins,
+    saveCoins,
+    updateMarketData,
+    updateMarketDataTOP,
+    updateCurrency,
+    addCoin,
+    removeCoin,
+    sortCoins,
+    isSearching,
+  };
 }

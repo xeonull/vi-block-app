@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model:show="isDialogVisible">
     <div class="coin__list">
-      <div v-if="isSearchDataLoading">Search...</div>
+      <div v-if="isSearching">Search...</div>
       <div v-else-if="coinsFound.length > 0">
         <div><h3>Search result:</h3></div>
         <div v-for="coin in coinsFound" :key="coin.id">
@@ -17,15 +17,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, Ref, ref, watch } from "vue";
+import { inject, Ref, ref, watch } from "vue";
 
 import { IMessage } from "@//types/Service.interface";
-import { IState } from "@/types/State.interface";
 
 import { useMarket } from "@/hooks/useMarket";
-import { useStore } from "vuex";
-const store = useStore();
-const state: IState = store.state;
 
 const props = defineProps<{
   searchCoin: string;
@@ -33,8 +29,7 @@ const props = defineProps<{
 
 const toast = inject("toast") as Ref<IMessage>;
 
-const { coinsFound, loadSearchCoins, addCoin } = useMarket(toast);
-const isSearchDataLoading = computed((): boolean => state.market.isLoading);
+const { coinsFound, isSearching, loadSearchCoins, addCoin } = useMarket(toast);
 
 watch(
   () => props.searchCoin,

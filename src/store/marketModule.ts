@@ -10,6 +10,7 @@ export const marketModule: Module<IMarketState, IState> = {
   namespaced: true,
   state: (): IMarketState => ({
     ...base.state,
+    isSearching: false,
     coins: [],
     coinsFound: [],
     vsCurrency: localStorage.getItem("vsCurrency") || "usd",
@@ -18,6 +19,9 @@ export const marketModule: Module<IMarketState, IState> = {
   getters: {},
   mutations: {
     ...base.mutations,
+    setSearching(state: IMarketState, isSearching: boolean): void {
+      state.isSearching = isSearching;
+    },
     setCurrency(state: IMarketState, currency: string): void {
       state.vsCurrency = currency;
       localStorage.setItem("vsCurrency", state.vsCurrency);
@@ -54,7 +58,8 @@ export const marketModule: Module<IMarketState, IState> = {
       });
     },
     loadCoinsFromLocalStorage(state: IMarketState) {
-      state.coins = JSON.parse(localStorage.getItem("coins") || "[]");
+      state.coins.length = 0;
+      state.coins.push(...JSON.parse(localStorage.getItem("coins") || "[]"));
     },
     saveCoinsToLocalStorage(state: IMarketState) {
       const coins: ICoin[] = state.coins.map((c) => {
@@ -93,8 +98,21 @@ export const marketModule: Module<IMarketState, IState> = {
       }
     },
 
-    async fetchSearchCoins({ commit }, text: string): Promise<void> {
+    async fetchMarketDataTOP({ state, commit }): Promise<void> {
       commit("setLoading", true);
+      try {
+        const coins: ICoin[] = await MarketWebService.fetchMarketData("", state.vsCurrency);
+        commit("setCoins", coins);
+      } catch (error) {
+        Logger.log(`[fetchMarketDataTOP]: ${error}`);
+        throw error;
+      } finally {
+        commit("setLoading", false);
+      }
+    },
+
+    async fetchSearchCoins({ commit }, text: string): Promise<void> {
+      commit("setSearching", true);
       try {
         const coins: ICoin[] = await MarketWebService.fetchSearch(text);
         commit("setFoundCoins", coins);
@@ -102,7 +120,7 @@ export const marketModule: Module<IMarketState, IState> = {
         Logger.log(`[fetchSearchCoins]: ${error}`);
         throw error;
       } finally {
-        commit("setLoading", false);
+        commit("setSearching", false);
       }
     },
   },

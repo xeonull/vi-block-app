@@ -26,6 +26,7 @@ export interface IMarketState extends IBaseState {
   coinsFound: Array<ICoin>;
   vsCurrency: string;
   currencyList: Array<string>;
+  isSearching: boolean;
 }
 
 export interface IAddressState extends IBaseState {
