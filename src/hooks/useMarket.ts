@@ -1,8 +1,15 @@
 import { IState } from "@/types/State.interface";
 import { ICoin } from "@/types/Market.interface";
 import { IMessage } from "@/types/Service.interface";
-import { Ref, toRef } from "@vue/reactivity";
+import { Ref, toRef, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
+
+const categories = new Map();
+categories.set("Favs", "fetchMarketData");
+categories.set("Top", "fetchMarketDataTOP");
+const arrayNavLink = [...categories.keys()];
+const activeNavLink = ref(arrayNavLink[0]);
+const isEditable = ref(true);
 
 export function useMarket(messageViewer: Ref<IMessage | null>) {
   const store = useStore();
@@ -29,20 +36,21 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
   const sortCoins = (field: string, ascending = false): void => {
     try {
       store.commit("market/sortCoins", { field, ascending });
-      saveCoins();
+      isEditable.value && saveCoins();
     } catch (error) {
       messageViewer.value?.show(String(error));
     }
   };
 
   const addCoin = (coin: ICoin): void => {
-    store
-      .dispatch("market/addCoin", Object.assign({}, coin))
-      .then(saveCoins)
-      .then(updateMarketData)
-      .catch((error) => {
-        messageViewer.value?.show(String(error));
-      });
+    isEditable.value &&
+      store
+        .dispatch("market/addCoin", Object.assign({}, coin))
+        .then(saveCoins)
+        .then(updateMarketData)
+        .catch((error) => {
+          messageViewer.value?.show(String(error));
+        });
   };
 
   const loadCoins = (): void => {
@@ -60,28 +68,27 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
   const removeCoin = (coin: ICoin): void => {
     try {
       store.commit("market/removeCoin", coin);
-      saveCoins();
+      isEditable.value && saveCoins();
     } catch (error) {
       messageViewer.value?.show(String(error));
     }
   };
 
   const updateMarketData = async (): Promise<void> => {
+    const updateMethod = categories.get(activeNavLink.value);
     await store
-      .dispatch("market/fetchMarketData")
+      .dispatch(`market/${updateMethod}`)
       .then()
       .catch((error) => {
         messageViewer.value?.show(String(error));
       });
   };
 
-  const updateMarketDataTOP = async (): Promise<void> => {
-    await store
-      .dispatch("market/fetchMarketDataTOP")
-      .then()
-      .catch((error) => {
-        messageViewer.value?.show(String(error));
-      });
+  const updateActiveNavLink = async (selectedLink: string) => {
+    activeNavLink.value = selectedLink;
+    isEditable.value = activeNavLink.value === arrayNavLink[0];
+    if (isEditable.value) loadCoins();
+    updateMarketData();
   };
 
   return {
@@ -93,11 +100,14 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
     loadCoins,
     saveCoins,
     updateMarketData,
-    updateMarketDataTOP,
     updateCurrency,
     addCoin,
     removeCoin,
     sortCoins,
     isSearching,
+    activeNavLink,
+    arrayNavLink,
+    updateActiveNavLink,
+    isEditable,
   };
 }

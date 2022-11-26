@@ -1,10 +1,12 @@
 <template>
   <div class="coin__list">
     <div v-if="coins.length > 0">
-      <div><h3>Your coin list:</h3></div>
+      <VNav :activeLink="activeNavLink" :links="arrayNavLink" @update:selectedLink="updateActiveNavLink" />
       <div class="tool">
         <div class="tool__btn"><v-button @click="updateMarketData">Update</v-button></div>
-        <div class="tool__btn"><v-button @click="removeCoinFromTable(seletedCoin)" :isDisabled="!seletedCoin">Remove</v-button></div>
+        <div class="tool__btn" v-if="isEditable">
+          <v-button @click="removeCoinFromTable(seletedCoin)" :isDisabled="!seletedCoin">Remove</v-button>
+        </div>
       </div>
       <table id="coins">
         <tr :onclick="onClickLink">
@@ -32,6 +34,8 @@
 </template>
 
 <script lang="ts" setup>
+import VNav from "@/components/ui/VNav.vue";
+
 import { Ref, onBeforeMount, inject, ref, onMounted } from "vue";
 
 import { IMessage } from "@//types/Service.interface";
@@ -40,7 +44,7 @@ import { ICoin } from "@/types/Market.interface";
 
 const toast = inject("toast") as Ref<IMessage>;
 
-const { coins, currency, loadCoins, updateMarketData, removeCoin, sortCoins } = useMarket(toast);
+const { coins, currency, loadCoins, updateMarketData, removeCoin, sortCoins, activeNavLink, arrayNavLink, updateActiveNavLink, isEditable } = useMarket(toast);
 
 onBeforeMount(() => {
   loadCoins();
