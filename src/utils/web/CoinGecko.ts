@@ -21,9 +21,10 @@ export class CoinGeckoWebService implements IMarketWebService {
     }
   }
 
-  async fetchMarketData(cryptoCurrency: string, vsCurrency: string): Promise<ICoin[]> {
+  async fetchMarketData(cryptoCurrency: string, vsCurrency: string, category: string): Promise<ICoin[]> {
+    category ? (category = `&category=${category}`) : (category = "");
     const data: ICoin[] = await this.makeGetRequest(
-      `https://api.coingecko.com/api/v3/coins/markets?ids=${cryptoCurrency}&vs_currency=${vsCurrency}&per_page=250&page=1&sparkline=false`
+      `https://api.coingecko.com/api/v3/coins/markets?ids=${cryptoCurrency}&vs_currency=${vsCurrency}${category}&per_page=250&page=1&sparkline=false`
     );
     data.forEach((c) => {
       c.thumb = c.image?.replace("/large/", "/thumb/");

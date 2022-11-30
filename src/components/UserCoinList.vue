@@ -1,7 +1,7 @@
 <template>
   <div class="coin__list">
+    <VNav class="nav" :activeLink="activeNavLink" :links="arrayNavLink" @update:selectedLink="updateActiveNavLink" />
     <div v-if="coins.length > 0">
-      <VNav :activeLink="activeNavLink" :links="arrayNavLink" @update:selectedLink="updateActiveNavLink" />
       <div class="tool">
         <div class="tool__btn"><v-button @click="updateMarketData">Update</v-button></div>
         <div class="tool__btn" v-if="isEditable">
@@ -89,6 +89,9 @@ const onClickLink = (e: Event) => {
   flex-direction: column;
   margin: 0 20px;
   width: 100%;
+}
+.nav {
+  margin: 10px 0px 20px 0px;
 }
 .tool {
   display: flex;
