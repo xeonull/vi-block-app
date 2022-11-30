@@ -56,6 +56,7 @@ export default defineComponent({
   color: var(--color-text);
   text-decoration: none;
   text-transform: uppercase;
+  border-bottom: 1px solid $color_background_secondary_light;
 }
 .nav ul li a.active {
   background: $color_background_secondary_light;

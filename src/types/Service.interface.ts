@@ -19,7 +19,7 @@ export interface IBlockWebService {
 
 export interface IMarketWebService {
   /* Return current price, market cap, volume and other market data */
-  fetchMarketData(cryptoCurrency: string, vsCurrency: string): Promise<ICoin[]>;
+  fetchMarketData(cryptoCurrency: string, vsCurrency: string, category?: string): Promise<ICoin[]>;
   /* Return coins by search string */
   fetchSearch(searchString: string): Promise<ICoin[]>;
 }
