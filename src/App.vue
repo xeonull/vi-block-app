@@ -23,7 +23,7 @@ import { nextTick, provide } from "vue";
 useDark({ initialValue: "light" });
 
 // Provides a link to the Toast component to display the message in the child components
-const toast = ref<IMessage | null>(null);
+const toast = ref<IMessage>();
 provide("toast", toast);
 
 const inputBoxText = ref("");

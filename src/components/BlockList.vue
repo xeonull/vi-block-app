@@ -2,7 +2,9 @@
   <div class="block__list">
     <div v-if="blocks.length > 0">
       <div><h3>Block List:</h3></div>
-      <BlockItem v-for="block in blocks" :block="block" :key="block.hash" />
+      <TransitionGroup name="list">
+        <BlockItem v-for="block in blocks" :block="block" :key="block.hash" />
+      </TransitionGroup>
     </div>
   </div>
 </template>
@@ -18,6 +20,15 @@ const props = defineProps<{
 </script>
 
 <style scoped>
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
 .block__list {
   display: flex;
   flex-direction: column;
