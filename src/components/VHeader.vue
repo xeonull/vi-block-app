@@ -37,7 +37,7 @@ const onSearch = (): void => {
   background: $color_background_block__dark_theme;
   height: 50px;
   display: flex;
-  z-index: 11;
+  // z-index: 11;
 }
 
 .search {
@@ -46,9 +46,10 @@ const onSearch = (): void => {
   margin-top: 8px;
   background: none;
   display: flex;
-  align-items: center;
-  width: 620px;
+  // align-items: center;
+  width: $width_search_box;
   background: $color_background_secondary;
+  z-index: 13;
 }
 
 .input__search {

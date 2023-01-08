@@ -1,23 +1,27 @@
 <template>
-  <v-dialog v-model:show="isDialogVisible">
-    <div class="coin__list">
-      <div v-if="isSearching">Search...</div>
-      <div v-else-if="coinsFound.length > 0">
-        <div><h3>Search result:</h3></div>
-        <div v-for="coin in coinsFound" :key="coin.id">
-          <v-button @click="addCoin(coin)" :key="coin.id">+</v-button>
-          <span>&nbsp;{{ coin.symbol }} ({{ coin.name }})</span>
+  <Teleport to=".search">
+    <div class="box" v-if="isBoxVisible">
+      <div class="box__inner">
+        <div v-if="isSearching">Search...</div>
+        <div v-else-if="coinsFound.length > 0">
+          <div><h3>Search result:</h3></div>
+          <table id="table__result">
+            <tr v-for="coin in coinsFound" :key="coin.id" @click="addCoin(coin)" title="add to list">
+              <td class="coin__symbol">{{ coin.symbol }}</td>
+              <td class="coin__name">{{ coin.name }}</td>
+            </tr>
+          </table>
+        </div>
+        <div v-else>
+          <h3>No result found</h3>
         </div>
       </div>
-      <div v-else>
-        <h3>No result found</h3>
-      </div>
     </div>
-  </v-dialog>
+  </Teleport>
 </template>
 
 <script lang="ts" setup>
-import { inject, Ref, ref, watch } from "vue";
+import { inject, onMounted, onUnmounted, Ref, ref, watch } from "vue";
 
 import { IMessage } from "@//types/Service.interface";
 
@@ -39,14 +43,59 @@ watch(
   }
 );
 
-const isDialogVisible = ref(false);
-const openDialog = () => (isDialogVisible.value = true);
+const isBoxVisible = ref(false);
+const openDialog = () => (isBoxVisible.value = true);
+
+// eslint-disable-next-line
+let onClickOutsideBox: EventListener;
+
+onMounted(() => {
+  // Deselecting table row if there was a click outside the search box area
+  const htmlBox: HTMLTableElement | null = document.querySelector(".search");
+  onClickOutsideBox = (e: Event) => {
+    if (htmlBox && !htmlBox.contains(e.target as HTMLElement)) {
+      isBoxVisible.value = false;
+    }
+  };
+  document.addEventListener("click", onClickOutsideBox);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", onClickOutsideBox);
+});
 </script>
 
-<style scoped>
-.coin__list {
+<style scoped lang="scss">
+.box {
+  position: absolute;
+  background: var(--color-background-block);
+  margin-top: 32px;
+  opacity: 95%;
+  width: $width_search_box;
+  min-width: 150px;
+}
+.box__inner {
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
+  padding: 20px;
+}
+#table__result {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  tr {
+    color: var(--color-text);
+    &:hover {
+      background-color: $color_primary_light;
+      color: $color_text;
+      cursor: pointer;
+    }
+  }
+  td.coin__symbol {
+    width: 30%;
+    &:hover {
+      color: $color_text;
+    }
+  }
 }
 </style>
