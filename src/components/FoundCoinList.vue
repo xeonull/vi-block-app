@@ -46,7 +46,7 @@ watch(
 const isBoxVisible = ref(false);
 const openDialog = () => (isBoxVisible.value = true);
 
-// eslint-disable-next-line
+/* global EventListener */
 let onClickOutsideBox: EventListener;
 
 onMounted(() => {
@@ -69,9 +69,9 @@ onUnmounted(() => {
 .box {
   position: absolute;
   background: var(--color-background-block);
-  margin-top: 32px;
+  margin-top: $search_box_height;
   opacity: 95%;
-  width: $width_search_box;
+  width: $search_box_width;
   min-width: 150px;
 }
 .box__inner {

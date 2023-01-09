@@ -21,13 +21,15 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .input {
-  border: 1px solid $color_background_secondary_light;
-  padding: 10px 15px;
+  margin: 0;
+  padding: $input_box_vpadding 15px;
+  height: $input_box_height;
+  border: $input_box_border_size solid $color_background_secondary_light;
   background: none;
   color: $color_primary_light;
 }
 .input:focus {
   outline: none !important;
-  border: 1px solid $color_primary;
+  border: $input_box_border_size solid $color_primary;
 }
 </style>

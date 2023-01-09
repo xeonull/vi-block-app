@@ -40,9 +40,6 @@ export const marketModule: Module<IMarketState, IState> = {
       if (cs) {
         const defVal = cs.field == "market_cap_rank" ? Infinity : 0;
         state.coins.sort((a, b) => {
-          // const x: Exclude<ICoin[keyof ICoin], undefined> = a[cs.field] || 0;
-          // const y: Exclude<ICoin[keyof ICoin], undefined> = b[cs.field] || 0;
-          // return x > y ? asc : -asc;
           return (a[cs.field] || defVal) > (b[cs.field] || defVal) ? asc : -asc;
         });
       }
@@ -98,91 +95,13 @@ export const marketModule: Module<IMarketState, IState> = {
       }
     },
 
-    async fetchMarketDataTOP({ state, commit }): Promise<void> {
+    async fetchMarketDataTOP({ state, commit }, payload): Promise<void> {
       commit("setLoading", true);
       try {
-        const coins: ICoin[] = await MarketWebService.fetchMarketData("", state.vsCurrency);
+        const coins: ICoin[] = await MarketWebService.fetchMarketData("", state.vsCurrency, payload);
         commit("setCoins", coins);
       } catch (error) {
-        Logger.log(`[fetchMarketDataTOP]: ${error}`);
-        throw error;
-      } finally {
-        commit("setLoading", false);
-      }
-    },
-
-    async fetchMarketDataNFT({ state, commit }): Promise<void> {
-      commit("setLoading", true);
-      try {
-        const coins: ICoin[] = await MarketWebService.fetchMarketData("", state.vsCurrency, "non-fungible-tokens-nft");
-        commit("setCoins", coins);
-      } catch (error) {
-        Logger.log(`[fetchMarketDataNFT]: ${error}`);
-        throw error;
-      } finally {
-        commit("setLoading", false);
-      }
-    },
-
-    async fetchMarketDataDEFI({ state, commit }): Promise<void> {
-      commit("setLoading", true);
-      try {
-        const coins: ICoin[] = await MarketWebService.fetchMarketData("", state.vsCurrency, "decentralized-finance-defi");
-        commit("setCoins", coins);
-      } catch (error) {
-        Logger.log(`[fetchMarketDataDEFI]: ${error}`);
-        throw error;
-      } finally {
-        commit("setLoading", false);
-      }
-    },
-
-    async fetchMarketDataDEX({ state, commit }): Promise<void> {
-      commit("setLoading", true);
-      try {
-        const coins: ICoin[] = await MarketWebService.fetchMarketData("", state.vsCurrency, "decentralized-exchange");
-        commit("setCoins", coins);
-      } catch (error) {
-        Logger.log(`[fetchMarketDataDEX]: ${error}`);
-        throw error;
-      } finally {
-        commit("setLoading", false);
-      }
-    },
-
-    async fetchMarketDataCEX({ state, commit }): Promise<void> {
-      commit("setLoading", true);
-      try {
-        const coins: ICoin[] = await MarketWebService.fetchMarketData("", state.vsCurrency, "centralized-exchange-token-cex");
-        commit("setCoins", coins);
-      } catch (error) {
-        Logger.log(`[fetchMarketDataCEX]: ${error}`);
-        throw error;
-      } finally {
-        commit("setLoading", false);
-      }
-    },
-
-    async fetchMarketDataFAN({ state, commit }): Promise<void> {
-      commit("setLoading", true);
-      try {
-        const coins: ICoin[] = await MarketWebService.fetchMarketData("", state.vsCurrency, "fan-token");
-        commit("setCoins", coins);
-      } catch (error) {
-        Logger.log(`[fetchMarketDataFAN]: ${error}`);
-        throw error;
-      } finally {
-        commit("setLoading", false);
-      }
-    },
-
-    async fetchMarketDataGAME({ state, commit }): Promise<void> {
-      commit("setLoading", true);
-      try {
-        const coins: ICoin[] = await MarketWebService.fetchMarketData("", state.vsCurrency, "gaming");
-        commit("setCoins", coins);
-      } catch (error) {
-        Logger.log(`[fetchMarketDataGAME]: ${error}`);
+        Logger.log(`[fetchMarketDataTOP]: ${error};\nParameter: ${payload}`);
         throw error;
       } finally {
         commit("setLoading", false);

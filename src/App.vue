@@ -74,8 +74,8 @@ body {
   text-align: left;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
   min-height: 100vh;
 }
 

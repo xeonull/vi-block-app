@@ -5,14 +5,14 @@ import { Ref, toRef, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 
 const categories = new Map();
-categories.set("Favs", "fetchMarketData");
-categories.set("Top", "fetchMarketDataTOP");
-categories.set("nft", "fetchMarketDataNFT");
-categories.set("dex", "fetchMarketDataDEX");
-categories.set("cex", "fetchMarketDataCEX");
-categories.set("defi", "fetchMarketDataDEFI");
-categories.set("fan", "fetchMarketDataFAN");
-categories.set("gaming", "fetchMarketDataGAME");
+categories.set("Favs", "favs");
+categories.set("Top", "");
+categories.set("nft", "non-fungible-tokens-nft");
+categories.set("dex", "decentralized-exchange");
+categories.set("cex", "centralized-exchange-token-cex");
+categories.set("defi", "decentralized-finance-defi");
+categories.set("fan", "fan-token");
+categories.set("gaming", "gaming");
 const arrayNavLink = [...categories.keys()];
 const activeNavLink = ref(arrayNavLink[0]);
 const isEditable = ref(true);
@@ -82,12 +82,20 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
 
   const updateMarketData = async (): Promise<void> => {
     const updateMethod = categories.get(activeNavLink.value);
-    await store
-      .dispatch(`market/${updateMethod}`)
-      .then()
-      .catch((error) => {
-        messageViewer.value?.show(String(error));
-      });
+    if (updateMethod === "favs")
+      await store
+        .dispatch(`market/fetchMarketData`)
+        .then()
+        .catch((error) => {
+          messageViewer.value?.show(String(error));
+        });
+    else
+      await store
+        .dispatch(`market/fetchMarketDataTOP`, updateMethod)
+        .then()
+        .catch((error) => {
+          messageViewer.value?.show(String(error));
+        });
   };
 
   const updateActiveNavLink = async (selectedLink: string) => {

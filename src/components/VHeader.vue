@@ -41,29 +41,28 @@ const onSearch = (): void => {
 }
 
 .search {
-  /* border: 1px solid deeppink; */
+  // border: 1px solid deeppink;
   margin: auto;
   margin-top: 8px;
   background: none;
   display: flex;
   // align-items: center;
-  width: $width_search_box;
+  width: $search_box_width;
   background: $color_background_secondary;
   z-index: 13;
 }
 
 .input__search {
   margin-right: 2px;
-  display: inline-block;
+  display: block;
   width: 120%;
   min-width: 150px;
-  height: 10px;
 }
 
 .btn__search {
-  margin: 0 2px 0 2px;
+  margin: 0 2px;
   display: inline-block;
-  height: 30px;
+  height: $search_box_height;
   border: 0;
 }
 
