@@ -9,7 +9,8 @@ export default defineComponent({
   setup() {
     const message = ref("");
     const isVisible = ref(false);
-    const show = (text: string) => {
+
+    const show = (text: string): void => {
       message.value = text;
       isVisible.value = true;
       setTimeout(() => {
@@ -27,7 +28,7 @@ export default defineComponent({
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
-  background-color: $color_primary;
+  background-color: $color_message_background;
   color: $color_background;
   text-align: center;
   border-radius: 2px;

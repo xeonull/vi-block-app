@@ -1,5 +1,9 @@
 # vi-block-app
 
+[View Demo](https://vi-block-app.vercel.app/)
+
+This project uses [ViteJS](https://vitejs.dev/), [Vitest](https://vitest.dev/) and [Vue 3](https://vuejs.org/)
+
 ## Project setup
 ```
 npm install
@@ -24,6 +28,3 @@ npm run test
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

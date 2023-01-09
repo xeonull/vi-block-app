@@ -35,7 +35,7 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
         .dispatch("market/fetchSearchCoins", text)
         .then()
         .catch((error) => {
-          messageViewer.value?.show(String(error));
+          messageViewer.value?.show((<Error>error).message);
         });
   };
 
@@ -44,19 +44,19 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
       store.commit("market/sortCoins", { field, ascending });
       isEditable.value && saveCoins();
     } catch (error) {
-      messageViewer.value?.show(String(error));
+      messageViewer.value?.show((<Error>error).message);
     }
   };
 
-  const addCoin = (coin: ICoin): void => {
-    isEditable.value &&
-      store
-        .dispatch("market/addCoin", Object.assign({}, coin))
-        .then(saveCoins)
-        .then(updateMarketData)
-        .catch((error) => {
-          messageViewer.value?.show(String(error));
-        });
+  const addCoin = async (coin: ICoin): Promise<void> => {
+    if (!isEditable.value) await updateActiveNavLink(arrayNavLink[0]);
+    await store
+      .dispatch("market/addCoin", Object.assign({}, coin))
+      .then(saveCoins)
+      .then(updateMarketData)
+      .catch((error) => {
+        messageViewer.value?.show((<Error>error).message);
+      });
   };
 
   const loadCoins = (): void => {
@@ -76,7 +76,7 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
       store.commit("market/removeCoin", coin);
       isEditable.value && saveCoins();
     } catch (error) {
-      messageViewer.value?.show(String(error));
+      messageViewer.value?.show((<Error>error).message);
     }
   };
 
@@ -87,14 +87,14 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
         .dispatch(`market/fetchMarketData`)
         .then()
         .catch((error) => {
-          messageViewer.value?.show(String(error));
+          messageViewer.value?.show((<Error>error).message);
         });
     else
       await store
         .dispatch(`market/fetchMarketDataTOP`, updateMethod)
         .then()
         .catch((error) => {
-          messageViewer.value?.show(String(error));
+          messageViewer.value?.show((<Error>error).message);
         });
   };
 
@@ -102,7 +102,7 @@ export function useMarket(messageViewer: Ref<IMessage | null>) {
     activeNavLink.value = selectedLink;
     isEditable.value = activeNavLink.value === arrayNavLink[0];
     if (isEditable.value) loadCoins();
-    updateMarketData();
+    await updateMarketData();
   };
 
   return {

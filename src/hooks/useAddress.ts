@@ -17,7 +17,7 @@ export function useAddress(messageViewer: Ref<IMessage | null>) {
         .dispatch("address/fetchAddressBalance", text)
         .then()
         .catch((error) => {
-          messageViewer.value?.show(String(error));
+          messageViewer.value?.show((<Error>error).message);
         });
   };
 

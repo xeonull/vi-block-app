@@ -16,7 +16,7 @@ export function useBlock(messageViewer: Ref<IMessage | null>) {
       .dispatch("block/fetchNextBlock")
       .then()
       .catch((error) => {
-        messageViewer.value?.show(String(error));
+        messageViewer.value?.show((<Error>error).message);
       });
   };
 
@@ -26,7 +26,7 @@ export function useBlock(messageViewer: Ref<IMessage | null>) {
         .dispatch("block/fetchSearchBlock", text)
         .then()
         .catch((error) => {
-          messageViewer.value?.show(String(error));
+          messageViewer.value?.show((<Error>error).message);
         });
   };
 
