@@ -55,7 +55,7 @@ const onSearch = (): void => {
 .input__search {
   margin-right: 2px;
   display: block;
-  width: 120%;
+  width: 100%;
   min-width: 150px;
 }
 
@@ -64,6 +64,7 @@ const onSearch = (): void => {
   display: inline-block;
   height: $search_box_height;
   border: 0;
+  width: $search_box_button_width;
 }
 
 .logo {

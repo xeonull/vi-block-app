@@ -2,7 +2,7 @@
   <Teleport to=".search">
     <div class="box" v-if="isBoxVisible">
       <div class="box__inner">
-        <div v-if="isSearching">Search...</div>
+        <div v-if="isSearching"><h3>Search...</h3></div>
         <div v-else-if="coinsFound.length > 0">
           <div><h3>Search result:</h3></div>
           <table id="table__result">
@@ -11,11 +11,13 @@
               <td class="coin__name">{{ coin.name }}</td>
             </tr>
           </table>
+          <div><h3></h3></div>
         </div>
-        <div v-else>
+        <div v-else class="box__text">
           <h3>No result found</h3>
         </div>
       </div>
+      <div class="box__right"></div>
     </div>
   </Teleport>
 </template>
@@ -67,18 +69,32 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 .box {
+  pointer-events: none;
+  display: flex;
   position: absolute;
-  background: var(--color-background-block);
+  background: transparent;
   margin-top: $search_box_height;
   opacity: 95%;
-  width: $search_box_width;
+  max-width: $search_box_width;
   min-width: 150px;
 }
 .box__inner {
   display: flex;
-  flex-direction: column;
-  padding: 20px;
+  pointer-events: all;
+  max-width: $search_box_input_width;
+  background: var(--color-background-block);
 }
+.box__right {
+  margin-right: $search_box_width - $search_box_input_width;
+  background: transparent;
+}
+h3 {
+  padding: 0px 20px;
+}
+.box__text {
+  flex: 1 1;
+}
+
 #table__result {
   table-layout: fixed;
   width: 100%;
@@ -92,6 +108,7 @@ onUnmounted(() => {
     }
   }
   td.coin__symbol {
+    padding: 2px 20px;
     width: 30%;
     &:hover {
       color: $color_text;
