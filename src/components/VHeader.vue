@@ -53,7 +53,7 @@ const onSearch = (): void => {
 }
 
 .input__search {
-  margin-right: 2px;
+  // margin-right: 2px;
   display: block;
   width: 100%;
   min-width: 150px;

@@ -2,7 +2,10 @@
   <Teleport to=".search">
     <div class="box" v-if="isBoxVisible">
       <div class="box__inner">
-        <div v-if="isSearching"><h3>Search...</h3></div>
+        <div v-if="isSearching">
+          <h3>Search...</h3>
+          <table id="table__result"></table>
+        </div>
         <div v-else-if="coinsFound.length > 0">
           <div><h3>Search result:</h3></div>
           <table id="table__result">
@@ -15,9 +18,9 @@
         </div>
         <div v-else class="box__text">
           <h3>No result found</h3>
+          <table id="table__result"></table>
         </div>
       </div>
-      <div class="box__right"></div>
     </div>
   </Teleport>
 </template>
@@ -76,23 +79,20 @@ onUnmounted(() => {
   margin-top: $search_box_height;
   opacity: 95%;
   max-width: $search_box_width;
-  min-width: 150px;
 }
 .box__inner {
+  margin-right: $search_box_button_width + 2px;
   display: flex;
+  flex-direction: column;
   pointer-events: all;
   max-width: $search_box_input_width;
+  min-width: 186px;
   background: var(--color-background-block);
+  position: relative;
 }
-.box__right {
-  margin-right: $search_box_width - $search_box_input_width;
-  background: transparent;
-}
+
 h3 {
   padding: 0px 20px;
-}
-.box__text {
-  flex: 1 1;
 }
 
 #table__result {
