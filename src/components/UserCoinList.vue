@@ -1,31 +1,33 @@
 <template>
-  <div class="coin__list">
-    <VNav class="nav" :activeLink="activeNavLink" :links="arrayNavLink" @update:selectedLink="updateActiveNavLink" />
+  <div class="market__content">
+    <VNav class="market__content__nav" :activeLink="activeNavLink" :links="arrayNavLink" @update:selectedLink="updateActiveNavLink" />
     <div v-if="coins.length > 0">
-      <div class="tool">
-        <div class="tool__btn"><v-button @click="updateMarketData">Update</v-button></div>
-        <div class="tool__btn" v-if="isEditable">
+      <div class="market__content__tool">
+        <div class="market__content__tool__btn"><v-button @click="updateMarketData">Update</v-button></div>
+        <div class="market__content__tool__btn" v-if="isEditable">
           <v-button @click="removeCoinFromTable(seletedCoin)" :isDisabled="!seletedCoin">Remove</v-button>
         </div>
       </div>
-      <table id="coins">
-        <tr :onclick="onClickLink">
-          <th class="header__img"></th>
-          <th><a href="#" class="sort-by" id="symbol">Symbol</a></th>
-          <th><a href="#" class="sort-by" id="name">Name</a></th>
-          <th><a href="#" class="sort-by" id="market_cap_rank">Rank</a></th>
-          <th><a href="#" class="sort-by" id="current_price">Price</a></th>
-          <th><a href="#" class="sort-by" id="market_cap">Market Cap</a></th>
-        </tr>
-        <tr v-for="coin in coins" :key="coin.id" @click="selectRow(coin)" :class="{ selected: coin == seletedCoin }">
-          <td class="column__img"><img :src="coin.thumb" /></td>
-          <td class="column__symbol">{{ coin.symbol }}</td>
-          <td>{{ coin.name }}</td>
-          <td>{{ coin.market_cap_rank }}</td>
-          <td><span v-currencyformat="{ value: coin.current_price, currency }" /></td>
-          <td><span v-currencyformat="{ value: coin.market_cap, currency }" /></td>
-        </tr>
-      </table>
+      <div class="market__content__tab">
+        <table id="coins">
+          <tr :onclick="onClickLink">
+            <th class="header__img"></th>
+            <th><a href="#" class="sort-by" id="symbol">Symbol</a></th>
+            <th><a href="#" class="sort-by" id="name">Name</a></th>
+            <th><a href="#" class="sort-by" id="market_cap_rank">Rank</a></th>
+            <th><a href="#" class="sort-by" id="current_price">Price</a></th>
+            <th><a href="#" class="sort-by" id="market_cap">Market Cap</a></th>
+          </tr>
+          <tr v-for="coin in coins" :key="coin.id" @click="selectRow(coin)" :class="{ selected: coin == seletedCoin }">
+            <td class="column__img"><img :src="coin.thumb" /></td>
+            <td class="column__symbol">{{ coin.symbol }}</td>
+            <td>{{ coin.name }}</td>
+            <td>{{ coin.market_cap_rank }}</td>
+            <td><span v-currencyformat="{ value: coin.current_price, currency }" /></td>
+            <td><span v-currencyformat="{ value: coin.market_cap, currency }" /></td>
+          </tr>
+        </table>
+      </div>
     </div>
     <div v-else class="div__empty">
       <h3>To add coins to the list, use the search field</h3>
@@ -84,21 +86,37 @@ const onClickLink = (e: Event) => {
 </script>
 
 <style lang="scss" scoped>
-.coin__list {
+.market__content {
   display: flex;
   flex-direction: column;
   margin: 0 20px;
   width: 100%;
-}
-.nav {
-  margin: 10px 0px 20px 0px;
-}
-.tool {
-  display: flex;
-  flex-direction: row;
-}
-.tool__btn {
-  margin: 10px 8px 10px 2px;
+  @media (max-width: 600px) {
+    margin: 0;
+  }
+
+  &__nav {
+    margin: 10px 0px 0px 0px;
+  }
+
+  &__tool {
+    display: flex;
+    flex-direction: row;
+
+    &__btn {
+      margin: 20px 8px 8px 2px;
+      & button {
+        height: 28px;
+      }
+    }
+  }
+
+  &__tab {
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 #coins {
   border-collapse: collapse;

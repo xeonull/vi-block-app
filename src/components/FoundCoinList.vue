@@ -76,6 +76,7 @@ onUnmounted(() => {
   display: flex;
   position: absolute;
   background: transparent;
+  margin-right: $header_margin_right_left;
   margin-top: $search_box_height;
   opacity: 95%;
   max-width: $search_box_width;

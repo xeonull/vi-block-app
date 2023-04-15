@@ -2,14 +2,12 @@
   <div class="nav">
     <ul>
       <li>
-        <div>
-          <a>{{ currentValue }}</a
-          ><span class="arrow">⯈</span>
+        <div class="cur">
+          <span class="txt">{{ currentValue }}</span>
+          <span class="arrow">⯈</span>
         </div>
         <ul>
-          <li v-for="val in listOfValues" :key="val">
-            <a @click.prevent="onClick($event)" href="/">{{ val }}</a>
-          </li>
+          <li v-for="val in listOfValues" @click="onClick($event)" :key="val">{{ val }}</li>
         </ul>
       </li>
     </ul>
@@ -45,7 +43,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .nav {
   margin: 0;
   z-index: 10;
@@ -70,10 +68,12 @@ export default defineComponent({
 .nav ul li:hover {
   background: var(--color-background-block);
 }
-.nav ul li:hover a {
+
+.nav ul li:hover .cur {
   color: var(--color-text);
-  + .arrow {
+  > .arrow {
     visibility: visible;
+    padding-left: 10px;
   }
 }
 .nav ul ul {
@@ -84,21 +84,22 @@ export default defineComponent({
   left: 100%;
   top: 0;
 }
-.nav ul li a {
+.nav ul li .cur {
   display: inline-block;
-  padding: 15px 10px 15px 20px;
+  padding: 15px 10px 16px 20px;
   color: var(--color-text);
   text-decoration: none;
   text-transform: uppercase;
+  cursor: pointer;
 }
 .nav ul ul li {
   position: relative;
-}
-.nav ul ul li a {
-  padding: 15px 50px;
+  padding: 16px 50px;
   color: var(--color-text);
+  text-transform: uppercase;
+  cursor: pointer;
 }
-.nav ul ul li a:hover {
+.nav ul ul li:hover {
   background: var(--color-background-control-checked);
 }
 </style>

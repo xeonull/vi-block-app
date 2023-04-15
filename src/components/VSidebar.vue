@@ -7,25 +7,17 @@
       </button>
     </div>
     <h3>MENU</h3>
-    <div class="menu">
-      <router-link to="/market" class="button">
-        <span class="material-symbols-outlined" title="Market"> attach_money </span>
-        <span class="text">Market</span>
-      </router-link>
-      <router-link to="/block" class="button">
-        <span class="material-symbols-outlined" title="Blockchain"> activity_zone </span>
-        <span class="text">Blockchain</span>
-      </router-link>
-      <router-link to="/wallet" class="button">
-        <span class="material-symbols-outlined" title="Wallet"> wallet </span>
-        <span class="text">Wallet</span>
+    <div class="menu" v-for="menuItem in arraySideMenu" :key="menuItem.id">
+      <router-link :to="menuItem.link" class="button">
+        <span class="material-symbols-outlined" :title="menuItem.title"> {{ menuItem.mt_icon }}</span>
+        <span class="text">{{ menuItem.title }}</span>
       </router-link>
     </div>
     <div class="inter-space"></div>
-    <div class="menu">
-      <router-link to="/settings" class="button">
-        <span class="material-symbols-outlined" title="Settings"> settings </span>
-        <span class="text">Settings</span>
+    <div class="menu" v-for="menuItem in arrayBottomSideMenu" :key="menuItem.id">
+      <router-link :to="menuItem.link" class="button">
+        <span class="material-symbols-outlined" :title="menuItem.title"> {{ menuItem.mt_icon }}</span>
+        <span class="text">{{ menuItem.title }}</span>
       </router-link>
     </div>
   </aside>
@@ -33,6 +25,9 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import { useSideMenu } from "@/hooks/useSideMenu";
+
+const { arraySideMenu, arrayBottomSideMenu } = useSideMenu();
 
 const is_expanded = ref(localStorage.getItem("is_expanded") !== "false");
 

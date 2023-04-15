@@ -1,7 +1,8 @@
 <template>
+  <VMobileMenu class="area__main__menu-mobile" />
   <VHeader @on-search="onSearch" />
   <div class="area__main">
-    <VSidebar />
+    <VSidebar class="area__main__menu-desktop" />
     <div class="area__content">
       <VToast ref="toast" />
       <router-view :searchText="inputBoxText" />
@@ -14,6 +15,7 @@ import { IMessage } from "./types/Service.interface";
 
 import VHeader from "@/components/VHeader.vue";
 import VSidebar from "@/components/VSidebar.vue";
+import VMobileMenu from "@/components/VMobileMenu.vue";
 import VToast from "./components/ui/VToast.vue";
 import { ref } from "@vue/reactivity";
 
@@ -116,12 +118,28 @@ a {
   right: 0;
   bottom: 0;
   left: 0;
+
+  &__menu-mobile {
+    display: none;
+    @media (max-width: 600px) {
+      display: flex;
+    }
+  }
+
+  &__menu-desktop {
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
 }
 
 .area__content {
   flex: 1;
   margin: 0;
   padding: 15px;
+  @media (max-width: 600px) {
+    padding: 5px;
+  }
 
   /* for fixed Header and Sidebar (2) */
   overflow: auto;

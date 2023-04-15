@@ -13,7 +13,7 @@ categories.set("cex", "centralized-exchange-token-cex");
 categories.set("defi", "decentralized-finance-defi");
 categories.set("fan", "fan-token");
 categories.set("gaming", "gaming");
-const arrayNavLink = [...categories.keys()];
+const arrayNavLink: string[] = [...categories.keys()];
 const activeNavLink = ref(arrayNavLink[0]);
 const isEditable = ref(true);
 

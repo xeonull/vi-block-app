@@ -8,6 +8,7 @@
       <v-input v-model="input_text" class="input__search" type="text" @keyup.enter="onSearch" :placeholder="inputPlaceholder" :disabled="!inputPlaceholder" />
       <v-button @click="onSearch" :isBorder="false" class="btn__search"><img src="../assets/lens-glass-16.png" /></v-button>
     </div>
+    <div class="header__right"></div>
   </div>
 </template>
 
@@ -38,6 +39,9 @@ const onSearch = (): void => {
   height: 50px;
   display: flex;
   // z-index: 11;
+  &__right {
+    min-width: $header_margin_right_left;
+  }
 }
 
 .search {
@@ -69,9 +73,12 @@ const onSearch = (): void => {
 
 .logo {
   // border: 1px solid deeppink;
-  margin: 15px;
+  margin: 15px $header_margin_right_left;
   background: none;
   display: flex;
+  @media (max-width: 600px) {
+    visibility: hidden;
+  }
 }
 
 .square__left {

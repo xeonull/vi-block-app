@@ -37,11 +37,15 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .nav {
   margin: 0;
   z-index: 10;
   opacity: 82%;
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 .nav ul {
   display: flex;
@@ -52,11 +56,14 @@ export default defineComponent({
 }
 .nav ul li a {
   display: flex;
-  padding: 15px 50px 15px 50px;
+  padding: 15px 40px;
   color: var(--color-text);
   text-decoration: none;
   text-transform: uppercase;
   border-bottom: 1px solid $color_background_secondary_light;
+  @media (max-width: 600px) {
+    padding: 15px 20px;
+  }
 }
 .nav ul li a.active {
   background: $color_background_secondary_light;
