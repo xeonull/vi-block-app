@@ -8,15 +8,15 @@
       <ul id="menu" @click="menuClick">
         <li v-for="menuItem in arraySideMenu" :key="menuItem.id">
           <router-link :to="menuItem.link" class="button">
-            <span class="material-symbols-outlined" :title="menuItem.title"> {{ menuItem.mt_icon }}</span>
-            <span class="text">{{ menuItem.title }}</span>
+            <v-icon class="button__icon" :name="menuItem.mt_icon" />
+            <span class="button__text">{{ menuItem.title }}</span>
           </router-link>
         </li>
         <li class="inter-space"></li>
         <li v-for="menuItem in arrayBottomSideMenu" :key="menuItem.id">
           <router-link :to="menuItem.link" class="button">
-            <span class="material-symbols-outlined" :title="menuItem.title"> {{ menuItem.mt_icon }}</span>
-            <span class="text">{{ menuItem.title }}</span>
+            <v-icon class="button__icon" :name="menuItem.mt_icon" />
+            <span class="button__text">{{ menuItem.title }}</span>
           </router-link>
         </li>
       </ul>
@@ -27,6 +27,7 @@
 <script lang="ts" setup>
 import { Ref, ref } from "vue";
 
+import VIcon from "@/components/VIconStorage.vue";
 import { useSideMenu } from "@/hooks/useSideMenu";
 
 const { arraySideMenu, arrayBottomSideMenu } = useSideMenu();
@@ -81,7 +82,7 @@ nav {
   cursor: pointer;
   opacity: 0;
   z-index: 2;
-  -webkit-tap-highlight-color: transparent; // Убирает выделение инпута при нажатии на мобильном устройстве
+  -webkit-tap-highlight-color: transparent; // Убирает выделение элемента при нажатии на мобильном устройстве
 }
 
 #menuToggle .span_icon {
@@ -133,12 +134,20 @@ nav {
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   top: 30px;
   bottom: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.material-symbols-outlined {
-  margin-right: 1rem;
-  font-size: 2rem;
-  vertical-align: top;
+.button {
+  &__icon {
+    margin-right: 1rem;
+    font-size: 2rem;
+    vertical-align: text-bottom;
+    fill: $color_primary;
+  }
+  &__text {
+    color: $color_primary;
+    vertical-align: middle;
+  }
 }
 
 #menu li {

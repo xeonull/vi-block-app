@@ -3,20 +3,24 @@
   <aside :class="{ 'is-expanded': is_expanded }">
     <div class="menu-toggle-wrap">
       <button class="menu-toggle" @click="ToggleMenu">
-        <span class="material-symbols-outlined"> double_arrow </span>
+        <span class="material-icon"><v-icon name="double_arrow" /></span>
       </button>
     </div>
     <h3>MENU</h3>
     <div class="menu" v-for="menuItem in arraySideMenu" :key="menuItem.id">
       <router-link :to="menuItem.link" class="button">
-        <span class="material-symbols-outlined" :title="menuItem.title"> {{ menuItem.mt_icon }}</span>
+        <span class="material-icon" :title="menuItem.title">
+          <v-icon :name="menuItem.mt_icon" />
+        </span>
         <span class="text">{{ menuItem.title }}</span>
       </router-link>
     </div>
     <div class="inter-space"></div>
     <div class="menu" v-for="menuItem in arrayBottomSideMenu" :key="menuItem.id">
       <router-link :to="menuItem.link" class="button">
-        <span class="material-symbols-outlined" :title="menuItem.title"> {{ menuItem.mt_icon }}</span>
+        <span class="material-icon" :title="menuItem.title">
+          <v-icon :name="menuItem.mt_icon" />
+        </span>
         <span class="text">{{ menuItem.title }}</span>
       </router-link>
     </div>
@@ -26,6 +30,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useSideMenu } from "@/hooks/useSideMenu";
+import VIcon from "@/components/VIconStorage.vue";
 
 const { arraySideMenu, arrayBottomSideMenu } = useSideMenu();
 
@@ -65,16 +70,24 @@ aside {
     .menu-toggle {
       transition: 0.2s ease-in-out;
 
-      .material-symbols-outlined {
+      .material-icon {
         font-size: 2rem;
         color: $color_background_secondary;
         transition: 0.2s ease-out;
+        & svg {
+          fill: $color_background_secondary;
+          transition: 0.2s ease-out;
+        }
       }
 
       &:hover {
-        .material-symbols-outlined {
+        .material-icon {
           color: $color_background_secondary_light;
           transform: translateX(0.2rem);
+          & svg {
+            fill: $color_background_secondary_light;
+            transform: translateX(0.2rem);
+          }
         }
       }
     }
@@ -100,10 +113,13 @@ aside {
       transition: 0.2s ease-in-out;
       padding: 0.5rem 1rem;
 
-      .material-symbols-outlined {
+      .material-icon {
         font-size: 2rem;
         color: $color_primary_light;
-        transition: 0.2s ease-in-out;
+        & svg {
+          fill: $color_primary_light;
+          transition: 0.2s ease-in-out;
+        }
       }
       .text {
         color: $color_primary_light;
@@ -111,18 +127,24 @@ aside {
       }
       &:hover {
         background-color: $color_background_secondary;
-        .material-symbols-outlined,
+        .material-icon,
         .text {
           color: $color_primary;
+          & svg {
+            fill: $color_primary;
+          }
         }
       }
       &.router-link-active {
         background-color: $color_background_secondary;
         border-right: 5px solid $color_primary;
 
-        .material-symbols-outlined,
+        .material-icon,
         .text {
           color: $color_primary;
+          & svg {
+            fill: $color_primary;
+          }
         }
       }
     }
@@ -143,7 +165,7 @@ aside {
     }
 
     .button {
-      .material-symbols-outlined {
+      .material-icon {
         margin-right: 1rem;
       }
     }

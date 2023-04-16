@@ -6,7 +6,9 @@
     </div>
     <div class="search">
       <v-input v-model="input_text" class="input__search" type="text" @keyup.enter="onSearch" :placeholder="inputPlaceholder" :disabled="!inputPlaceholder" />
-      <v-button @click="onSearch" :isBorder="false" class="btn__search"><img src="../assets/lens-glass-16.png" /></v-button>
+      <v-button @click="onSearch" :isBorder="false" class="btn__search">
+        <v-icon name="search" class="icn" />
+      </v-button>
     </div>
     <div class="header__right"></div>
   </div>
@@ -14,6 +16,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import VIcon from "@/components/VIconStorage.vue";
 import { usePlaceholder } from "@/hooks/usePlaceholder";
 const { inputPlaceholder } = usePlaceholder();
 
@@ -29,7 +32,7 @@ const onSearch = (): void => {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .header {
   margin: 0;
   box-shadow: rgba(0, 0, 0, 0.7) 0 2px 6px;
@@ -69,6 +72,11 @@ const onSearch = (): void => {
   height: $search_box_height;
   border: 0;
   width: $search_box_button_width;
+  svg {
+    height: 26px;
+    width: 26px;
+    margin: -3px 0 0 -3px;
+  }
 }
 
 .logo {

@@ -4,7 +4,9 @@
       <li>
         <div class="cur">
           <span class="txt">{{ currentValue }}</span>
-          <span class="arrow">⯈</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="arrow" height="24" width="24" fill="#FFF" viewBox="0 0 760 760">
+            <path d="M400 776V376l200 200-200 200Z" />
+          </svg>
         </div>
         <ul>
           <li v-for="val in listOfValues" @click="onClick($event)" :key="val">{{ val }}</li>
@@ -16,6 +18,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+
 export default defineComponent({
   name: "v-select",
 
@@ -86,7 +89,7 @@ export default defineComponent({
 }
 .nav ul li .cur {
   display: inline-block;
-  padding: 15px 10px 16px 20px;
+  padding: 7px 10px 16px 20px;
   color: var(--color-text);
   text-decoration: none;
   text-transform: uppercase;
