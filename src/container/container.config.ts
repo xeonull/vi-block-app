@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { container } from "tsyringe";
-import { TYPES } from "./types";
+import { TYPES } from "@/container/types";
 import { ILogger, IBlockWebService, IMarketWebService, IAddressWebService } from "@/types/Service.interface";
 import { BlockCypherWebService } from "@/utils/web/BlockCypher";
 import { CoinGeckoWebService } from "@/utils/web/CoinGecko";

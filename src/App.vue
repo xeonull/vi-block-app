@@ -11,12 +11,12 @@
 </template>
 
 <script lang="ts" setup>
-import { IMessage } from "./types/Service.interface";
+import { IMessage } from "@/types/Service.interface";
 
 import VHeader from "@/components/VHeader.vue";
 import VSidebar from "@/components/VSidebar.vue";
 import VMobileMenu from "@/components/VMobileMenu.vue";
-import VToast from "./components/ui/VToast.vue";
+import VToast from "@/components/ui/VToast.vue";
 import { ref } from "@vue/reactivity";
 
 import { useDark } from "@vueuse/core";

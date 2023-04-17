@@ -1,5 +1,5 @@
-import { container } from "./container.config";
-import { TYPES } from "./types";
+import { container } from "@/container/container.config";
+import { TYPES } from "@/container/types";
 import { IBlockWebService, IMarketWebService, IAddressWebService, ILogger } from "@/types/Service.interface";
 
 export const BlockWebService: IBlockWebService = container.resolve<IBlockWebService>(TYPES.BLOCK_WEB_SERVICE);

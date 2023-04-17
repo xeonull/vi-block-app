@@ -55,7 +55,6 @@ export default defineComponent({
 .slider:before {
   position: absolute;
   content: "";
-  // content: url('../../assets/sun-icon-24.png');
   height: 26px;
   width: 26px;
   left: 4px;
@@ -74,7 +73,5 @@ input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
-  // background-color: var(--color-background);
-  // content: url('../../assets/moon-icon-24.png');
 }
 </style>

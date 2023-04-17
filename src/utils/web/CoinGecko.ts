@@ -10,14 +10,15 @@ export class CoinGeckoWebService implements IMarketWebService {
       const response = await axios.get(request);
       return response.data;
     } catch (e: unknown) {
-      if (e instanceof AxiosError)
+      if (e instanceof AxiosError) {
         switch (e.response?.status) {
           case 429:
             throw new Error("429: Too many requests");
           default:
-            throw new Error(e.response?.data.error);
+            if (e.response?.data) throw new Error(e.response?.data?.error);
+            else throw new Error(`${e.response?.status}: ${e.code} - ${e.message}`);
         }
-      else throw e;
+      } else throw e;
     }
   }
 
