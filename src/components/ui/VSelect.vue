@@ -75,6 +75,7 @@ export default defineComponent({
 .nav ul li:hover .cur {
   color: var(--color-text);
   > .arrow {
+    fill: var(--color-text);
     visibility: visible;
     padding-left: 10px;
   }

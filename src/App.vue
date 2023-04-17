@@ -38,7 +38,18 @@ const onSearch = async (text: string): Promise<void> => {
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@font-face {
+  font-family: "Roboto";
+  src: local("Roboto"), url("/fonts/Roboto/Roboto-Regular.woff2") format("woff2"), url("/fonts/Roboto/Roboto-Regular.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto-Light";
+  src: local("Roboto-Light"), url("/fonts/Roboto/Roboto-Light.woff2") format("woff2"), url("/fonts/Roboto/Roboto-Light.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
+}
 
 :root {
   --color-text: #{$color_text};
@@ -70,7 +81,7 @@ body {
 }
 
 #app {
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-family: Roboto-Light, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
@@ -151,6 +162,7 @@ button {
   border: none;
   outline: none;
   background: none;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 
 .block {
