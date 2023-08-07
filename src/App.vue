@@ -30,11 +30,7 @@ provide("toast", toast);
 
 const inputBoxText = ref("");
 
-const onSearch = async (text: string): Promise<void> => {
-  inputBoxText.value = "";
-  await nextTick();
-  inputBoxText.value = text;
-};
+const onSearch = async (text: string): Promise<void> => { inputBoxText.value = text; };
 </script>
 
 <style lang="scss">

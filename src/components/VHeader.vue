@@ -22,9 +22,7 @@ const { inputPlaceholder } = usePlaceholder();
 
 const input_text = ref("");
 
-const emit = defineEmits<{
-  (e: "on-search", value: string): void;
-}>();
+const emit = defineEmits<{ (e: "on-search", value: string): void }>();
 
 const onSearch = (): void => {
   if (input_text.value.trim().length) emit("on-search", input_text.value.trim());
